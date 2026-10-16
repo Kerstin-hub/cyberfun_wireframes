@@ -17,6 +17,7 @@
   const aliases = {'Attractions':'Attractions & Tickets','Experiences':'Attractions & Tickets','Tickets & Packages':'Parties & Packages','Parties & Events':'Parties & Packages','Parties':'Parties & Packages','Groups':'Corporates & Groups','Groups & Events':'Corporates & Groups'};
   const style = document.createElement('style');
   style.textContent = `
+    nav a[aria-current="page"]{background:#17212d!important;color:#fff!important;border-color:#17212d!important}
     .cf-menu-group{position:relative;min-width:0;display:flex;align-items:center;gap:2px}
     .cf-menu-toggle{border:0;background:transparent;color:inherit;cursor:pointer;flex:0 0 24px;width:24px;height:36px;font:inherit;padding:0}
     .cf-submenu{display:none;position:absolute;top:calc(100% - 1px);left:0;min-width:210px;padding:10px;background:#fff;border:1px solid #c8d4e0;border-radius:6px;box-shadow:0 8px 20px #17212d18;z-index:1000;gap:4px;pointer-events:auto}
@@ -31,6 +32,7 @@
     header,.wire-nav,.nav,.site-header{position:relative;z-index:100!important;overflow:visible!important}
     nav:not(.cf-submenu){overflow:visible}
     .wire-mobile-menu,.mobile-menu,.mobile-nav{position:relative;z-index:101}
+    @media(max-width:900px){.cf-booking-first-mobile{position:static!important;order:0!important;width:100%!important;min-width:0!important;max-width:none!important;box-sizing:border-box}}
   `;
   document.head.append(style);
   document.querySelectorAll('nav').forEach(nav => {
@@ -83,4 +85,24 @@
       document.addEventListener('click',event=>{if(!wrapper.contains(event.target))close();});
     });
   });
+  const booking = document.querySelector('form.checkout')?.closest('aside');
+  const header = document.querySelector('header.wire-nav,header.nav,header.site-header');
+  if (booking && header && !booking.contains(header)) {
+    const originalPosition = document.createComment('Booking desktop position');
+    booking.before(originalPosition);
+    const mobileNavigation = [...header.parentElement.children].find(el =>
+      el.matches('nav.wire-mobile-menu,nav.mobile-menu,nav.mobile-nav'));
+    const mobileLayout = window.matchMedia('(max-width: 900px)');
+    const placeBooking = () => {
+      if (mobileLayout.matches) {
+        (mobileNavigation || header).after(booking);
+        booking.classList.add('cf-booking-first-mobile');
+      } else {
+        originalPosition.after(booking);
+        booking.classList.remove('cf-booking-first-mobile');
+      }
+    };
+    mobileLayout.addEventListener('change', placeBooking);
+    placeBooking();
+  }
 })();

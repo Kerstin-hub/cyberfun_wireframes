@@ -782,10 +782,13 @@
         .ticket-checkout.checkout-column {
           padding: 1rem;
         }
-        .category-tabs { grid-template-columns: 1fr; }
+        .category-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
         .category-tab {
           min-height: 44px;
-          text-align: left;
+          min-width: 0;
+          padding: 0.45rem 0.2rem;
+          font-size: 0.7rem;
+          text-align: center;
         }
       }
       .birthday-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,440px);align-items:start}
@@ -805,6 +808,9 @@
 
 .activity-meta{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;color:var(--muted);font-size:12px}
 .checkout-column>.wire-faq{margin-top:20px}
+      @media (max-width: 360px) {
+        .category-tab { font-size: 0.625rem; padding-inline: 0.1rem; }
+      }
     </style>
   </head>
   <body>
@@ -1359,6 +1365,6 @@
 document.querySelector('[data-mode="adult"]').click();
 document.querySelector('.checkout .button.block').addEventListener('click',()=>{window.location.href='../checkout-html-screens/02-registration-page.html';});
 </script>
-  <script src="../../navigation-submenus.js?v=20261016-groups-6"></script>
+  <script src="../../navigation-submenus.js?v=20261016-booking-first-8"></script>
   </body>
 </html>

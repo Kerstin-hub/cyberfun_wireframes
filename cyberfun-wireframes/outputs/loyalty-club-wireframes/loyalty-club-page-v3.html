@@ -68,19 +68,57 @@
       details p { max-width:740px; }
       @media(max-width:1080px){ .nav {grid-template-columns:1fr auto auto;} }
       @media(max-width:680px){ .club-hero {aspect-ratio:16/9;} .club-section {padding:28px 18px;} .club-section h1 {font-size:36px;} .club-section h2 {font-size:26px;} .club-grid {grid-template-columns:1fr;} }
+      .utility-bar { display: flex; justify-content: flex-end; align-items: center; gap: 0.55rem; min-height: 40px; padding: 0 1.2rem; border-bottom: 1px solid var(--line); }
+      .utility-item { min-height: 30px; padding: 0.35rem 0.6rem; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); font-size: 0.76rem; font-weight: 800; }
+      .nav { display: grid; grid-template-columns: 140px minmax(0, 1fr) auto auto; gap: 0.7rem; align-items: center; min-height: 76px; padding: 0 1.2rem; border-bottom: 1px solid var(--line); }
+      .logo, .nav-link, .button, .icon-button { display: inline-grid; place-items: center; min-height: 40px; border: 1px solid var(--line); border-radius: var(--radius); font-weight: 900; }
+      .logo { justify-self: start; min-width: 120px; padding: 0 0.8rem; background: var(--soft); }
+      .nav-links { display: flex; justify-content: center; gap: 0.4rem; min-width: 0; }
+      .nav-link { padding: 0 0.6rem; color: var(--muted); background: var(--paper); font-size: 0.75rem; white-space: nowrap; }
+      .button { padding: 0.65rem 0.9rem; border-color: var(--ink); background: var(--ink); color: #fff; cursor: pointer; }
+      .button.secondary { border-color: var(--line); background: var(--paper); color: var(--ink); }
+      .button.small { min-height: 34px; width: fit-content; padding: 0.45rem 0.65rem; font-size: 0.8rem; }
+      .button.block { width: 100%; }
+      .burger { display: none; width: 42px; height: 42px; padding: 9px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+      .burger span { display: block; height: 2px; margin: 4px 0; background: var(--ink); }
+      .mobile-menu { display: none; padding: 0.8rem 1rem; border-bottom: 1px solid var(--line); background: var(--soft); }
+      .mobile-menu.open { display: grid; gap: 0.45rem; }
+
+
+@media(max-width:1280px){.nav-links{display:none}.nav{grid-template-columns:1fr auto auto}.burger{display:block}}
+@media(max-width:900px){.utility-bar{display:none}.nav{grid-template-columns:1fr auto auto;min-height:66px;padding:0 .8rem}.nav .button{padding:.55rem .7rem;font-size:.78rem}}
     </style>
   </head>
   <body>
     <main class="page">
       <div class="shell">
-        <div class="utility"><span>Today: 9:30-22:00</span><span>HU / EN</span></div>
+        <div class="utility-bar">
+          <span class="utility-item">Today: 9:30-22:00</span>
+          <a class="utility-item" href="#language">HU / EN</a>
+          <a class="utility-item" href="../account-wireframes/login-page-v3.html">Login</a>
+        </div>
+
         <header class="nav">
           <a class="logo" href="../homepage-wireframes/homepage-unified-booking-v3.html">Cyberfun</a>
-          <nav class="nav-links" aria-label="Main navigation"><a href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a><a href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a><a href="../group-wireframes/corporates-groups-category-page-v3.html">Corporates &amp; Groups</a><a href="../membership-wireframes/membership-page-v3.html">Membership</a><a href="../../pages/plan-your-visit/index.html">Your Visit</a><a href="loyalty-club-page-v3.html">Loyalty Club</a></nav>
-          <a class="book" href="../homepage-wireframes/homepage-unified-booking-v3.html#checkout">Book now</a>
+          <nav class="nav-links" aria-label="Main navigation">
+            <a class="nav-link" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
+            <a class="nav-link" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a>
+            <a class="nav-link" href="../group-wireframes/corporates-groups-category-page-v3.html">Corporates &amp; Groups</a>
+            <a class="nav-link" href="../membership-wireframes/membership-page-v3.html">Membership</a>
+            <a class="nav-link" href="../../pages/plan-your-visit/index.html">Your Visit</a>
+            <a class="nav-link" href="loyalty-club-page-v3.html">Loyalty Club</a>
+          </nav>
+          <a class="button" href="../homepage-wireframes/homepage-unified-booking-v3.html#checkout">Book Now</a>
           <button class="burger" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
         </header>
-        <nav class="mobile-nav" aria-label="Mobile navigation"><a href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a><a href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a><a href="../group-wireframes/corporates-groups-category-page-v3.html">Corporates &amp; Groups</a><a href="../membership-wireframes/membership-page-v3.html">Membership</a><a href="../../pages/plan-your-visit/index.html">Your Visit</a><a href="loyalty-club-page-v3.html">Loyalty Club</a></nav>
+        <nav class="mobile-menu" aria-label="Mobile navigation">
+          <a class="nav-link" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
+          <a class="nav-link" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a>
+          <a class="nav-link" href="../group-wireframes/corporates-groups-category-page-v3.html">Corporates &amp; Groups</a>
+          <a class="nav-link" href="../membership-wireframes/membership-page-v3.html">Membership</a>
+          <a class="nav-link" href="../../pages/plan-your-visit/index.html">Your Visit</a>
+          <a class="nav-link" href="loyalty-club-page-v3.html">Loyalty Club</a>
+        </nav>
 
         <div class="club-hero" role="img" aria-label="Loyalty Club image placeholder">Loyalty Club image</div>
         <section class="club-section">
@@ -130,9 +168,9 @@
     </main>
     <script>
       const burger = document.querySelector(".burger");
-      const mobileNav = document.querySelector(".mobile-nav");
+      const mobileNav = document.querySelector(".mobile-menu");
       burger.addEventListener("click", () => { const open = mobileNav.classList.toggle("open"); burger.setAttribute("aria-expanded", String(open)); });
     </script>
-  <script src="../../navigation-submenus.js?v=20261016-groups-6"></script>
+  <script src="../../navigation-submenus.js?v=20261016-booking-first-8"></script>
   </body>
 </html>

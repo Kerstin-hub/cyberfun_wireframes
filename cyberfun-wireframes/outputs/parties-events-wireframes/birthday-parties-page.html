@@ -782,10 +782,13 @@
         .ticket-checkout.checkout-column {
           padding: 1rem;
         }
-        .category-tabs { grid-template-columns: 1fr; }
+        .category-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
         .category-tab {
           min-height: 44px;
-          text-align: left;
+          min-width: 0;
+          padding: 0.45rem 0.2rem;
+          font-size: 0.7rem;
+          text-align: center;
         }
       }
 
@@ -803,6 +806,9 @@
       .birthday-layout .checkout-header h2,.birthday-layout .checkout-header p{color:var(--ink)}
       @media(max-width:1080px){.birthday-layout{display:flex;flex-direction:column}.birthday-content{display:contents}.birthday-layout .hero{order:0;width:100%}.birthday-layout>aside{order:1;width:100%}.birthday-layout .section,.birthday-layout .bottom-cta{order:2;width:100%}.birthday-layout .hero h1{font-size:32px}.birthday-layout .quick-tabs{flex-wrap:wrap}}
       @media(max-width:480px){.birthday-layout .package-grid{grid-template-columns:1fr}.birthday-layout .hero,.birthday-layout .section{padding:18px}}
+      @media (max-width: 360px) {
+        .category-tab { font-size: 0.625rem; padding-inline: 0.1rem; }
+      }
     </style>
   </head>
   <body>
@@ -1407,6 +1413,6 @@
     document.querySelector('[data-category="birthday"]').click();
 document.querySelector('.summary .button, .checkout .button.block')?.addEventListener('click',()=>{window.location.href='../checkout-html-screens/02-registration-page.html';});
 </script>
-  <script src="../../navigation-submenus.js?v=20261016-groups-6"></script>
+  <script src="../../navigation-submenus.js?v=20261016-booking-first-8"></script>
   </body>
 </html>
