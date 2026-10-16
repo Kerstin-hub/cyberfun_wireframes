@@ -1103,6 +1103,15 @@
 
 
 .checkout-column{position:static;min-width:0}
+
+      .detail-hero .wire-image{min-height:0;aspect-ratio:16/9}
+      .detail-hero h1{font-size:48px;line-height:1.08}
+      .detail-hero p{line-height:1.6}
+      .wire-main>.wire-card{background:transparent;border:0;border-radius:0;padding:20px 0;border-top:1px solid var(--line)}
+      .wire-image-text h2,.wire-info h2,.wire-main>.wire-card h2{font-size:26px;line-height:1.2}
+      @media(max-width:680px){.detail-hero h1{font-size:34px}.wire-gallery{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.wire-gallery .large{grid-column:1/-1;grid-row:auto;min-height:220px}.wire-gallery .wire-image:not(.large){min-height:140px}.wire-image-text{grid-template-columns:1fr}.wire-image-text .wire-image{min-height:220px}.wire-info{grid-template-columns:1fr}}
+      .checkout-column .wire-faq h2{font-size:24px;line-height:1.2;margin:12px 0 18px}
+      .checkout-column .wire-faq details{padding:12px 0;border-top:1px solid var(--line)}
     </style>
   </head>
   <body>
@@ -1192,44 +1201,56 @@
         </nav>
 
         <section class="wire-content" id="details">
-          <div class="wire-main selection-copy">
-            <div class="selection-image">Booking hero image / video</div>
-            <h1>Nighttime Packages</h1>
-            <p>Adult Time starts from 18:00: competitive games, social sessions and bookable attraction slots for guests 16+, friends, birthdays, after-work groups and private parties.</p>
-            <div class="selection-rules">
-              <div class="rule-row">
-                <span class="rule-number">18:00</span>
-                <strong>Night Sessions start at 18:00 and run until 22:00.</strong>
+          <div class="wire-main">
+            <section class="detail-hero">
+              <div class="wire-image" aria-label="Hero Image/Video"></div>
+              <h1>Nighttime Packages</h1>
+              <p>Your friends. Your games. Your night. Bring everyone together for competitive challenges and shared moments, from 18:00 to 22:00 for guests 16+.</p>
+              <div class="wire-hero-actions">
+                <a class="wire-button" href="#booking">Book your night</a>
               </div>
-              <div class="rule-row">
-                <span class="rule-number">16+</span>
-                <strong>For guests aged 16 and over.</strong>
+            </section>
+
+            <section class="wire-card">
+              <p class="wire-label">Package overview</p>
+              <h2>Two attractions. One great night out.</h2>
+              <p>Go head-to-head at Lasertag, test your reflexes at Pixel or finish with songs in a private Karaoke room. Choose a combination that suits your group and make an ordinary evening something to remember.</p>
+              <p>Pick your package, guest count and the start time for your first attraction. Your second attraction follows flexibly, so the evening keeps moving without another fixed appointment.</p>
+            </section>
+
+            <section class="wire-card wire-image-text">
+              <div class="wire-image">Friends playing Lasertag / Pixel</div>
+              <div>
+                <p class="wire-label">What is included</p>
+                <h2>Bring your competitive side.</h2>
+                <p>Make it a birthday, an after-work catch-up or just a reason to get everyone together. Our evening packages combine games and time with your favourite people.</p>
+                <ul class="wire-list">
+                  <li>Two attractions in your selected package</li>
+                  <li>A reserved start time for your first attraction</li>
+                  <li>A flexible second attraction that follows afterwards</li>
+                </ul>
               </div>
-              <div class="rule-row">
-                <span class="rule-number">2</span>
-                <strong>Two attractions, one shared night out.</strong>
+            </section>
+
+            <section class="wire-gallery" aria-label="Image gallery wireframe">
+              <div class="wire-image large">Evening group experience</div>
+              <div class="wire-image">Friends &amp; celebrations</div>
+              <div class="wire-image">Karaoke &amp; social games</div>
+            </section>
+
+            <section class="wire-card wire-info">
+              <div>
+                <p class="wire-label">Good to know</p>
+                <h2>Your evening, planned.</h2>
               </div>
-            </div>
-            <div class="copy-section">
-              <h3>Plan your perfect night out</h3>
-              <p>Choose your package and guests, then reserve the start time for your first attraction. Your second attraction follows flexibly, without another fixed time slot.</p>
-            </div>
-            <div class="copy-section">
-              <h3>Great for</h3>
-              <ul>
-                <li>Friends who want a full evening of competition and fun</li>
-                <li>Adult birthdays, bachelor and bachelorette parties</li>
-                <li>After-work groups, team nights and private celebrations</li>
+              <ul class="wire-list">
+                <li>Adult Time runs from 18:00 to 22:00</li>
+                <li>For guests aged 16 and over</li>
+                <li>The first attraction has a fixed start time</li>
+                <li>The second attraction follows flexibly; your total is based on the price per person</li>
               </ul>
-            </div>
-            <div class="copy-section">
-              <h3>Why prebook?</h3>
-              <ul>
-                <li>Reserve popular evening slots before they sell out</li>
-                <li>Enjoy two attractions in one evening package</li>
-                <li>See the price per person and your total before checkout</li>
-              </ul>
-            </div>
+            </section>
+
           </div>
 
           <aside class="checkout-column" id="booking">
@@ -1586,6 +1607,8 @@
       updateSummary();
     document.querySelector('[data-category="package"]').click();
 document.querySelector('[data-mode="adult"]').click();
+const eveningPackageIndex = products.package.findIndex(item => item.name === 'Pixel + Lasertag');
+if (eveningPackageIndex >= 0) { productSelect.value = String(eveningPackageIndex); productSelect.dispatchEvent(new Event('change')); }
 document.querySelector('.checkout .button.block').addEventListener('click',()=>{window.location.href='../checkout-html-screens/02-registration-page.html';});
 </script>
   <script src="../../navigation-submenus.js?v=20261016-groups-6"></script>
