@@ -1,0 +1,1222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Package Product Wireframe | Cyberfun</title>
+    <style>
+      :root {
+        --ink: #17202a;
+        --muted: #697684;
+        --line: #c9d2dc;
+        --soft: #eef2f6;
+        --paper: #ffffff;
+        --mark: #d9e0e8;
+        --accent: #6f7d8b;
+        --radius: 8px;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #f7f9fb;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .wire-page {
+        width: min(1480px, 94vw);
+        margin: 0 auto;
+        padding: 24px 0 56px;
+      }
+
+      .wire-shell {
+        overflow: hidden;
+        border: 2px solid var(--ink);
+        border-radius: var(--radius);
+        background: var(--paper);
+        box-shadow: 0 20px 50px rgba(23, 32, 42, 0.1);
+      }
+
+      .wire-meta {
+        padding: 0.8rem 1.2rem;
+        border-bottom: 1px solid var(--line);
+        background: var(--soft);
+      }
+
+      .utility-bar {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.55rem;
+        min-height: 42px;
+        padding: 0 1.2rem;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .wire-nav {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr) auto auto;
+        gap: 0.65rem;
+        align-items: center;
+        min-height: 72px;
+        padding: 0 1.2rem;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .wire-logo,
+      .wire-button,
+      .wire-pill,
+      .wire-box,
+      .wire-card,
+      .wire-image,
+      .wire-field {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+      }
+
+      .wire-logo,
+      .wire-button,
+      .wire-pill {
+        display: grid;
+        place-items: center;
+        min-height: 38px;
+        font-weight: 900;
+      }
+
+      .wire-logo {
+        justify-self: start;
+        min-width: 118px;
+        min-height: 34px;
+        padding: 0 0.7rem;
+      }
+
+      .wire-links {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 0.5rem;
+        min-width: 0;
+      }
+
+      .wire-pill {
+        min-width: 0;
+        padding: 0 0.65rem;
+        color: var(--muted);
+        font-size: 0.78rem;
+        white-space: nowrap;
+      }
+
+      .wire-button {
+        background: var(--ink);
+        color: white;
+      }
+
+      .wire-login,
+      .wire-language,
+      .opening-status {
+        display: grid;
+        place-items: center;
+        min-height: 34px;
+        padding: 0 0.7rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        font-weight: 900;
+      }
+
+      .wire-language {
+        grid-template-columns: 1fr auto 1fr;
+        gap: 0.35rem;
+        min-width: 74px;
+        padding: 0 0.5rem;
+        color: var(--muted);
+        font-size: 0.76rem;
+      }
+
+      .opening-status {
+        color: var(--muted);
+        font-size: 0.76rem;
+        white-space: nowrap;
+      }
+
+      .wire-language .active {
+        color: var(--ink);
+      }
+
+      .wire-nav-group {
+        position: relative;
+      }
+
+      .wire-subnav {
+        position: absolute;
+        z-index: 5;
+        top: calc(100% + 0.45rem);
+        left: 0;
+        display: none;
+        min-width: 190px;
+        padding: 0.55rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        box-shadow: 0 10px 24px rgba(23, 32, 42, 0.1);
+      }
+
+      .wire-nav-group:hover .wire-subnav,
+      .wire-nav-group:focus-within .wire-subnav {
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .wire-subnav a {
+        min-height: 30px;
+        padding: 0.35rem 0.5rem;
+        border-radius: 6px;
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 800;
+      }
+
+      .wire-menu-check,
+      .wire-burger,
+      .wire-mobile-menu {
+        display: none;
+      }
+
+      .wire-mobile-menu .wire-nav-group {
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .wire-mobile-menu .wire-subnav {
+        position: static;
+        display: grid;
+        min-width: 0;
+        box-shadow: none;
+      }
+
+      .wire-burger {
+        place-items: center;
+        width: 44px;
+        aspect-ratio: 1;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+        cursor: pointer;
+      }
+
+      .wire-burger span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        margin: 3px 0;
+        background: var(--ink);
+      }
+
+      .wire-hero {
+        position: relative;
+        display: grid;
+        padding: 1.4rem;
+      }
+
+      .wire-hero-copy {
+        position: absolute;
+        z-index: 2;
+        left: 3.4rem;
+        bottom: 5rem;
+        display: grid;
+        align-content: end;
+        gap: 0.55rem;
+        width: min(680px, calc(100% - 6.8rem));
+        min-height: auto;
+        padding: 0;
+        border: 0;
+        background: transparent;
+      }
+
+      .wire-label {
+        margin: 0 0 0.65rem;
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 0.8rem;
+        font-size: clamp(4rem, 10vw, 8rem);
+        line-height: 0.86;
+      }
+
+      h2 {
+        margin-bottom: 0.75rem;
+        font-size: clamp(2rem, 4vw, 3.6rem);
+        line-height: 0.96;
+      }
+
+      h3 {
+        margin-bottom: 0.4rem;
+      }
+
+      .heading-note {
+        color: var(--muted);
+        font-size: 0.75em;
+        font-weight: 800;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .wire-hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        margin-top: 0.35rem;
+      }
+
+      .wire-hero-actions .wire-button,
+      .wire-hero-actions .wire-pill {
+        min-width: 150px;
+      }
+
+      .wire-image {
+        display: grid;
+        place-items: center;
+        min-height: 520px;
+        color: var(--muted);
+        font-size: 1.2rem;
+        font-weight: 900;
+      }
+
+      .wire-hero > .wire-image {
+        position: relative;
+        justify-items: start;
+        align-items: end;
+        min-height: 470px;
+        width: 100%;
+        padding: 2rem;
+      }
+
+      .wire-hero > .wire-image::after {
+        position: absolute;
+        top: 1.2rem;
+        right: 0;
+        color: var(--muted);
+        font-weight: 900;
+        content: "Hero Image/Video";
+      }
+
+      .wire-content {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 420px);
+        gap: 1.8rem;
+        align-items: start;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 1.4rem 2rem;
+      }
+
+      .wire-main {
+        display: grid;
+        gap: 1rem;
+        min-width: 0;
+      }
+
+      .detail-hero {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .detail-hero .wire-image {
+        position: relative;
+        min-height: 360px;
+        background: #dce8f3;
+      }
+
+      .detail-hero .wire-image::after {
+        position: absolute;
+        top: 1.2rem;
+        right: 1.2rem;
+        color: var(--muted);
+        font-weight: 900;
+        content: "Hero Image/Video";
+      }
+
+      .detail-hero h1 {
+        max-width: 760px;
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 3.6rem);
+        line-height: 1.05;
+      }
+
+      .detail-hero p {
+        max-width: 760px;
+        color: var(--ink);
+        font-size: 1rem;
+      }
+
+      .wire-card,
+      .wire-box {
+        padding: 1rem;
+      }
+
+      .wire-rating {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        align-items: center;
+      }
+
+      .wire-rating span {
+        display: inline-grid;
+        place-items: center;
+        min-height: 30px;
+        padding: 0 0.65rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--paper);
+        font-weight: 900;
+      }
+
+      .wire-gallery {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 1rem;
+      }
+
+      .wire-gallery .wire-image {
+        min-height: 220px;
+      }
+
+      .wire-gallery .large {
+        grid-row: span 2;
+        min-height: 460px;
+      }
+
+      .wire-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .wire-image-text {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .wire-image-text .wire-image {
+        min-height: 360px;
+      }
+
+      .wire-info {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 1rem;
+      }
+
+      .wire-list {
+        display: grid;
+        gap: 0.55rem;
+        margin: 0;
+        padding-left: 1.1rem;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .wire-booking {
+        position: sticky;
+        top: 1rem;
+        display: grid;
+        gap: 0.65rem;
+        width: 100%;
+        max-width: 420px;
+        min-width: 0;
+        justify-self: stretch;
+      }
+
+      .wire-price {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        min-height: 48px;
+        padding: 0.65rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+      }
+
+      .booking-date-time {
+        display: grid;
+        gap: 1rem;
+        min-width: 0;
+        padding: 0.75rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+      }
+
+      .mini-calendar {
+        display: grid;
+        gap: 0.8rem;
+        min-width: 0;
+        padding: 0.9rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+      }
+
+      .mini-calendar-title {
+        font-size: 1.25rem;
+        font-weight: 900;
+      }
+
+      .mini-calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 0.45rem;
+        min-width: 0;
+      }
+
+      .mini-calendar-grid span {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-width: 0;
+        min-height: 54px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        font-weight: 900;
+        line-height: 1.25;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .mini-calendar-grid .weekday {
+        min-height: 24px;
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+      }
+
+      .mini-calendar-grid small {
+        display: block;
+        color: var(--muted);
+      }
+
+      .mini-calendar-grid .active {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: white;
+      }
+
+      .mini-calendar-grid .good::after,
+      .mini-calendar-grid .limited::after,
+      .mini-calendar-grid .sold::after,
+      .time-slot.active::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 28px;
+        height: 28px;
+        clip-path: polygon(100% 0, 0 0, 100% 100%);
+        content: "";
+      }
+
+      .mini-calendar-grid .good::after {
+        background: #2fbf71;
+      }
+
+      .mini-calendar-grid .limited {
+        border-color: #f5a623;
+      }
+
+      .mini-calendar-grid .limited::after {
+        background: #f5a623;
+      }
+
+      .mini-calendar-grid .sold {
+        color: var(--muted);
+        text-decoration: line-through;
+        background: var(--mark);
+      }
+
+      .mini-calendar-grid .sold::after {
+        background: #d35252;
+      }
+
+      .availability-key {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        color: var(--muted);
+        font-weight: 900;
+      }
+
+      .availability-key span::before {
+        display: inline-block;
+        width: 28px;
+        height: 8px;
+        margin-right: 0.35rem;
+        border-radius: 99px;
+        content: "";
+      }
+
+      .availability-key .good::before {
+        background: #2fbf71;
+      }
+
+      .availability-key .limited::before {
+        background: #f5a623;
+      }
+
+      .availability-key .sold::before {
+        background: #d35252;
+      }
+
+      .time-slot-row {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.55rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .time-slot {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-height: 52px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        font-weight: 900;
+        overflow: hidden;
+      }
+
+      .time-slot.active {
+        border: 2px solid #1587d8;
+        color: #1587d8;
+      }
+
+      .time-slot.active::after {
+        background: #1587d8;
+      }
+
+      .time-slot.sold {
+        color: var(--muted);
+        text-decoration: line-through;
+        background: var(--mark);
+      }
+
+      .time-slot.limited {
+        border-color: #f5a623;
+      }
+
+      .time-next {
+        display: grid;
+        place-items: center;
+        color: var(--ink);
+        font-size: 2rem;
+        font-weight: 900;
+      }
+
+      .people-module {
+        display: grid;
+        gap: 0.7rem;
+        padding: 0.85rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+      }
+
+      .booking-product {
+        display: grid;
+        gap: 0.75rem;
+        padding: 0.85rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+      }
+
+      .booking-product-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+      }
+
+      .people-row {
+        display: grid;
+        grid-template-columns: 1fr 78px;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      .people-row strong {
+        font-size: 0.95rem;
+      }
+
+      .select-mini {
+        display: grid;
+        grid-template-columns: 1fr 14px;
+        align-items: center;
+        min-height: 36px;
+        padding: 0 0.55rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        font-weight: 900;
+      }
+
+      .select-mini i {
+        width: 0;
+        height: 0;
+        border-top: 7px solid var(--muted);
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+      }
+
+      .booking-summary {
+        display: grid;
+        gap: 0.75rem;
+        padding: 0.85rem;
+        border: 1px solid var(--ink);
+        border-radius: var(--radius);
+        background: var(--ink);
+        color: white;
+      }
+
+      .booking-summary span {
+        color: #d7dee6;
+        font-weight: 700;
+      }
+
+      .coupon-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.55rem;
+        padding-top: 0.8rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.28);
+      }
+
+      .coupon-row span {
+        display: grid;
+        align-items: center;
+        min-height: 38px;
+        padding: 0 0.7rem;
+        border: 1px solid rgba(255, 255, 255, 0.38);
+        border-radius: var(--radius);
+      }
+
+      .coupon-row button,
+      .booking-summary .summary-button {
+        border: 0;
+        border-radius: var(--radius);
+        background: white;
+        color: var(--ink);
+        font: inherit;
+        font-weight: 900;
+      }
+
+      .coupon-row button {
+        min-height: 38px;
+        padding: 0 0.9rem;
+      }
+
+      .booking-summary .summary-button {
+        display: grid;
+        place-items: center;
+        min-height: 46px;
+      }
+
+      .wire-faq {
+        display: grid;
+        gap: 0.65rem;
+      }
+
+      .wire-faq-row {
+        display: grid;
+        grid-template-columns: 1fr 24px;
+        align-items: center;
+        min-height: 54px;
+        padding: 0 0.8rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        font-weight: 900;
+      }
+
+      .wire-cta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin: 0 1.4rem 1.4rem;
+        padding: 1.2rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+      }
+
+      .site-footer {
+        display: grid;
+        grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1fr) minmax(0, 1.4fr);
+        gap: 1.25rem;
+        padding: 1.5rem;
+        border-top: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .footer-block {
+        display: grid;
+        gap: 0.45rem;
+        align-content: start;
+      }
+
+      .footer-block h3,
+      .footer-block p {
+        margin: 0;
+      }
+
+      .footer-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem 0.85rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .footer-links a {
+        color: var(--muted);
+        font-weight: 800;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      @media (max-width: 1080px) {
+        .wire-content,
+        .wire-info {
+          grid-template-columns: 1fr;
+        }
+
+        .wire-nav {
+          grid-template-columns: minmax(80px, 1fr) auto auto;
+          gap: 0.6rem;
+        }
+
+        .wire-links {
+          display: none;
+        }
+
+        .wire-burger {
+          display: grid;
+          width: 38px;
+        }
+
+        .wire-mobile-menu {
+          gap: 0.5rem;
+          padding: 0.8rem 1.2rem 1rem;
+          border-bottom: 1px solid var(--line);
+          background: var(--paper);
+        }
+
+        .wire-menu-check:checked + .utility-bar + .wire-nav + .wire-mobile-menu {
+          display: grid;
+        }
+
+        .wire-grid-3,
+        .wire-gallery,
+        .wire-image-text,
+        .booking-product-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .wire-gallery .large,
+        .wire-image,
+        .wire-hero-copy {
+          min-height: 280px;
+        }
+
+        .wire-hero-copy {
+          position: absolute;
+          left: 2.4rem;
+          right: 2.4rem;
+          bottom: 4rem;
+          width: auto;
+          min-height: auto;
+          margin-top: 0;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .wire-page {
+          width: 100%;
+          padding: 0;
+        }
+
+        .wire-shell {
+          border-right: 0;
+          border-left: 0;
+          border-radius: 0;
+        }
+
+        .wire-logo {
+          min-width: 86px;
+          font-size: 0.9rem;
+        }
+
+        .wire-button,
+        .wire-login {
+          padding: 0 0.55rem;
+          font-size: 0.78rem;
+        }
+
+        .wire-language {
+          padding: 0 0.45rem;
+          font-size: 0.72rem;
+        }
+
+        .utility-bar {
+          justify-content: flex-end;
+          gap: 0.4rem;
+          min-height: 38px;
+          padding: 0 0.75rem;
+        }
+
+        .opening-status {
+          padding: 0 0.45rem;
+          font-size: 0.72rem;
+        }
+
+        .wire-cta {
+          display: grid;
+        }
+
+        .site-footer,
+        .footer-links {
+          grid-template-columns: 1fr;
+        }
+
+        .wire-content {
+          padding: 1.2rem;
+        }
+
+        .wire-hero-copy {
+          left: 2rem;
+          right: 2rem;
+          bottom: 3rem;
+          width: auto;
+        }
+
+        .wire-hero > .wire-image {
+          min-height: 500px;
+        }
+
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wire-page">
+      <div class="wire-shell">
+        <div class="wire-meta">
+          <p class="wire-label">Package product page wireframe</p>
+        </div>
+        <input class="wire-menu-check" type="checkbox" id="wire-menu" aria-label="Toggle mobile navigation" />
+        <div class="utility-bar">
+          <span class="opening-status">Today: 9:30 - 22:00</span>
+          <a class="wire-language" href="#language" aria-label="Switch language from Hungarian to English"><span>HU</span><span>/</span><span class="active">EN</span></a>
+          <a class="wire-login" href="../account-wireframes/login-page-v3.html">Login</a>
+        </div>
+        <header class="wire-nav">
+          <a class="wire-logo" href="../homepage-wireframes/homepage-unified-booking-v3.html">Cyberfun</a>
+          <nav class="wire-links" aria-label="Activity navigation">
+            <div class="wire-nav-group">
+              <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions</a>
+              <div class="wire-subnav">
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">MiniGolf</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">ValoFloor</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">VR & Arcade</a>
+              </div>
+            </div>
+            <div class="wire-nav-group">
+              <a class="wire-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Tickets & Packages</a>
+              <div class="wire-subnav">
+                <a href="../parties-events-wireframes/parties-packages-category-page-v3.html">Tickets</a>
+                <a href="../parties-events-wireframes/parties-packages-category-page-v3.html#packages">Packages</a>
+              </div>
+            </div>
+            <div class="wire-nav-group">
+              <a class="wire-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties & Events</a>
+              <div class="wire-subnav">
+                <a href="../parties-events-wireframes/birthday-parties-page.html">Birthday</a>
+                <a href="../parties-events-wireframes/adult-parties-page-v2-concept.html">Adult Parties</a>
+                <a href="../event-schedule-wireframes/event-schedule-page.html">Event Schedule</a>
+              </div>
+            </div>
+            <div class="wire-nav-group">
+              <a class="wire-pill" href="../group-wireframes/school-groups-page.html">Groups</a>
+              <div class="wire-subnav">
+                <a href="../group-wireframes/school-groups-page.html">School Groups</a>
+                <a href="../group-wireframes/corporate-groups-page.html">Corporate Groups</a>
+              </div>
+            </div>
+            <a class="wire-pill" href="../../pages/plan-your-visit/index.html">Your Visit</a>
+            <a class="wire-pill" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
+          </nav>
+          <a class="wire-button" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Book now</a>
+          <label class="wire-burger" for="wire-menu" aria-label="Open mobile navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+        </header>
+        <nav class="wire-mobile-menu" aria-label="Mobile activity navigation">
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions</a>
+            <div class="wire-subnav">
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">MiniGolf</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">ValoFloor</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">VR & Arcade</a>
+            </div>
+          </div>
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Tickets & Packages</a>
+            <div class="wire-subnav">
+              <a href="../parties-events-wireframes/parties-packages-category-page-v3.html">Tickets</a>
+              <a href="../parties-events-wireframes/parties-packages-category-page-v3.html#packages">Packages</a>
+            </div>
+          </div>
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties & Events</a>
+            <div class="wire-subnav">
+              <a href="../parties-events-wireframes/birthday-parties-page.html">Birthday</a>
+              <a href="../parties-events-wireframes/adult-parties-page-v2-concept.html">Adult Parties</a>
+              <a href="../event-schedule-wireframes/event-schedule-page.html">Event Schedule</a>
+            </div>
+          </div>
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="../group-wireframes/school-groups-page.html">Groups</a>
+            <div class="wire-subnav">
+              <a href="../group-wireframes/school-groups-page.html">School Groups</a>
+              <a href="../group-wireframes/corporate-groups-page.html">Corporate Groups</a>
+            </div>
+          </div>
+          <a class="wire-pill" href="../../pages/plan-your-visit/index.html">Your Visit</a>
+          <a class="wire-pill" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
+        </nav>
+
+        <section class="wire-content" id="details">
+          <div class="wire-main">
+            <section class="detail-hero">
+              <div class="wire-image" aria-label="Hero Image/Video"></div>
+              <h1>Family Play Package</h1>
+              <p>A simple daytime bundle for families who want entry, active play and Tokens for extra games in one booking.</p>
+              <div class="wire-hero-actions">
+                <a class="wire-button" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Book package</a>
+              </div>
+            </section>
+
+            <section class="wire-card">
+              <p class="wire-label">Package overview</p>
+              <h2>Bundle the visit before you arrive.</h2>
+              <p>The Family Play Package combines Family Time entry with a clear Token allowance, so guests can arrive with the main visit already planned and still choose specific extra games on site.</p>
+              <p>Family Time runs until 19:00. Online package sales end at 18:00. Daytime attraction sessions are not prebooked online, which keeps the flow simple and flexible for families.</p>
+            </section>
+
+            <section class="wire-card wire-image-text">
+              <div class="wire-image">Package experience image</div>
+              <div>
+                <p class="wire-label">What is included</p>
+                <h2>Entry, active play and Tokens together.</h2>
+                <p>The package page should make the value clear quickly: who can join, how long the visit lasts, how many Tokens are included and which extras can be added during booking.</p>
+                <ul class="wire-list">
+                  <li>Daytime access for Family Time</li>
+                  <li>Trampoline and softplay access where applicable</li>
+                  <li>Included Tokens for extra games on site</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="wire-gallery" aria-label="Image gallery wireframe">
+              <div class="wire-image large">Package hero image</div>
+              <div class="wire-image">Family play</div>
+              <div class="wire-image">Token games</div>
+            </section>
+
+            <section class="wire-card wire-info">
+              <div>
+                <p class="wire-label">Good to know</p>
+                <h2>Clear before checkout.</h2>
+              </div>
+              <ul class="wire-list">
+                <li>Online Family Time package sales end at 18:00</li>
+                <li>Family Time continues until 19:00</li>
+                <li>Included Tokens can be used for selected games on site</li>
+                <li>Specific daytime attraction sessions are chosen on site</li>
+              </ul>
+            </section>
+
+          </div>
+
+          <aside class="wire-booking" id="booking">
+            <section class="booking-product">
+              <p class="wire-label">Booking module</p>
+              <h2>Family Play Package</h2>
+              <div class="booking-product-grid">
+                <div class="wire-price">
+                  <span>Basic</span>
+                  <strong>Entry + 5 Tokens</strong>
+                </div>
+                <div class="wire-price">
+                  <span>Fun</span>
+                  <strong>Entry + 10 Tokens</strong>
+                </div>
+              </div>
+            </section>
+            <section class="booking-product">
+              <p class="wire-label">Duration</p>
+              <h2>How long do you want to stay?</h2>
+              <div class="booking-product-grid">
+                <div class="wire-price">
+                  <span>1 hour</span>
+                  <strong>Select</strong>
+                </div>
+                <div class="wire-price">
+                  <span>2 hours</span>
+                  <strong>Selected</strong>
+                </div>
+              </div>
+            </section>
+            <div class="booking-date-time">
+              <p class="wire-label">Date and time</p>
+              <h3>Select date</h3>
+              <div class="mini-calendar">
+                <div class="mini-calendar-title">July 2026</div>
+                <div class="mini-calendar-grid">
+                  <span class="weekday">Mon</span><span class="weekday">Tue</span><span class="weekday">Wed</span><span class="weekday">Thu</span><span class="weekday">Fri</span><span class="weekday">Sat</span><span class="weekday">Sun</span>
+                  <span class="good"><b>6</b><small>Mon</small></span><span class="active good"><b>7</b><small>Tue</small></span><span class="good"><b>8</b><small>Wed</small></span><span class="limited"><b>9</b><small>Thu</small></span><span class="good"><b>10</b><small>Fri</small></span><span class="limited"><b>11</b><small>Sat</small></span><span class="sold"><b>12</b><small>Sun</small></span>
+                  <span class="good"><b>13</b><small>Mon</small></span><span class="good"><b>14</b><small>Tue</small></span><span class="limited"><b>15</b><small>Wed</small></span><span class="good"><b>16</b><small>Thu</small></span><span class="sold"><b>17</b><small>Fri</small></span><span class="good"><b>18</b><small>Sat</small></span><span class="good"><b>19</b><small>Sun</small></span>
+                </div>
+                <div class="availability-key">
+                  <span class="good">Good</span>
+                  <span class="limited">Limited</span>
+                  <span class="sold">Sold out</span>
+                </div>
+              </div>
+              <h3>Select arrival time <span class="heading-note">(online sales until 18:00)</span></h3>
+              <div class="time-slot-row">
+                <span class="time-slot active">9:30</span>
+                <span class="time-slot">10:30</span>
+                <span class="time-slot sold">11:30</span>
+                <span class="time-slot">12:30</span>
+                <span class="time-slot limited">14:30</span>
+                <span class="time-slot">16:30</span>
+              </div>
+            </div>
+            <div class="people-module">
+              <p class="wire-label">Participants</p>
+              <div class="people-row">
+                <strong>Children</strong>
+                <div class="select-mini"><span>2</span><i></i></div>
+              </div>
+              <div class="people-row">
+                <strong>Active adults</strong>
+                <div class="select-mini"><span>2</span><i></i></div>
+              </div>
+              <div class="people-row">
+                <strong>Watching adults</strong>
+                <div class="select-mini"><span>0</span><i></i></div>
+              </div>
+            </div>
+            <div class="booking-summary">
+              <strong>Your booking</strong>
+              <span>Family Play Package Fun</span>
+              <span>Tue 7 July 2026</span>
+              <span>Arrival 9:30</span>
+              <span>2 hour visit</span>
+              <span>2 children, 2 active adults</span>
+              <span>40 Tokens included</span>
+              <span>Safety socks added</span>
+              <div class="coupon-row">
+                <span>Coupon code</span>
+                <button>Apply</button>
+              </div>
+              <a class="summary-button" href="../checkout-html-screens/02-registration-page.html">42.800 Ft - register</a>
+            </div>
+            <section class="wire-card wire-faq">
+              <p class="wire-label">FAQ</p>
+              <h2>Before you book.</h2>
+              <div class="wire-faq-row"><span>What is included in a Family Play Package?</span><strong>+</strong></div>
+              <div class="wire-faq-row"><span>Can I prebook daytime attraction sessions?</span><strong>+</strong></div>
+              <div class="wire-faq-row"><span>How do included Tokens work?</span><strong>+</strong></div>
+              <div class="wire-faq-row"><span>Are safety socks required?</span><strong>+</strong></div>
+              <div class="wire-faq-row"><span>Can I upgrade to more Tokens?</span><strong>+</strong></div>
+            </section>
+          </aside>
+        </section>
+
+        <footer class="site-footer" aria-label="Footer">
+          <div class="footer-block">
+            <p class="wire-label">Opening hours</p>
+            <h3>9:30-22:00</h3>
+            <p>Family Friendly Daytime until 19:00. Adult Night Sessions from 19:00.</p>
+          </div>
+          <div class="footer-block">
+            <p class="wire-label">Company</p>
+            <ul class="footer-links">
+              <li><a href="#about-us">About us</a></li>
+              <li><a href="#imprint">Imprint</a></li>
+              <li><a href="#legal">Legal stuff</a></li>
+            </ul>
+          </div>
+          <div class="footer-block">
+            <p class="wire-label">Legal links</p>
+            <ul class="footer-links">
+              <li><a href="#house-rules">House rules</a></li>
+              <li><a href="#terms">Terms & Conditions</a></li>
+              <li><a href="#privacy">Privacy Policy</a></li>
+              <li><a href="#liability">Individual Liability Declaration</a></li>
+              <li><a href="#payment">Payment Informations</a></li>
+              <li><a href="#safety">Safety regulations</a></li>
+            </ul>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

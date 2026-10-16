@@ -1,0 +1,2432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>01 Selection Page</title>
+<style>
+:root {
+  --ink: #17202a;
+  --muted: #697684;
+  --line: #c9d2dc;
+  --soft: #eef2f6;
+  --paper: #ffffff;
+  --mark: #d9e0e8;
+  --accent: #6f7d8b;
+  --radius: 8px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f7f9fb;
+  color: var(--ink);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 68px;
+  padding: 0 4vw;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.logo {
+  font-weight: 900;
+}
+
+.topbar nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.site-header {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) auto;
+  gap: 0.65rem;
+  align-items: center;
+  min-height: 72px;
+  padding: 0 1.2rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.site-logo,
+.site-pill,
+.site-button,
+.site-login,
+.site-language {
+  display: grid;
+  place-items: center;
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+  font-weight: 900;
+}
+
+.site-logo {
+  justify-self: start;
+  min-width: 130px;
+}
+
+.site-links {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.45rem;
+  justify-content: center;
+  min-width: 0;
+}
+
+.site-pill {
+  min-width: 0;
+  padding: 0 0.65rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.utility-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 42px;
+  padding: 0 1.2rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.opening-status {
+  display: grid;
+  place-items: center;
+  min-height: 34px;
+  padding: 0 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.site-button {
+  background: var(--ink);
+  color: white;
+  padding: 0 0.85rem;
+}
+
+.site-login,
+.site-language {
+  background: var(--paper);
+  padding: 0 0.7rem;
+}
+
+.site-language {
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.site-language .active {
+  color: var(--ink);
+}
+
+.site-burger {
+  display: none;
+  place-items: center;
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+  width: 44px;
+  aspect-ratio: 1;
+}
+
+.site-burger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  margin: 3px 0;
+  background: var(--ink);
+}
+
+.site-nav-group {
+  position: relative;
+}
+
+.site-subnav {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 0.45rem);
+  left: 0;
+  display: none;
+  min-width: 190px;
+  padding: 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: 0 10px 24px rgba(23, 32, 42, 0.1);
+}
+
+.site-nav-group:hover .site-subnav,
+.site-nav-group:focus-within .site-subnav {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.site-subnav a {
+  min-height: 30px;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.site-subnav a:hover,
+.site-subnav a:focus {
+  background: var(--soft);
+  color: var(--ink);
+}
+
+.intro,
+.frame-section {
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+}
+
+.intro {
+  padding: 4rem 0 2rem;
+}
+
+.intro h1 {
+  max-width: 780px;
+  margin: 0 0 1rem;
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.92;
+}
+
+.intro p:last-child {
+  max-width: 680px;
+  color: var(--muted);
+  font-size: 1.15rem;
+  line-height: 1.55;
+}
+
+.frame-section {
+  padding: 3.5rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.section-title {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1;
+}
+
+.label,
+.wire-tag {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.browser-frame {
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: 0 20px 50px rgba(23, 32, 42, 0.12);
+}
+
+.wire-header {
+  display: grid;
+  grid-template-columns: 150px 1fr 110px;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.wire-header.compact {
+  padding: 0.8rem 1rem;
+}
+
+.wire-logo,
+.wire-cta,
+.wire-actions span,
+.booking-options span,
+.date-box,
+.filter-row span,
+.conversion-wire > span {
+  display: grid;
+  place-items: center;
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.wire-nav {
+  display: flex;
+  gap: 0.45rem;
+  justify-content: center;
+}
+
+.wire-nav span {
+  width: 88px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--mark);
+  color: transparent;
+}
+
+.wire-hero,
+.sub-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2rem;
+  align-items: center;
+  min-height: 420px;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f4f6f8, #e8edf3);
+}
+
+.sub-hero {
+  min-height: 330px;
+}
+
+.image-box {
+  display: grid;
+  place-items: center;
+  min-height: 280px;
+  border: 2px dashed var(--accent);
+  border-radius: var(--radius);
+  background: #dde5ed;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.wire-h1 {
+  margin: 0.6rem 0 1rem;
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-weight: 950;
+  line-height: 0.85;
+}
+
+.wire-h1.short {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+}
+
+.wire-h2 {
+  width: min(360px, 100%);
+  height: 58px;
+  margin: 0.5rem 0 1rem;
+  border-radius: var(--radius);
+  background: var(--mark);
+}
+
+.wire-line {
+  height: 14px;
+  margin: 0.65rem 0;
+  border-radius: 999px;
+  background: var(--mark);
+}
+
+.wire-line.wide {
+  width: min(560px, 100%);
+}
+
+.wire-line.medium {
+  width: min(380px, 75%);
+}
+
+.wire-actions,
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.wire-actions span {
+  min-width: 160px;
+}
+
+.booking-strip,
+.detail-panel-wire,
+.conversion-wire {
+  display: grid;
+  grid-template-columns: 0.7fr 1.5fr 0.7fr;
+  gap: 1rem;
+  align-items: center;
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.booking-options {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.wire-copy strong,
+.conversion-wire strong {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 1.2rem;
+}
+
+.audience-grid,
+.card-grid,
+.subpage-grid-wire,
+.flow-grid,
+.sitemap-wire,
+.price-row {
+  display: grid;
+  gap: 1rem;
+}
+
+.audience-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 1rem;
+}
+
+.audience-grid article,
+.card-grid article,
+.subpage-grid-wire article,
+.flow-grid article,
+.sitemap-wire div,
+.price-row article,
+.detail-columns aside,
+.main-detail {
+  min-height: 120px;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+  font-weight: 800;
+}
+
+.content-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: end;
+  padding: 1rem;
+}
+
+.card-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 1rem;
+}
+
+.card-grid .large-card {
+  grid-column: span 2;
+  min-height: 220px;
+}
+
+.detail-panel-wire {
+  grid-template-columns: 1fr 0.9fr;
+}
+
+.detail-panel-wire ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.detail-panel-wire li {
+  padding: 0.8rem;
+  border-radius: var(--radius);
+  background: var(--soft);
+}
+
+.subpage-grid-wire {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 1rem;
+}
+
+.conversion-wire {
+  grid-template-columns: 1fr 180px;
+}
+
+.detail-columns {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.detail-columns aside {
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+}
+
+.detail-columns aside span {
+  height: 12px;
+  border-radius: 999px;
+  background: var(--mark);
+  color: transparent;
+}
+
+.main-detail {
+  min-height: 260px;
+}
+
+.price-row {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 2rem;
+}
+
+.flow-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.flow-grid article {
+  min-height: 190px;
+}
+
+.flow-grid span {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: var(--ink);
+  color: white;
+  font-weight: 900;
+}
+
+.flow-grid p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.checkout-note {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.checkout-note strong {
+  color: var(--ink);
+}
+
+.checkout-overview,
+.checkout-flow,
+.package-grid,
+.quantity-list,
+.addon-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.checkout-overview {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 1rem;
+}
+
+.checkout-overview.compact-overview {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.checkout-overview article {
+  min-height: 150px;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.checkout-overview span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  aspect-ratio: 1;
+  margin-bottom: 0.8rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: white;
+  font-weight: 900;
+}
+
+.checkout-overview p {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.checkout-screen {
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: 0 20px 50px rgba(23, 32, 42, 0.1);
+}
+
+.screen-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--soft);
+}
+
+.screen-top span,
+.mini-label {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.event-header {
+  display: grid;
+  grid-template-columns: 150px 110px 120px 1fr 70px 50px;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.event-header strong {
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.event-header span,
+.event-header div {
+  display: grid;
+  align-items: center;
+  min-height: 40px;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.event-header div {
+  padding: 0 1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+}
+
+.party-detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 560px);
+  gap: 2rem;
+  align-items: start;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1.4rem 2rem;
+  background: #fff;
+}
+
+.party-copy {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.party-hero-image {
+  display: grid;
+  place-items: center;
+  min-height: 360px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #dce8f3;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.party-hero-block {
+  display: grid;
+  gap: 1rem;
+}
+
+.party-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.party-card {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+}
+
+.party-image-text {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 1rem;
+  align-items: center;
+}
+
+.party-image-text .party-hero-image {
+  min-height: 320px;
+}
+
+.party-gallery {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1rem;
+}
+
+.party-gallery .party-hero-image {
+  min-height: 200px;
+}
+
+.party-gallery .large {
+  grid-row: span 2;
+  min-height: 420px;
+}
+
+.party-info {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 1rem;
+}
+
+.rating-line {
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.google-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #d97706;
+}
+
+.google-rating span {
+  display: inline-grid;
+  place-items: center;
+  min-height: 28px;
+  padding: 0 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.party-copy h3 {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  line-height: 1.05;
+}
+
+.party-copy h4 {
+  margin: 0.6rem 0 0;
+  font-size: 1.15rem;
+}
+
+.party-copy p,
+.party-copy li {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.party-copy ul {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.party-faq {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.5rem;
+}
+
+.party-faq-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  min-height: 54px;
+  padding: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+}
+
+.party-faq-item h5 {
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.party-faq-item::after {
+  content: "+";
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.site-footer {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.footer-block {
+  display: grid;
+  gap: 0.45rem;
+  align-content: start;
+}
+
+.footer-block h3,
+.footer-block p {
+  margin: 0;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem 0.85rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-links a {
+  color: var(--muted);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.progress-wire {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.progress-wire.two-step {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.progress-wire span {
+  min-height: 34px;
+  padding: 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.progress-wire .active {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: white;
+}
+
+.progress-wire .done {
+  border-color: var(--accent);
+  background: #e1e8ef;
+  color: var(--ink);
+}
+
+.checkout-layout,
+.date-time-layout,
+.registration-layout,
+.payment-layout {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.checkout-layout {
+  grid-template-columns: 1fr 280px;
+}
+
+.date-time-layout {
+  grid-template-columns: 0.9fr 1fr 250px;
+}
+
+.payment-layout {
+  grid-template-columns: 1fr 340px;
+}
+
+.payment-detail-layout {
+  display: grid;
+  grid-template-columns: minmax(500px, 0.95fr) minmax(620px, 0.85fr);
+  gap: 2rem;
+  align-items: start;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1.4rem 2rem;
+  background: #fff;
+}
+
+.payment-copy {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.payment-copy h3 {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  line-height: 1.05;
+}
+
+.payment-copy p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.payment-checkout {
+  display: grid;
+  gap: 1rem;
+  width: min(100%, 680px);
+  justify-self: start;
+}
+
+.payment-recap-card,
+.payment-trust-list {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+}
+
+.payment-recap-card span {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.payment-trust-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  background: var(--paper);
+}
+
+.payment-trust-list span {
+  display: grid;
+  place-items: center;
+  min-height: 54px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+  font-weight: 900;
+  text-align: center;
+}
+
+.registration-layout {
+  grid-template-columns: minmax(0, 1fr);
+  justify-content: center;
+}
+
+.registration-layout .account-panel {
+  width: min(100%, 820px);
+  justify-self: center;
+}
+
+.single-page-booking {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: start;
+}
+
+.party-detail-layout .single-page-booking {
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  max-width: 560px;
+  min-width: 0;
+  padding: 0;
+  justify-self: stretch;
+}
+
+.party-detail-layout .booking-page-main {
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.party-detail-layout .booking-block {
+  padding: 0.75rem;
+}
+
+.party-detail-layout .sticky-summary {
+  grid-column: auto;
+  position: static;
+  min-height: auto;
+}
+
+.booking-page-main {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.booking-block {
+  display: grid;
+  gap: 0.7rem;
+  min-width: 0;
+  padding: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+}
+
+.booking-block-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.booking-block-title strong {
+  font-size: 1.15rem;
+}
+
+.inline-date-time,
+.date-time-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.inline-date-time {
+  grid-template-columns: minmax(260px, 0.85fr) minmax(260px, 1fr);
+}
+
+.one-page-screen .package-grid article {
+  min-height: 150px;
+}
+
+.package-grid.package-grid-compact {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.package-grid.package-grid-compact article {
+  min-height: 128px;
+  gap: 0.45rem;
+  padding: 0.75rem;
+}
+
+.package-grid.package-grid-compact h3 {
+  font-size: 1rem;
+}
+
+.package-grid.package-grid-compact button {
+  min-height: 36px;
+}
+
+.sticky-summary {
+  position: sticky;
+  top: 88px;
+}
+
+.checkout-main,
+.calendar-wire,
+.session-list,
+.account-panel,
+.payment-panel,
+.order-summary,
+.receipt-panel {
+  min-height: 220px;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+}
+
+.payment-panel {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.large-payment-options {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 0;
+}
+
+.pay-confirm-wire {
+  display: grid;
+  gap: 0.4rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.pay-confirm-wire span {
+  color: var(--muted);
+}
+
+.payment-method-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.payment-method-row span {
+  display: grid;
+  place-items: center;
+  min-height: 52px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-weight: 900;
+}
+
+.payment-method-row .selected {
+  border: 2px solid var(--ink);
+  background: #e8edf3;
+}
+
+.card-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.card-fields > label,
+.card-fields > span {
+  grid-column: 1 / -1;
+}
+
+.card-fields label {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
+.card-fields span {
+  display: grid;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.card-fields div {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.confirmation-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.confirmation-panel,
+.qr-panel {
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+  min-height: 320px;
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+}
+
+.confirmation-panel h3 {
+  max-width: 620px;
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.05;
+}
+
+.confirmation-panel p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.booking-number {
+  display: grid;
+  gap: 0.25rem;
+  width: fit-content;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.booking-number span {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.qr-panel {
+  justify-items: center;
+  text-align: center;
+}
+
+.qr-code {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: 180px;
+  aspect-ratio: 1;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.qr-code span {
+  background: var(--ink);
+}
+
+.qr-code span:nth-child(2n),
+.qr-code span:nth-child(5),
+.qr-code span:nth-child(11) {
+  background: var(--mark);
+}
+
+.product-tabs,
+.duration-toggle,
+.checkout-choice,
+.payment-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.booking-block .duration-toggle {
+  margin-bottom: 0;
+}
+
+.product-tabs span,
+.duration-toggle span,
+.checkout-choice span,
+.payment-options span {
+  display: grid;
+  place-items: center;
+  min-height: 38px;
+  padding: 0 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-weight: 800;
+}
+
+.product-tabs .active,
+.duration-toggle .active,
+.checkout-choice .active {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: white;
+}
+
+.package-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.package-grid article,
+.quantity-list article,
+.addon-grid article {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.package-grid article {
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+  min-height: 260px;
+}
+
+.package-grid .featured,
+.addon-grid .selected {
+  border: 2px solid var(--ink);
+}
+
+.package-grid h3,
+.package-grid p,
+.quantity-list p,
+.addon-grid p {
+  margin: 0;
+}
+
+.package-grid p,
+.quantity-list p,
+.addon-grid p {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+button {
+  min-height: 42px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: white;
+  font: inherit;
+  font-weight: 900;
+}
+
+.order-summary,
+.receipt-panel {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  background: var(--ink);
+  color: white;
+}
+
+.order-summary span,
+.receipt-panel span {
+  color: #d7dee6;
+}
+
+.summary-total {
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  font-size: 1.7rem;
+  font-weight: 950;
+}
+
+.order-summary button,
+.receipt-panel button {
+  background: white;
+  color: var(--ink);
+}
+
+.calendar-head {
+  margin-bottom: 1rem;
+  font-weight: 900;
+}
+
+.subsection-title {
+  margin-bottom: 0.65rem;
+  font-weight: 900;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.calendar-wire,
+.date-time-stack,
+.product-tabs,
+.duration-toggle,
+.package-grid,
+.quantity-list,
+.addon-grid,
+.attractions-grid,
+.order-summary {
+  min-width: 0;
+}
+
+.calendar-grid span {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 54px;
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 900;
+  overflow: hidden;
+}
+
+.calendar-grid .weekday {
+  min-height: 26px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.calendar-grid b,
+.calendar-grid small {
+  display: block;
+}
+
+.calendar-grid small {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.calendar-grid .empty {
+  background: transparent;
+}
+
+.calendar-grid .selected {
+  background: var(--ink);
+  color: white;
+}
+
+.calendar-grid .selected small {
+  color: #d7dee6;
+}
+
+.calendar-grid .available,
+.calendar-grid .limited {
+  border: 1px solid var(--line);
+}
+
+.calendar-grid .available::after,
+.calendar-grid .limited::after,
+.calendar-grid .sold::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  content: "";
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+.calendar-grid .available::after {
+  background: #2fbf71;
+}
+
+.calendar-grid .limited {
+  border-color: #f6a623;
+}
+
+.calendar-grid .limited::after {
+  background: #f6a623;
+}
+
+.calendar-grid .sold {
+  background: var(--mark);
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.calendar-grid .sold::after {
+  background: #d04f4f;
+}
+
+.availability-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.availability-key span::before {
+  display: inline-block;
+  width: 18px;
+  height: 5px;
+  margin-right: 0.35rem;
+  border-radius: 999px;
+  content: "";
+  vertical-align: middle;
+}
+
+.availability-key .good-key::before {
+  background: #2fbf71;
+}
+
+.availability-key .limited-key::before {
+  background: #f6a623;
+}
+
+.availability-key .sold-key::before {
+  background: #d04f4f;
+}
+
+.session-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.info-banner,
+.timer-wire {
+  padding: 0.8rem;
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-weight: 900;
+}
+
+.session-list article {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.session-list article.selected {
+  border: 2px solid var(--ink);
+}
+
+.session-list article.disabled {
+  opacity: 0.52;
+  background: #eef0f3;
+}
+
+.session-list span,
+.session-list em {
+  color: var(--muted);
+}
+
+.time-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.time-row button {
+  position: relative;
+  min-height: 46px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.time-row button.selected {
+  border: 2px solid #1587d8;
+  color: #1587d8;
+}
+
+.time-row button.selected::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 34px;
+  height: 34px;
+  background: #1587d8;
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  content: "";
+}
+
+.time-row button.disabled {
+  opacity: 0.45;
+}
+
+.time-row button.limited {
+  border-color: #f6a623;
+}
+
+.time-row button.sold-out {
+  color: var(--muted);
+  text-decoration: line-through;
+  background: var(--mark);
+}
+
+.time-next {
+  justify-self: center;
+  color: var(--ink);
+  font-size: 2.6rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.quantity-list article {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.compact-guest-list {
+  grid-template-columns: minmax(150px, 1fr) 74px;
+  gap: 0.45rem 0.75rem;
+  align-items: center;
+  justify-items: stretch;
+}
+
+.compact-guest-list article {
+  display: contents;
+}
+
+.compact-guest-list article strong {
+  align-self: center;
+  min-height: 34px;
+  line-height: 34px;
+}
+
+.compact-guest-list article .select-wire {
+  width: 74px;
+}
+
+.compact-guest-list article {
+  margin-bottom: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.select-wire {
+  display: grid;
+  grid-template-columns: 1fr 14px;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-size: 0.98rem;
+  font-weight: 900;
+}
+
+.select-wire i {
+  justify-self: end;
+  width: 0;
+  height: 0;
+  border-top: 7px solid #777;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
+
+.stepper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  min-height: 44px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+  text-align: center;
+  font-weight: 900;
+}
+
+.stepper span {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  background: var(--paper);
+}
+
+.addon-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.attractions-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.addon-grid article {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.3rem 0.75rem;
+  min-height: 78px;
+  align-items: start;
+  min-width: 0;
+  padding: 0.75rem;
+}
+
+.addon-grid .mini-label,
+.addon-grid p {
+  grid-column: 1 / -1;
+}
+
+.addon-grid em {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: start;
+  color: var(--ink);
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.coupon-wire {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.45rem;
+  align-items: center;
+  margin-top: 0.3rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.coupon-wire span {
+  display: grid;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: var(--radius);
+  color: #d7dee6;
+  font-size: 0.85rem;
+}
+
+.coupon-wire button {
+  min-height: 36px;
+  padding: 0 0.8rem;
+}
+
+.form-wire {
+  display: grid;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+
+.form-wire span {
+  display: grid;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.registration-head {
+  display: grid;
+  gap: 0.45rem;
+  justify-items: center;
+  margin: 1rem 0 1.2rem;
+  text-align: center;
+}
+
+.registration-intro {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.registration-intro h3 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.05;
+}
+
+.registration-intro p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.login-option {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+  font-weight: 900;
+}
+
+.login-option span {
+  color: var(--ink);
+}
+
+.login-option button {
+  min-height: 38px;
+  padding: 0 1rem;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.registration-head strong {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1;
+}
+
+.registration-head span {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.registration-form {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1.2rem;
+  border: 2px dashed var(--accent);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.registration-form label {
+  color: #4b5158;
+  font-weight: 900;
+}
+
+.registration-form > span,
+.birthday-row span {
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.birthday-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.birthday-row span {
+  display: grid;
+  align-items: center;
+  padding: 0 1rem;
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.consent-list {
+  display: grid;
+  gap: 1rem;
+  margin: 1.2rem 0;
+}
+
+.consent-list label {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  color: #4b5158;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.consent-list span {
+  width: 26px;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.consent-list .checked span {
+  display: grid;
+  place-items: center;
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
+.consent-list .checked span::after {
+  color: #fff;
+  content: "✓";
+  font-weight: 900;
+}
+
+.consent-list p {
+  margin: 0;
+}
+
+.register-button {
+  width: min(100%, 760px);
+  min-height: 56px;
+  margin: 0 auto;
+  background: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.consent-row {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
+.consent-row span {
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  background: var(--paper);
+}
+
+.consent-row p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.receipt-panel {
+  background: var(--accent);
+}
+
+.timer-wire {
+  color: var(--ink);
+}
+
+.sitemap-wire {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sitemap-wire div {
+  display: grid;
+  align-content: start;
+  gap: 0.45rem;
+  min-height: 260px;
+}
+
+.sitemap-wire span {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .utility-bar {
+    justify-content: flex-end;
+    gap: 0.4rem;
+    min-height: 38px;
+    padding: 0 0.75rem;
+  }
+
+  .opening-status {
+    padding: 0 0.45rem;
+    font-size: 0.72rem;
+  }
+
+  .site-header {
+    grid-template-columns: minmax(80px, 1fr) auto auto;
+    gap: 0.45rem;
+    padding: 0 0.75rem;
+  }
+
+  .site-links {
+    display: none;
+  }
+
+  .site-logo {
+    min-width: 86px;
+    font-size: 0.9rem;
+  }
+
+  .site-language {
+    padding: 0 0.45rem;
+    font-size: 0.72rem;
+  }
+
+  .site-login,
+  .site-button {
+    min-width: auto;
+    padding: 0 0.55rem;
+    font-size: 0.78rem;
+  }
+
+  .site-burger {
+    display: grid;
+    width: 38px;
+  }
+
+  .topbar,
+  .section-title,
+  .conversion-wire {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .wire-header,
+  .wire-hero,
+  .sub-hero,
+  .booking-strip,
+  .content-row,
+  .detail-panel-wire,
+  .detail-columns,
+  .conversion-wire,
+  .checkout-layout,
+  .date-time-layout,
+  .payment-layout,
+  .payment-detail-layout,
+  .single-page-booking,
+  .inline-date-time,
+  .event-header,
+  .party-detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-options,
+  .audience-grid,
+  .card-grid,
+  .subpage-grid-wire,
+  .flow-grid,
+  .sitemap-wire,
+  .price-row,
+  .checkout-overview,
+  .package-grid,
+  .addon-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-grid .large-card {
+    grid-column: auto;
+  }
+
+  .wire-nav {
+    display: none;
+  }
+
+  .progress-wire {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .progress-wire.two-step {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-block-title {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .sticky-summary {
+    position: static;
+  }
+
+  .quantity-list article {
+    grid-template-columns: 1fr;
+  }
+
+  .party-hero-image {
+    min-height: 220px;
+  }
+
+  .party-image-text,
+  .party-gallery,
+  .party-info {
+    grid-template-columns: 1fr;
+  }
+
+  .party-gallery .large {
+    min-height: 240px;
+  }
+
+  .site-footer,
+  .footer-links {
+    grid-template-columns: 1fr;
+  }
+}
+
+body { background: #f7f9fb; padding: 32px; }
+.topbar, .intro { display: none; }
+.frame-section { width: min(1560px, 98vw); padding: 0; border: 0; }
+.checkout-flow { display: block; }
+.checkout-screen { margin: 0 auto; }
+</style>
+</head>
+<body>
+<main>
+<section class="frame-section" id="checkout-wireframes">
+<div class="checkout-flow">
+<article class="checkout-screen one-page-screen">
+            <div class="utility-bar">
+              <span class="opening-status">Today: 9:30 - 22:00</span>
+              <a class="site-language" href="#language" aria-label="Switch language from Hungarian to English">
+                <span>HU</span><span>/</span><span class="active">EN</span>
+              </a>
+              <a class="site-login" href="../account-wireframes/login-page-v3.html">Login</a>
+            </div>
+            <header class="site-header">
+              <a class="site-logo" href="../homepage-wireframes/homepage-unified-booking-v3.html">Cyberfun</a>
+              <nav class="site-links" aria-label="Party checkout navigation">
+                <div class="site-nav-group">
+                  <a class="site-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions</a>
+                  <div class="site-subnav">
+                    <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
+                    <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">MiniGolf</a>
+                    <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
+                    <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
+                    <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+                    <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
+                    <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">ValoFloor</a>
+                    <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">VR & Arcade</a>
+                  </div>
+                </div>
+                <div class="site-nav-group">
+                  <a class="site-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Tickets & Packages</a>
+                  <div class="site-subnav">
+                    <a href="../parties-events-wireframes/parties-packages-category-page-v3.html">Tickets</a>
+                    <a href="../parties-events-wireframes/parties-packages-category-page-v3.html#packages">Packages</a>
+                  </div>
+                </div>
+                <div class="site-nav-group">
+                  <a class="site-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties & Events</a>
+                  <div class="site-subnav">
+                    <a href="../parties-events-wireframes/birthday-parties-page.html">Birthday</a>
+                    <a href="../parties-events-wireframes/adult-parties-page-v2-concept.html">Adult Parties</a>
+                    <a href="../event-schedule-wireframes/event-schedule-page.html">Event Schedule</a>
+                  </div>
+                </div>
+                <div class="site-nav-group">
+                  <a class="site-pill" href="../group-wireframes/school-groups-page.html">Groups</a>
+                  <div class="site-subnav">
+                    <a href="../group-wireframes/school-groups-page.html">School Groups</a>
+                    <a href="../group-wireframes/corporate-groups-page.html">Corporate Groups</a>
+                  </div>
+                </div>
+                <a class="site-pill" href="../../pages/plan-your-visit/index.html">Your Visit</a>
+                <a class="site-pill" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
+              </nav>
+              <a class="site-button" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Book Now</a>
+              <button class="site-burger" type="button" aria-label="Open navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </header>
+            <div class="party-detail-layout">
+              <div class="party-copy">
+                <section class="party-hero-block">
+                  <div class="party-hero-image">Party hero image / video</div>
+                  <div class="rating-line google-rating"><span>Google</span> 4.8 ★★★★★ (128 reviews)</div>
+                  <h3>Cyberfun Birthday Parties</h3>
+                  <p>
+                    Big birthday energy, easy for parents. Choose a 2-hour or 3-hour birthday package with ticket,
+                    cake, drink and safety socks included, then add food, decorations or extra game Tokens in one flow.
+                  </p>
+                  <div class="party-hero-actions">
+                    <a class="site-button" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Book party</a>
+                    <a class="site-pill" href="#party-details">View details</a>
+                  </div>
+                </section>
+
+                <section class="party-card" id="party-details">
+                  <p class="mini-label">Intro</p>
+                  <h2>Hosted parties with attractions, table time and extras in one package.</h2>
+                  <p>
+                    Cyberfun Birthday Parties are built for kids and teens who want more than cake and a table.
+                    Every birthday package includes the core party essentials, while Cyberfun and Cybermegafun add
+                    Tokens for extra games.
+                  </p>
+                  <p>
+                    Families can choose the date, time, duration, package, participants and extras without jumping
+                    between separate booking steps.
+                  </p>
+                </section>
+
+                <section class="party-card party-image-text">
+                  <div class="party-hero-image">Party room image</div>
+                  <div>
+                    <p class="mini-label">How it works</p>
+                    <h2>Pick the package, then build the party around your group.</h2>
+                    <p>The booking module keeps the core choices together: date, time, duration, package, participants and add-ons.</p>
+                    <ul>
+                      <li>Two or three hours of party time</li>
+                      <li>Ticket, cake, drink and socks included in every birthday package</li>
+                      <li>Optional food, decorations, Flex upgrade and extra game Tokens</li>
+                    </ul>
+                  </div>
+                </section>
+
+                <section class="party-gallery" aria-label="Party image gallery wireframe">
+                  <div class="party-hero-image large">Large gallery image</div>
+                  <div class="party-hero-image">Activity moment</div>
+                  <div class="party-hero-image">Party table</div>
+                </section>
+
+                <section class="party-card party-info">
+                  <div>
+                    <p class="mini-label">Good to know</p>
+                    <h2>Clear rules before families book.</h2>
+                  </div>
+                  <ul>
+                    <li>Minimum 5 party guests</li>
+                    <li>Birthdays can be booked until 18:00</li>
+                    <li>Safety socks are included in every birthday package</li>
+                    <li>Parents can add food packages, decorations and extra Tokens during booking</li>
+                    <li>Looking for an adult party? Go to <a href="../parties-events-wireframes/adult-parties-page-v2-concept.html">Adult Parties</a>.</li>
+                  </ul>
+                </section>
+
+                <section class="party-card">
+                  <p class="mini-label">FAQ</p>
+                  <h2>Before the party.</h2>
+                  <div class="party-faq">
+                    <article class="party-faq-item"><h5>How many guests do I need for a birthday party?</h5></article>
+                    <article class="party-faq-item"><h5>Can I choose between a 2-hour and 3-hour party?</h5></article>
+                    <article class="party-faq-item"><h5>Which attractions are included in the party package?</h5></article>
+                    <article class="party-faq-item"><h5>Can I add food, decorations or extra Tokens?</h5></article>
+                    <article class="party-faq-item"><h5>Until what time can birthday parties be booked?</h5></article>
+                  </div>
+                </section>
+              </div>
+            <div class="single-page-booking" id="booking">
+              <div class="booking-page-main">
+                <section class="booking-block">
+                  <div class="booking-block-title">
+                    <span class="mini-label">Date and time</span>
+                  </div>
+                  <div class="date-time-stack">
+                    <div class="subsection-title">Select date</div>
+                    <div class="calendar-wire">
+                      <div class="calendar-head">July 2026</div>
+                      <div class="calendar-grid">
+                        <span class="weekday">Mon</span><span class="weekday">Tue</span><span class="weekday">Wed</span><span class="weekday">Thu</span><span class="weekday">Fri</span><span class="weekday">Sat</span><span class="weekday">Sun</span>
+                        <span class="available"><b>6</b><small>Mon</small></span><span class="available selected"><b>7</b><small>Tue</small></span><span class="available"><b>8</b><small>Wed</small></span><span class="limited"><b>9</b><small>Thu</small></span><span class="available"><b>10</b><small>Fri</small></span><span class="limited"><b>11</b><small>Sat</small></span><span class="sold"><b>12</b><small>Sun</small></span>
+                        <span class="available"><b>13</b><small>Mon</small></span><span class="available"><b>14</b><small>Tue</small></span><span class="limited"><b>15</b><small>Wed</small></span><span class="available"><b>16</b><small>Thu</small></span><span class="sold"><b>17</b><small>Fri</small></span><span class="available"><b>18</b><small>Sat</small></span><span class="available"><b>19</b><small>Sun</small></span>
+                      </div>
+                      <div class="availability-key">
+                        <span class="good-key">Good</span>
+                        <span class="limited-key">Limited</span>
+                        <span class="sold-key">Sold out</span>
+                      </div>
+                    </div>
+                    <div class="subsection-title">Select time</div>
+                    <div class="time-row">
+                      <button>9:30</button>
+                      <button>10:30</button>
+                      <button class="sold-out">11:30</button>
+                      <button class="selected">12:30</button>
+                      <button>13:30</button>
+                      <button class="limited">14:30</button>
+                      <button>15:30</button>
+                      <button class="sold-out">16:30</button>
+                      <button class="disabled">17:30</button>
+                      <span class="time-next">›</span>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="booking-block">
+                  <div class="booking-block-title">
+                    <span class="mini-label">Package</span>
+                    <strong>Choose package</strong>
+                  </div>
+                  <div class="duration-toggle">
+                    <span class="active">2 hours</span>
+                    <span>3 hours</span>
+                  </div>
+                  <div class="package-grid package-grid-compact">
+                    <article>
+                      <span class="mini-label">From 5 guests</span>
+                      <h3>Cyberpartyfun</h3>
+                      <p>Ticket, cake, drink and safety socks included.</p>
+                      <strong>Price pp</strong>
+                      <button>Select</button>
+                    </article>
+                    <article class="featured">
+                      <span class="mini-label">Bestseller</span>
+                      <h3>Cyberfun</h3>
+                      <p>Party basics plus Tokens for extra games.</p>
+                      <strong>Price pp</strong>
+                      <button>Selected</button>
+                    </article>
+                    <article>
+                      <span class="mini-label">Premium</span>
+                      <h3>Cybermegafun</h3>
+                      <p>More time and more Tokens for extra play.</p>
+                      <strong>Price pp</strong>
+                      <button>Select</button>
+                    </article>
+                  </div>
+                </section>
+
+                <section class="booking-block">
+                  <div class="booking-block-title">
+                    <span class="mini-label">Participants</span>
+                    <strong>Choose participants</strong>
+                  </div>
+                  <div class="quantity-list compact-guest-list">
+                    <article>
+                      <strong>Party guests</strong>
+                      <div class="select-wire"><span>5</span><i></i></div>
+                    </article>
+                    <article>
+                      <strong>Active adults</strong>
+                      <div class="select-wire"><span>2</span><i></i></div>
+                    </article>
+                    <article>
+                      <strong>Watching adults</strong>
+                      <div class="select-wire"><span>2</span><i></i></div>
+                    </article>
+                  </div>
+                </section>
+
+                <section class="booking-block">
+                  <div class="booking-block-title">
+                    <span class="mini-label">Add-ons and attractions</span>
+                    <strong>Included and optional extras</strong>
+                  </div>
+                  <div class="addon-grid attractions-grid compact-addon-grid">
+                    <article class="selected">
+                      <span class="mini-label">Included</span>
+                      <strong>Entry ticket</strong>
+                      <p>Birthday access for each party guest.</p>
+                      <em>Included</em>
+                    </article>
+                    <article class="selected">
+                      <span class="mini-label">Included</span>
+                      <strong>Cake and drink</strong>
+                      <p>Birthday cake and one drink included.</p>
+                      <em>Included</em>
+                    </article>
+                    <article class="selected">
+                      <span class="mini-label">Included</span>
+                      <strong>Safety socks</strong>
+                      <p>Required socks are included in the package.</p>
+                      <em>Included</em>
+                    </article>
+                    <article class="selected">
+                      <span class="mini-label">Included</span>
+                      <strong>Game Tokens</strong>
+                      <p>Included with Cyberfun and Cybermegafun.</p>
+                      <em>Included</em>
+                    </article>
+                    <article>
+                      <strong>Extra Tokens</strong>
+                      <p>Add more game credit for Pixel, VR or arcade play.</p>
+                      <em>+ Ft pp</em>
+                    </article>
+                    <article>
+                      <strong>Pizza menu</strong>
+                      <p>Food package for all party guests.</p>
+                      <em>+ Ft pp</em>
+                    </article>
+                    <article>
+                      <strong>Decoration kit</strong>
+                      <p>Table setup and celebration extras.</p>
+                      <em>+ Ft</em>
+                    </article>
+                    <article>
+                      <strong>Flex upgrade</strong>
+                      <p>Move the booking once up to 24h before arrival.</p>
+                      <em>+ Ft</em>
+                    </article>
+                  </div>
+                </section>
+              </div>
+
+              <aside class="order-summary sticky-summary">
+                <strong>Your booking</strong>
+                <span>Cyberfun birthday package</span>
+                <span>Tue 7 July 2026</span>
+                <span>12:30 - 14:30</span>
+                <span>5 party guests, 2 active adults</span>
+                <span>Ticket, cake, drink and socks included</span>
+                <span>Tokens included by package</span>
+                <div class="coupon-wire">
+                  <span>Coupon code</span>
+                  <button>Apply</button>
+                </div>
+                <button>Total price - register</button>
+              </aside>
+            </div>
+            </div>
+            <footer class="site-footer" aria-label="Footer">
+              <div class="footer-block">
+                <p class="label">Opening hours</p>
+                <h3>9:30-22:00</h3>
+                <p>Family Friendly Daytime until 19:00. Adult Night Sessions from 19:00.</p>
+              </div>
+              <div class="footer-block">
+                <p class="label">Company</p>
+                <ul class="footer-links">
+                  <li><a href="#about-us">About us</a></li>
+                  <li><a href="#imprint">Imprint</a></li>
+                  <li><a href="#legal">Legal stuff</a></li>
+                </ul>
+              </div>
+              <div class="footer-block">
+                <p class="label">Legal links</p>
+                <ul class="footer-links">
+                  <li><a href="#house-rules">House rules</a></li>
+                  <li><a href="#terms">Terms & Conditions</a></li>
+                  <li><a href="#privacy">Privacy Policy</a></li>
+                  <li><a href="#liability">Individual Liability Declaration</a></li>
+                  <li><a href="#payment">Payment Informations</a></li>
+                  <li><a href="#safety">Safety regulations</a></li>
+                </ul>
+              </div>
+            </footer>
+          </article>
+</div>
+</section>
+</main>
+</body>
+</html>
