@@ -11,7 +11,7 @@
   ];
   const groups = {
     'Attractions & Tickets': [['Trampoline', activity], ['Pixel', activity], ['Lasertag', activity], ['Darts', activity], ['Karaoke', activity], ['Single Tickets', 'outputs/ticket-product-wireframes/ticket-product-template.html']],
-    'Parties & Packages': [['Birthday Parties', 'outputs/parties-events-wireframes/birthday-parties-page.html'], ['Daytime Packages', 'outputs/package-wireframes/package-product-template.html'], ['Nighttime Packages', 'outputs/package-wireframes/package-product-template.html'], ['Adult Parties', 'outputs/parties-events-wireframes/adult-parties-page-v2-concept.html'], ['Event Schedule', 'outputs/event-schedule-wireframes/event-schedule-page.html']],
+    'Parties & Packages': [['Birthday Parties', 'outputs/parties-events-wireframes/birthday-parties-page.html'], ['Daytime Packages', 'outputs/package-wireframes/package-product-template.html'], ['Nighttime Packages', 'outputs/package-wireframes/nighttime-package-product-template.html'], ['Adult Parties', 'outputs/parties-events-wireframes/adult-parties-page-v2-concept.html'], ['Event Schedule', 'outputs/event-schedule-wireframes/event-schedule-page.html']],
     'Corporates & Groups': [['School Groups', 'outputs/group-wireframes/school-groups-page.html'], ['Corporate Groups', 'outputs/group-wireframes/corporate-groups-page.html']],
   };
   const aliases = {'Attractions':'Attractions & Tickets','Experiences':'Attractions & Tickets','Tickets & Packages':'Parties & Packages','Parties & Events':'Parties & Packages','Parties':'Parties & Packages','Groups':'Corporates & Groups','Groups & Events':'Corporates & Groups'};
