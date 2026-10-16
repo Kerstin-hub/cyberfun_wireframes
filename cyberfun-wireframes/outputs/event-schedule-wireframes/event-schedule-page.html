@@ -888,7 +888,9 @@
           margin: 1.2rem;
         }
       }
-    </style>
+    .wire-nav{grid-template-columns:150px minmax(0,1fr) auto auto}
+@media(max-width:1280px){.wire-links{display:none!important}.wire-nav{grid-template-columns:minmax(80px,1fr) auto auto}.wire-burger{display:grid!important;width:38px}.wire-menu-check:checked~.wire-mobile-menu{display:grid!important;gap:8px;padding:16px}}
+</style>
   </head>
   <body>
     <main class="wire-page">
@@ -902,62 +904,81 @@
           <a class="wire-language" href="#language" aria-label="Switch language from Hungarian to English"><span>HU</span><span>/</span><span class="active">EN</span></a>
           <a class="wire-login" href="../account-wireframes/login-page-v3.html">Login</a>
         </div>
-        <header class="wire-nav">
+                <header class="wire-nav">
           <a class="wire-logo" href="../homepage-wireframes/homepage-unified-booking-v3.html">Cyberfun</a>
-          <nav class="wire-links" aria-label="Event schedule navigation">
+          <nav class="wire-links" aria-label="Category navigation">
             <div class="wire-nav-group">
-              <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions</a>
+              <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
               <div class="wire-subnav">
                 <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">MiniGolf</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
                 <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
                 <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">ValoFloor</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">VR & Arcade</a>
-              </div>
-            </div>
-            <div class="wire-nav-group">
-              <a class="wire-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Tickets & Packages</a>
-              <div class="wire-subnav">
-                <a href="../parties-events-wireframes/parties-packages-category-page-v3.html">Tickets</a>
-                <a href="../parties-events-wireframes/parties-packages-category-page-v3.html#packages">Packages</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+                <a href="../ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
               </div>
             </div>
             <div class="wire-nav-group">
               <a class="wire-pill active" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a>
               <div class="wire-subnav">
-                <a href="../parties-events-wireframes/birthday-parties-page.html">Birthday</a>
-                <a href="../parties-events-wireframes/adult-parties-page-v2-concept.html">Adult Parties</a>
+                <a href="../parties-events-wireframes/birthday-parties-page.html">Birthday Packages</a>
+                <a href="../package-wireframes/package-product-template.html">Daytime Packages</a>
+                <a href="../package-wireframes/nighttime-package-product-template.html">Nighttime Packages</a>
                 <a href="event-schedule-page.html">Event Schedule</a>
               </div>
             </div>
             <div class="wire-nav-group">
-              <a class="wire-pill" href="../../pages/groups-events/index.html">Groups</a>
+              <a class="wire-pill" href="../group-wireframes/corporates-groups-category-page-v3.html">Corporates &amp; Groups</a>
               <div class="wire-subnav">
                 <a href="../group-wireframes/school-groups-page.html">School Groups</a>
                 <a href="../group-wireframes/corporate-groups-page.html">Corporate Groups</a>
               </div>
             </div>
+            <a class="wire-pill" href="../membership-wireframes/membership-page-v3.html">Membership</a>
             <a class="wire-pill" href="../../pages/plan-your-visit/index.html">Your Visit</a>
             <a class="wire-pill" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
           </nav>
-          <a class="wire-button" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Book now</a>
+          <a class="wire-button" href="../homepage-wireframes/homepage-unified-booking-v3.html#checkout">Book now</a>
           <label class="wire-burger" for="wire-menu" aria-label="Open mobile navigation">
             <span></span>
             <span></span>
             <span></span>
           </label>
         </header>
-        <nav class="wire-mobile-menu" aria-label="Mobile event schedule navigation">
-          <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions</a>
-          <a class="wire-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Tickets & Packages</a>
-          <a class="wire-pill active" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a>
-          <a class="wire-pill" href="../../pages/groups-events/index.html">Groups</a>
+        <nav class="wire-mobile-menu" aria-label="Mobile category navigation">
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
+            <div class="wire-subnav">
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+              <a href="../ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
+            </div>
+          </div>
+          <div class="wire-nav-group">
+            <a class="wire-pill active" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a>
+            <div class="wire-subnav">
+              <a href="../parties-events-wireframes/birthday-parties-page.html">Birthday Packages</a>
+              <a href="../package-wireframes/package-product-template.html">Daytime Packages</a>
+              <a href="../package-wireframes/nighttime-package-product-template.html">Nighttime Packages</a>
+              <a href="event-schedule-page.html">Event Schedule</a>
+            </div>
+          </div>
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="../group-wireframes/corporates-groups-category-page-v3.html">Corporates &amp; Groups</a>
+            <div class="wire-subnav">
+              <a href="../group-wireframes/school-groups-page.html">School Groups</a>
+              <a href="../group-wireframes/corporate-groups-page.html">Corporate Groups</a>
+            </div>
+          </div>
+          <a class="wire-pill" href="../membership-wireframes/membership-page-v3.html">Membership</a>
           <a class="wire-pill" href="../../pages/plan-your-visit/index.html">Your Visit</a>
           <a class="wire-pill" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
         </nav>
+
+
 
         <section class="hero">
           <div class="wire-image">Event schedule hero image / video</div>
@@ -1158,6 +1179,6 @@
         </footer>
       </div>
     </main>
-  <script src="../../navigation-submenus.js?v=20261016-menu-4"></script>
+  <script src="../../navigation-submenus.js?v=20261016-groups-6"></script>
   </body>
 </html>

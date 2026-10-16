@@ -4,7 +4,7 @@
   const mainMenu = [
     ['Attractions & Tickets', 'outputs/category-wireframes/attractions-tickets-category-page-v3.html'],
     ['Parties & Packages', 'outputs/parties-events-wireframes/parties-packages-category-page-v3.html'],
-    ['Corporates & Groups', 'pages/groups-events/index.html'],
+    ['Corporates & Groups', 'outputs/group-wireframes/corporates-groups-category-page-v3.html'],
     ['Membership', 'outputs/membership-wireframes/membership-page-v3.html'],
     ['Your Visit', 'pages/plan-your-visit/index.html'],
     ['Loyalty Club', 'outputs/loyalty-club-wireframes/loyalty-club-page-v3.html'],

@@ -1,0 +1,23 @@
+.group-inquiry{padding:24px;border:1px solid var(--line);border-radius:8px;background:var(--soft)}
+.inquiry-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:24px}
+.inquiry-fields label{display:grid;gap:7px;font-size:14px;font-weight:700;min-width:0}
+.inquiry-fields input,.inquiry-fields select,.inquiry-fields textarea{box-sizing:border-box;width:100%;min-width:0;min-height:46px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:white;color:var(--ink);font:inherit}
+.inquiry-fields textarea{min-height:120px;resize:vertical}
+.inquiry-fields .wide{grid-column:1/-1}
+.inquiry-fields fieldset{margin:0;padding:16px;border:1px solid var(--line);border-radius:6px;min-width:0}
+.inquiry-fields legend{font-weight:700;font-size:14px;padding:0 5px}
+.inquiry-checks{display:flex;flex-wrap:wrap;gap:12px 24px}
+.inquiry-fields .check{display:flex;align-items:flex-start;gap:8px;font-weight:400;line-height:1.5}
+.inquiry-fields .check input{width:18px;height:18px;min-height:18px;flex:0 0 18px;margin:2px 0}
+.group-inquiry button{font:inherit;cursor:pointer;padding:12px 20px;background:var(--ink);color:white;border:1px solid var(--ink);border-radius:6px;font-weight:800}
+.group-inquiry input:focus-visible,.group-inquiry select:focus-visible,.group-inquiry textarea:focus-visible{outline:2px solid #1684d8;outline-offset:2px}
+.inquiry-status{padding:12px;background:white;border-left:3px solid var(--ink);margin-top:18px}
+.group-category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.group-category-grid .wire-image{aspect-ratio:16/9;min-height:0}
+.group-category-grid .wire-card{min-width:0}
+.group-category-grid a{display:inline-block;margin-top:12px;text-decoration:underline;font-weight:800}
+.wire-nav{grid-template-columns:150px minmax(0,1fr) auto auto}
+.section-head{display:block}
+.section-head>p{max-width:760px;margin-top:16px}
+@media(max-width:1280px){.wire-links{display:none!important}.wire-nav{grid-template-columns:minmax(80px,1fr) auto auto}.wire-burger{display:grid!important;width:38px}.wire-menu-check:checked~.wire-mobile-menu{display:grid!important;gap:8px;padding:16px}}
+@media(max-width:680px){.inquiry-fields{grid-template-columns:1fr}.group-inquiry{padding:18px}.group-category-grid{grid-template-columns:1fr}}

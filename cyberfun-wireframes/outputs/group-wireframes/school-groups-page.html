@@ -118,7 +118,8 @@
         .bottom-cta { margin: 1.2rem; }
       }
     </style>
-  </head>
+  <link rel="stylesheet" href="../../group-inquiry.css">
+</head>
   <body>
     <main class="wire-page">
       <div class="wire-shell">
@@ -131,41 +132,76 @@
         </div>
         <header class="wire-nav">
           <a class="wire-logo" href="../homepage-wireframes/homepage-unified-booking-v3.html">Cyberfun</a>
-          <nav class="wire-links" aria-label="School groups navigation">
+          <nav class="wire-links" aria-label="Category navigation">
             <div class="wire-nav-group">
-              <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions</a>
+              <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
               <div class="wire-subnav">
                 <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">MiniGolf</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
                 <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
                 <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">ValoFloor</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">VR & Arcade</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+                <a href="../ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
               </div>
             </div>
-            <a class="wire-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Tickets & Packages</a>
-            <a class="wire-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties & Events</a>
             <div class="wire-nav-group">
-              <a class="wire-pill active" href="../../pages/groups-events/index.html">Groups</a>
+              <a class="wire-pill active" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a>
+              <div class="wire-subnav">
+                <a href="../parties-events-wireframes/birthday-parties-page.html">Birthday Packages</a>
+                <a href="../package-wireframes/package-product-template.html">Daytime Packages</a>
+                <a href="../package-wireframes/nighttime-package-product-template.html">Nighttime Packages</a>
+                <a href="../event-schedule-wireframes/event-schedule-page.html">Event Schedule</a>
+              </div>
+            </div>
+            <div class="wire-nav-group">
+              <a class="wire-pill" href="corporates-groups-category-page-v3.html">Corporates &amp; Groups</a>
               <div class="wire-subnav">
                 <a href="school-groups-page.html">School Groups</a>
                 <a href="corporate-groups-page.html">Corporate Groups</a>
               </div>
             </div>
+            <a class="wire-pill" href="../membership-wireframes/membership-page-v3.html">Membership</a>
             <a class="wire-pill" href="../../pages/plan-your-visit/index.html">Your Visit</a>
             <a class="wire-pill" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
           </nav>
-          <a class="wire-button" href="#inquiry">Request visit</a>
-          <label class="wire-burger" for="wire-menu"><span></span><span></span><span></span></label>
+          <a class="wire-button" href="../homepage-wireframes/homepage-unified-booking-v3.html#checkout">Book now</a>
+          <label class="wire-burger" for="wire-menu" aria-label="Open mobile navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
         </header>
-        <nav class="wire-mobile-menu">
-          <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions</a>
-          <a class="wire-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Tickets & Packages</a>
-          <a class="wire-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties & Events</a>
-          <a class="wire-pill active" href="school-groups-page.html">School Groups</a>
-          <a class="wire-pill" href="corporate-groups-page.html">Corporate Groups</a>
+        <nav class="wire-mobile-menu" aria-label="Mobile category navigation">
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
+            <div class="wire-subnav">
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+              <a href="../ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
+            </div>
+          </div>
+          <div class="wire-nav-group">
+            <a class="wire-pill active" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a>
+            <div class="wire-subnav">
+              <a href="../parties-events-wireframes/birthday-parties-page.html">Birthday Packages</a>
+              <a href="../package-wireframes/package-product-template.html">Daytime Packages</a>
+              <a href="../package-wireframes/nighttime-package-product-template.html">Nighttime Packages</a>
+              <a href="../event-schedule-wireframes/event-schedule-page.html">Event Schedule</a>
+            </div>
+          </div>
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="corporates-groups-category-page-v3.html">Corporates &amp; Groups</a>
+            <div class="wire-subnav">
+              <a href="school-groups-page.html">School Groups</a>
+              <a href="corporate-groups-page.html">Corporate Groups</a>
+            </div>
+          </div>
+          <a class="wire-pill" href="../membership-wireframes/membership-page-v3.html">Membership</a>
+          <a class="wire-pill" href="../../pages/plan-your-visit/index.html">Your Visit</a>
+          <a class="wire-pill" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
         </nav>
 
         <section class="hero">
@@ -227,19 +263,25 @@
           </div>
         </section>
 
-        <section class="section" id="inquiry">
-          <div class="section-head">
-            <div><p class="wire-label">Request form</p><h2>School group inquiry.</h2></div>
-            <p>The page should not force instant checkout. Schools usually need a request flow with confirmation.</p>
-          </div>
-          <div class="inquiry-panel">
-            <h3>Request a school visit</h3>
-            <div class="form-grid">
-              <span>School name</span><span>Contact person</span><span>Email</span><span>Phone</span><span>Preferred date</span><span>Group size</span><span>Age / grade</span><span>Preferred package</span><span class="wide">Notes, accessibility, supervision or food requirements</span>
-            </div>
-            <a class="wire-button" href="#request">Send request</a>
-          </div>
-        </section>
+<section class="section" id="inquiry"><div class="section-head"><div><p class="wire-label">Plan your visit</p><h2>Bring your class to Cyberfun.</h2></div><p>Share your group size, preferred date and activities. We will help you find the right school visit.</p></div><form class="group-inquiry">
+<h3>Request a school visit</h3>
+<div class="inquiry-fields">
+
+<label>School name *<input name="organisation" autocomplete="organization" required></label>
+<label>Contact person *<input name="contactName" autocomplete="name" required></label>
+<label>Email *<input type="email" name="email" autocomplete="email" required></label>
+<label>Phone<input type="tel" name="phone" autocomplete="tel"></label>
+<label>Number of students *<input type="number" name="guests" min="1" step="1" required></label>
+<label>Teachers / accompanying adults<input type="number" name="adults" min="0" step="1"></label><label>Age range / grade *<input name="ageRange" placeholder="e.g. ages 10-12 / Grade 5" required></label>
+<label>Preferred date *<input type="date" name="date" required></label>
+<label>Preferred arrival time *<input type="time" name="time" min="09:30" max="17:00" required></label>
+<label>Visit duration<select name="duration"><option value="">Please advise me</option><option>1 hour</option><option>2 hours</option><option>3 hours</option><option>Custom duration</option></select></label>
+<label>Preferred school offer<select name="offer"><option value="">Please help me choose</option><option>Jump &amp; Play Visit</option><option>Team Challenge Visit</option><option>Project Day Package</option><option>Custom request</option></select></label>
+<fieldset class="wide"><legend>Activities you are interested in</legend><div class="inquiry-checks"><label class="check"><input type="checkbox" name="activities" value="Trampoline">Trampoline</label><label class="check"><input type="checkbox" name="activities" value="Pixel">Pixel</label><label class="check"><input type="checkbox" name="activities" value="Lasertag">Lasertag</label><label class="check"><input type="checkbox" name="activities" value="Darts">Darts</label><label class="check"><input type="checkbox" name="activities" value="Karaoke">Karaoke</label></div></fieldset>
+<label class="wide">Your plans and special requirements<textarea name="message" placeholder="Tell us about your occasion, food and drink wishes, accessibility needs or flexible dates."></textarea></label>
+<label class="check wide"><input type="checkbox" name="privacy" required><span>I have read the <a href="../../pages/legal/privacy-policy.html">Privacy Policy</a> and agree to be contacted about my request. *</span></label>
+<div class="wide"><button type="submit">Send inquiry</button></div>
+</div><p class="inquiry-status" role="status" tabindex="-1" hidden></p></form></section>
 
         <section class="section">
           <div class="section-head"><div><p class="wire-label">FAQ</p><h2>Questions before planning a school visit.</h2></div></div>
@@ -258,12 +300,13 @@
         </section>
 
         <footer class="site-footer">
-          <div class="footer-block"><p class="wire-label">Opening hours</p><h3>9:30-22:00</h3><p>Family Friendly Daytime until 19:00. Adult Night Sessions from 19:00.</p></div>
+          <div class="footer-block"><p class="wire-label">Opening hours</p><h3>9:30-22:00</h3><p>Family Time until 18:00. Adult Time from 18:00 to 22:00.</p></div>
           <div class="footer-block"><p class="wire-label">Company</p><ul class="footer-links"><li><a href="#about-us">About us</a></li><li><a href="#imprint">Imprint</a></li><li><a href="#legal">Legal stuff</a></li></ul></div>
           <div class="footer-block"><p class="wire-label">Legal links</p><ul class="footer-links"><li><a href="#house-rules">House rules</a></li><li><a href="#terms">Terms & Conditions</a></li><li><a href="#privacy">Privacy Policy</a></li><li><a href="#liability">Individual Liability Declaration</a></li><li><a href="#payment">Payment Informations</a></li><li><a href="#safety">Safety regulations</a></li></ul></div>
         </footer>
       </div>
     </main>
-  <script src="../../navigation-submenus.js?v=20261016-menu-4"></script>
-  </body>
+  <script src="../../navigation-submenus.js?v=20261016-groups-6"></script>
+  <script src="../../group-inquiry.js"></script>
+</body>
 </html>
