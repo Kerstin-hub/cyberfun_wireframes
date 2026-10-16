@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adult Parties Wireframe | Cyberfun</title>
+    <style>
+      :root {
+        --ink: #17202a;
+        --muted: #697684;
+        --line: #c9d2dc;
+        --soft: #eef2f6;
+        --paper: #ffffff;
+        --mark: #d9e0e8;
+        --accent: #6f7d8b;
+        --radius: 8px;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: #f7f9fb;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .wire-page {
+        width: min(1480px, 94vw);
+        margin: 0 auto;
+        padding: 24px 0 56px;
+      }
+
+      .wire-shell {
+        overflow: hidden;
+        border: 2px solid var(--ink);
+        border-radius: var(--radius);
+        background: var(--paper);
+        box-shadow: 0 20px 50px rgba(23, 32, 42, 0.1);
+      }
+
+      .wire-meta {
+        padding: 0.8rem 1.2rem;
+        border-bottom: 1px solid var(--line);
+        background: var(--soft);
+      }
+
+      .utility-bar {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.55rem;
+        min-height: 42px;
+        padding: 0 1.2rem;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .wire-nav {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr) auto auto;
+        gap: 0.65rem;
+        align-items: center;
+        min-height: 72px;
+        padding: 0 1.2rem;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .wire-logo,
+      .wire-button,
+      .wire-pill,
+      .wire-card,
+      .wire-image,
+      .price-column,
+      .package-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+      }
+
+      .wire-logo,
+      .wire-button,
+      .wire-pill,
+      .wire-login,
+      .wire-language,
+      .opening-status {
+        display: grid;
+        place-items: center;
+        min-height: 34px;
+        font-weight: 900;
+      }
+
+      .wire-logo {
+        justify-self: start;
+        min-width: 118px;
+        min-height: 34px;
+        padding: 0 0.7rem;
+      }
+
+      .wire-links {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 0.5rem;
+        min-width: 0;
+      }
+
+      .wire-pill {
+        min-width: 0;
+        padding: 0 0.65rem;
+        color: var(--muted);
+        font-size: 0.78rem;
+        white-space: nowrap;
+      }
+
+      .wire-pill.active,
+      .wire-button {
+        background: var(--ink);
+        color: white;
+      }
+
+      .wire-login,
+      .wire-language {
+        padding: 0 0.7rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+      }
+
+      .wire-language {
+        grid-template-columns: 1fr auto 1fr;
+        gap: 0.35rem;
+        min-width: 74px;
+        padding: 0 0.5rem;
+        color: var(--muted);
+        font-size: 0.76rem;
+      }
+
+      .opening-status {
+        padding: 0 0.7rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        color: var(--muted);
+        font-size: 0.76rem;
+        white-space: nowrap;
+      }
+
+      .wire-language .active { color: var(--ink); }
+
+      .wire-nav-group { position: relative; }
+
+      .wire-subnav {
+        position: absolute;
+        z-index: 5;
+        top: calc(100% + 0.45rem);
+        left: 0;
+        display: none;
+        min-width: 190px;
+        padding: 0.55rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        box-shadow: 0 10px 24px rgba(23, 32, 42, 0.1);
+      }
+
+      .wire-nav-group:hover .wire-subnav,
+      .wire-nav-group:focus-within .wire-subnav {
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .wire-subnav a {
+        min-height: 30px;
+        padding: 0.35rem 0.5rem;
+        border-radius: 6px;
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 800;
+      }
+
+      .wire-menu-check,
+      .wire-burger,
+      .wire-mobile-menu {
+        display: none;
+      }
+
+      .wire-mobile-menu .wire-nav-group {
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .wire-mobile-menu .wire-subnav {
+        position: static;
+        display: grid;
+        min-width: 0;
+        box-shadow: none;
+      }
+
+      .wire-burger {
+        place-items: center;
+        width: 44px;
+        aspect-ratio: 1;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+        cursor: pointer;
+      }
+
+      .wire-burger span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        margin: 3px 0;
+        background: var(--ink);
+      }
+
+      .wire-label {
+        margin: 0 0 0.65rem;
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      h1, h2, h3, p { margin-top: 0; }
+
+      h1 {
+        max-width: 920px;
+        margin-bottom: 0.8rem;
+        font-size: clamp(3.4rem, 8vw, 6.8rem);
+        line-height: 0.88;
+      }
+
+      h2 {
+        margin-bottom: 0.75rem;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        line-height: 0.96;
+      }
+
+      h3 { margin-bottom: 0.35rem; }
+
+      p {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .hero,
+      .section {
+        display: grid;
+        gap: 1rem;
+        padding: 1.4rem 2rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .wire-image {
+        display: grid;
+        place-items: center;
+        min-height: 420px;
+        background: #dce8f3;
+        color: var(--muted);
+        font-weight: 900;
+      }
+
+      .hero-copy {
+        display: grid;
+        align-content: start;
+        max-width: 900px;
+      }
+
+      .hero-copy p {
+        max-width: 760px;
+        color: var(--ink);
+        font-size: 1.05rem;
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        align-items: start;
+      }
+
+      .section-head p {
+        max-width: 760px;
+        margin-bottom: 0;
+        text-align: left;
+      }
+
+      .price-columns {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        align-items: stretch;
+      }
+
+      .price-column {
+        position: relative;
+        display: grid;
+        gap: 0.75rem;
+        align-content: start;
+        min-height: 520px;
+        padding: 1rem;
+        background: var(--paper);
+      }
+
+      .price-column.featured {
+        border: 2px solid var(--ink);
+      }
+
+      .badge {
+        display: inline-grid;
+        place-items: center;
+        width: fit-content;
+        min-height: 28px;
+        padding: 0 0.65rem;
+        border-radius: 999px;
+        background: var(--ink);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .price {
+        display: grid;
+        gap: 0.1rem;
+        padding: 0.75rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+      }
+
+      .price strong {
+        font-size: 1.65rem;
+      }
+
+      .feature-list {
+        display: grid;
+        gap: 0.5rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .feature-list li {
+        display: grid;
+        grid-template-columns: 20px 1fr;
+        gap: 0.45rem;
+        color: var(--ink);
+        line-height: 1.4;
+      }
+
+      .feature-list li::before {
+        content: "";
+        width: 12px;
+        height: 12px;
+        margin-top: 0.25rem;
+        border-radius: 999px;
+        background: var(--ink);
+      }
+
+      .duration-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.45rem;
+      }
+
+      .duration-row span {
+        display: grid;
+        place-items: center;
+        min-height: 44px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+        font-weight: 900;
+      }
+
+      .column-actions {
+        display: grid;
+        gap: 0.5rem;
+        margin-top: auto;
+      }
+
+      .column-actions a {
+        display: grid;
+        place-items: center;
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--ink);
+        color: white;
+        font-weight: 900;
+      }
+
+      .column-actions .secondary {
+        background: var(--paper);
+        color: var(--ink);
+      }
+
+      .package-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .package-card {
+        display: grid;
+        gap: 0.65rem;
+        min-height: 240px;
+        padding: 1rem;
+        background: var(--soft);
+      }
+
+      .package-card .wire-image {
+        min-height: 120px;
+      }
+
+      .package-card strong {
+        margin-top: auto;
+        font-size: 1.15rem;
+      }
+
+      .quick-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .quick-tabs a {
+        display: grid;
+        place-items: center;
+        min-height: 36px;
+        padding: 0 0.75rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+        color: var(--muted);
+        font-weight: 900;
+      }
+
+      .quick-tabs .active {
+        background: var(--ink);
+        color: white;
+      }
+
+      .party-group {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .party-type-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .party-type-card {
+        display: grid;
+        gap: 0.6rem;
+        padding: 1rem;
+      }
+
+      .party-type-card p {
+        margin-bottom: 0;
+      }
+
+      .party-group + .party-group {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .party-group-head {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        align-items: start;
+      }
+
+      .party-group-head p {
+        max-width: 760px;
+        margin-bottom: 0;
+        text-align: left;
+      }
+
+      .party-group-head h3 {
+        max-width: 760px;
+        margin-bottom: 0.25rem;
+        font-size: clamp(1.45rem, 2.4vw, 2.1rem);
+        line-height: 1.05;
+      }
+
+      .faq-grid {
+        display: grid;
+        gap: 0.55rem;
+      }
+
+      .faq-item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        align-items: center;
+        min-height: 58px;
+        padding: 1rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        font-weight: 900;
+      }
+
+      .faq-item::after {
+        content: "+";
+        font-size: 1.4rem;
+        font-weight: 900;
+      }
+
+      .bottom-cta {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 1rem;
+        align-items: center;
+        margin: 1.4rem 2rem 2rem;
+        padding: 1.2rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--ink);
+        color: white;
+      }
+
+      .bottom-cta p {
+        margin-bottom: 0;
+        color: #d7dee6;
+      }
+
+      .site-footer {
+        display: grid;
+        grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1fr) minmax(0, 1.4fr);
+        gap: 1.25rem;
+        padding: 1.5rem;
+        border-top: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .footer-block {
+        display: grid;
+        gap: 0.45rem;
+        align-content: start;
+      }
+
+      .footer-block h3,
+      .footer-block p {
+        margin: 0;
+      }
+
+      .footer-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem 0.85rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .footer-links a {
+        color: var(--muted);
+        font-weight: 800;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      @media (max-width: 1080px) {
+        .section-head,
+        .party-group-head,
+        .bottom-cta {
+          grid-template-columns: 1fr;
+        }
+
+        .wire-nav {
+          grid-template-columns: minmax(80px, 1fr) auto auto;
+          gap: 0.6rem;
+        }
+
+        .wire-links {
+          display: none;
+        }
+
+        .wire-burger {
+          display: grid;
+          width: 38px;
+        }
+
+        .wire-mobile-menu {
+          gap: 0.5rem;
+          padding: 0.8rem 1.2rem 1rem;
+          border-bottom: 1px solid var(--line);
+          background: var(--paper);
+        }
+
+        .wire-menu-check:checked + .utility-bar + .wire-nav + .wire-mobile-menu {
+          display: grid;
+        }
+
+        .price-columns,
+        .party-type-grid,
+        .package-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 680px) {
+        .wire-page {
+          width: 100%;
+          padding: 0;
+        }
+
+        .wire-shell {
+          border-right: 0;
+          border-left: 0;
+          border-radius: 0;
+        }
+
+        .wire-logo {
+          min-width: 86px;
+          font-size: 0.9rem;
+        }
+
+        .wire-button,
+        .wire-login {
+          padding: 0 0.55rem;
+          font-size: 0.78rem;
+        }
+
+        .wire-language {
+          padding: 0 0.45rem;
+          font-size: 0.72rem;
+        }
+
+        .utility-bar {
+          justify-content: flex-end;
+          gap: 0.4rem;
+          min-height: 38px;
+          padding: 0 0.75rem;
+        }
+
+        .opening-status {
+          padding: 0 0.45rem;
+          font-size: 0.72rem;
+        }
+
+        .hero,
+        .section {
+          padding: 1.2rem;
+        }
+
+        .wire-image {
+          min-height: 280px;
+        }
+
+        .price-columns,
+        .party-type-grid,
+        .site-footer,
+        .footer-links {
+          grid-template-columns: 1fr;
+        }
+
+        .package-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 0.75rem;
+        }
+
+        .package-card {
+          gap: 0.5rem;
+          padding: 0.65rem;
+          min-height: 0;
+        }
+
+        .package-card .wire-image {
+          min-height: 110px;
+        }
+
+        .package-card h3 {
+          font-size: 1rem;
+        }
+
+        .package-card p {
+          font-size: 0.82rem;
+          line-height: 1.35;
+        }
+
+        .bottom-cta {
+          margin: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wire-page">
+      <div class="wire-shell">
+        <div class="wire-meta">
+          <p class="wire-label">Adult parties detail page wireframe</p>
+        </div>
+        <input class="wire-menu-check" type="checkbox" id="wire-menu" aria-label="Toggle mobile navigation" />
+        <div class="utility-bar">
+          <span class="opening-status">Today: 9:30 - 22:00</span>
+          <a class="wire-language" href="#language" aria-label="Switch language from Hungarian to English"><span>HU</span><span>/</span><span class="active">EN</span></a>
+          <a class="wire-login" href="../account-wireframes/login-page-v3.html">Login</a>
+        </div>
+        <header class="wire-nav">
+          <a class="wire-logo" href="../homepage-wireframes/homepage-unified-booking-v3.html">Cyberfun</a>
+          <nav class="wire-links" aria-label="Parties and events navigation">
+            <div class="wire-nav-group">
+              <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions</a>
+              <div class="wire-subnav">
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">MiniGolf</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">ValoFloor</a>
+                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">VR & Arcade</a>
+              </div>
+            </div>
+            <div class="wire-nav-group">
+              <a class="wire-pill" href="parties-packages-category-page-v3.html">Tickets & Packages</a>
+              <div class="wire-subnav">
+                <a href="parties-packages-category-page-v3.html">Tickets</a>
+                <a href="parties-packages-category-page-v3.html#packages">Packages</a>
+              </div>
+            </div>
+            <div class="wire-nav-group">
+              <a class="wire-pill active" href="parties-packages-category-page-v3.html">Parties & Events</a>
+              <div class="wire-subnav">
+                <a href="birthday-parties-page.html">Birthday</a>
+                <a href="adult-parties-page-v2-concept.html">Adult Parties</a>
+                <a href="../event-schedule-wireframes/event-schedule-page.html">Event Schedule</a>
+              </div>
+            </div>
+            <div class="wire-nav-group">
+              <a class="wire-pill" href="../../pages/groups-events/index.html">Groups</a>
+              <div class="wire-subnav">
+                <a href="../group-wireframes/school-groups-page.html">School Groups</a>
+                <a href="../group-wireframes/corporate-groups-page.html">Corporate Groups</a>
+              </div>
+            </div>
+            <a class="wire-pill" href="../../pages/plan-your-visit/index.html">Your Visit</a>
+            <a class="wire-pill" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
+          </nav>
+          <a class="wire-button" href="parties-packages-category-page-v3.html">Book now</a>
+          <label class="wire-burger" for="wire-menu" aria-label="Open mobile navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+        </header>
+        <nav class="wire-mobile-menu" aria-label="Mobile adult parties navigation">
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions</a>
+            <div class="wire-subnav">
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">MiniGolf</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">ValoFloor</a>
+              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">VR & Arcade</a>
+            </div>
+          </div>
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="parties-packages-category-page-v3.html">Tickets & Packages</a>
+            <div class="wire-subnav">
+              <a href="parties-packages-category-page-v3.html">Tickets</a>
+              <a href="parties-packages-category-page-v3.html#packages">Packages</a>
+            </div>
+          </div>
+          <div class="wire-nav-group">
+            <a class="wire-pill active" href="parties-packages-category-page-v3.html">Parties & Events</a>
+            <div class="wire-subnav">
+              <a href="birthday-parties-page.html">Birthday</a>
+              <a href="adult-parties-page-v2-concept.html">Adult Parties</a>
+              <a href="../event-schedule-wireframes/event-schedule-page.html">Event Schedule</a>
+            </div>
+          </div>
+          <a class="wire-pill" href="../../pages/groups-events/index.html">Groups</a>
+          <a class="wire-pill" href="../../pages/plan-your-visit/index.html">Your Visit</a>
+          <a class="wire-pill" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
+        </nav>
+
+        <section class="hero">
+          <div class="wire-image">Adult parties hero image / video</div>
+          <div class="hero-copy">
+            <p class="wire-label">Adult Parties</p>
+            <h1>Evening games for friends, teams and celebrations.</h1>
+            <p>Adult Time starts from 19:00H for guests 16+ who want games, challenges and social entertainment in one evening.</p>
+            <div class="quick-tabs">
+              <a class="active" href="#packages">Packages</a>
+              <a href="#occasions">Occasions</a>
+              <a href="#how-it-works">How it works</a>
+              <a href="parties-packages-category-page-v3.html">Book now</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="occasions">
+          <div class="section-head">
+            <div>
+              <p class="wire-label">Occasions</p>
+              <h2>Built for nights that need more than a table reservation.</h2>
+            </div>
+            <p>Use the page to route adults into the right evening occasion before they choose a Night package and prebook sessions.</p>
+          </div>
+          <div class="package-grid">
+            <article class="package-card">
+              <div class="wire-image">Adult birthday image</div>
+              <p class="wire-label">Adult birthdays</p>
+              <h3>Birthday without the sit-down dinner routine</h3>
+              <p>Mix games, challenges and social attractions into one evening plan.</p>
+              <a class="wire-button" href="../booking-wireframes/night-session-multi-attraction-booking-16plus-v2-concept.html">Plan this party</a>
+            </article>
+            <article class="package-card">
+              <div class="wire-image">After work image</div>
+              <p class="wire-label">After work</p>
+              <h3>Easy group fun after office hours</h3>
+              <p>A casual, bookable route for colleagues and friends who want to do something active together.</p>
+              <a class="wire-button" href="../booking-wireframes/night-session-multi-attraction-booking-16plus-v2-concept.html">Plan this party</a>
+            </article>
+            <article class="package-card">
+              <div class="wire-image">Stag and hen image</div>
+              <p class="wire-label">Bachelor & bachelorette</p>
+              <h3>A playful start to the night</h3>
+              <p>Competitive sessions give bachelor and bachelorette groups an easy shared activity.</p>
+              <a class="wire-button" href="../booking-wireframes/night-session-multi-attraction-booking-16plus-v2-concept.html">Plan this party</a>
+            </article>
+            <article class="package-card">
+              <div class="wire-image">Private party image</div>
+              <p class="wire-label">Private parties</p>
+              <h3>One plan, several games</h3>
+              <p>The booking flow keeps the group, Tokens and up to five attraction sessions together.</p>
+              <a class="wire-button" href="../booking-wireframes/night-session-multi-attraction-booking-16plus-v2-concept.html">Plan this party</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="packages">
+          <div class="section-head">
+            <div>
+              <p class="wire-label">Adult Night Packages</p>
+              <h2>Choose the Token package that fits the night.</h2>
+            </div>
+            <p>Each guest selects an Adult Night package. Tokens can be used to prebook up to five attraction sessions in the Night Session flow.</p>
+          </div>
+            <div class="price-columns">
+              <article class="price-column">
+                <span class="badge">Starter</span>
+                <h3>Adult night basic</h3>
+                <p>For a shorter visit or groups who want a light evening with a few games.</p>
+                <div class="duration-row"><span>16+</span><span>5 Tokens</span><span>19:00H</span></div>
+                <div class="price"><span>From</span><strong>4.800 Ft</strong><small>per person</small></div>
+                <ul class="feature-list">
+                  <li>Adult Time access from 19:00H</li>
+                  <li>5 Tokens included</li>
+                  <li>Good for MiniGolf, VR or shorter game moments</li>
+                  <li>Extra Tokens can be added if needed</li>
+                </ul>
+                <div class="column-actions">
+                  <a href="adult-parties-page-v2-concept.html">Book adult party</a>
+                </div>
+              </article>
+              <article class="price-column featured">
+                <span class="badge">Bestseller</span>
+                <h3>Adult night fun</h3>
+                <p>For groups who want a balanced evening with several competitive attractions.</p>
+                <div class="duration-row"><span>16+</span><span>10 Tokens</span><span>Up to 5 sessions</span></div>
+                <div class="price"><span>From</span><strong>6.800 Ft</strong><small>per person</small></div>
+                <ul class="feature-list">
+                  <li>10 Tokens included</li>
+                  <li>Prebook up to 5 attraction sessions</li>
+                  <li>Good for Lasertag, Pixel, Darts and VR mixes</li>
+                  <li>Best for adult birthdays and after-work groups</li>
+                </ul>
+                <div class="column-actions">
+                  <a href="adult-parties-page-v2-concept.html">Book adult party</a>
+                </div>
+              </article>
+              <article class="price-column">
+                <span class="badge">Maximum play</span>
+                <h3>Adult night mega fun</h3>
+                <p>For groups who want more Tokens and a fuller attraction mix in one night.</p>
+                <div class="duration-row"><span>16+</span><span>15 Tokens</span><span>Up to 5 sessions</span></div>
+                <div class="price"><span>From</span><strong>8.800 Ft</strong><small>per person</small></div>
+                <ul class="feature-list">
+                  <li>15 Tokens included</li>
+                  <li>Prebook up to 5 attraction sessions</li>
+                  <li>Best for bachelor, bachelorette and private parties</li>
+                  <li>Extra Tokens can cover larger session mixes</li>
+                </ul>
+                <div class="column-actions">
+                  <a href="parties-packages-category-page-v3.html">Book now</a>
+                </div>
+              </article>
+            </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <p class="wire-label">For companies</p>
+              <h2>Planning a team or corporate event?</h2>
+            </div>
+            <p>Company events can also start from 19:00H, but larger groups should use the Corporate Groups request flow for coordination, food options and custom planning.</p>
+          </div>
+          <div class="package-grid">
+            <article class="package-card">
+              <div class="wire-image">Corporate event image</div>
+              <p class="wire-label">Corporate Groups</p>
+              <h3>Custom evening for teams</h3>
+              <p>For departments, team building, client events and larger groups that need a planned format.</p>
+              <a class="wire-button" href="../group-wireframes/corporate-groups-page.html">Request corporate event</a>
+            </article>
+            <article class="package-card">
+              <div class="wire-image">Night Session image</div>
+              <p class="wire-label">Self-booking</p>
+              <h3>Book a smaller group directly</h3>
+              <p>For friends and smaller adult groups who can choose package, Tokens and sessions themselves.</p>
+              <a class="wire-button" href="../booking-wireframes/night-session-multi-attraction-booking-16plus-v2-concept.html">Book Night Session</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="how-it-works">
+          <div class="section-head">
+            <div>
+              <p class="wire-label">How it works</p>
+              <h2>Select guests, Tokens and up to five attraction sessions.</h2>
+            </div>
+            <p>The booking flow keeps Adult Night package, participants, included Tokens, missing Tokens and session times together before registration and payment.</p>
+          </div>
+          <div class="package-grid">
+            <article class="package-card">
+              <p class="wire-label">Step 1</p>
+              <h3>Choose Adult Night package</h3>
+              <p>Guests select Basic, Fun or Mega Fun, each with a fixed Token amount included.</p>
+            </article>
+            <article class="package-card">
+              <p class="wire-label">Step 2</p>
+              <h3>Pick up to five sessions</h3>
+              <p>Karaoke, Lasertag, Pixel, Darts, VR, MiniGolf and ValoFloor can be combined after 19:00H.</p>
+            </article>
+            <article class="package-card">
+              <p class="wire-label">Step 3</p>
+              <h3>See Token balance</h3>
+              <p>The summary shows included Tokens, required Tokens and any missing extra Tokens.</p>
+            </article>
+            <article class="package-card">
+              <p class="wire-label">Step 4</p>
+              <h3>Register and pay</h3>
+              <p>The booking is completed through the separate registration and payment screens.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <p class="wire-label">FAQ</p>
+              <h2>Adult party questions.</h2>
+            </div>
+          </div>
+          <div class="faq-grid">
+            <article class="faq-item"><span>When can Adult Parties be booked?</span></article>
+            <article class="faq-item"><span>How many attractions can we prebook?</span></article>
+            <article class="faq-item"><span>How do Tokens work for a group?</span></article>
+            <article class="faq-item"><span>Can we book for a bachelor or bachelorette party?</span></article>
+            <article class="faq-item"><span>Should companies book directly or request a custom event?</span></article>
+          </div>
+        </section>
+
+        <section class="bottom-cta">
+          <div>
+            <p class="wire-label">Ready to celebrate?</p>
+            <h2>Build your evening with up to five attraction sessions.</h2>
+            <p>The next step keeps package, participants, Tokens and session times in one selection flow.</p>
+          </div>
+          <a class="wire-button" href="parties-packages-category-page-v3.html">Book now</a>
+        </section>
+
+        <footer class="site-footer" aria-label="Footer">
+          <div class="footer-block">
+            <p class="wire-label">Opening hours</p>
+            <h3>9:30-22:00</h3>
+            <p>Family Friendly Daytime until 19:00. Adult Night Sessions from 19:00.</p>
+          </div>
+          <div class="footer-block">
+            <p class="wire-label">Company</p>
+            <ul class="footer-links">
+              <li><a href="#about-us">About us</a></li>
+              <li><a href="#imprint">Imprint</a></li>
+              <li><a href="#legal">Legal stuff</a></li>
+            </ul>
+          </div>
+          <div class="footer-block">
+            <p class="wire-label">Legal links</p>
+            <ul class="footer-links">
+              <li><a href="#house-rules">House rules</a></li>
+              <li><a href="#terms">Terms & Conditions</a></li>
+              <li><a href="#privacy">Privacy Policy</a></li>
+              <li><a href="#liability">Individual Liability Declaration</a></li>
+              <li><a href="#payment">Payment Informations</a></li>
+              <li><a href="#safety">Safety regulations</a></li>
+            </ul>
+          </div>
+        </footer>
+      </div>
+    </main>
+  <script src="../../navigation-submenus.js"></script>
+  </body>
+</html>
