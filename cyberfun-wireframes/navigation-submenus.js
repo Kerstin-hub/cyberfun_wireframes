@@ -33,6 +33,7 @@
     nav:not(.cf-submenu){overflow:visible}
     .wire-mobile-menu,.mobile-menu,.mobile-nav{position:relative;z-index:101}
     @media(max-width:900px){.cf-booking-first-mobile{position:static!important;order:0!important;width:100%!important;min-width:0!important;max-width:none!important;box-sizing:border-box}}
+    @media(max-width:900px){.cf-hero-media-mobile:not(.media-hero){width:100%!important;max-width:none!important;min-height:0!important;height:auto!important;aspect-ratio:16/9;box-sizing:border-box;border-radius:0;display:grid;place-items:center;background:#dce8f3;color:#687789;font-weight:800}.cf-hero-media-mobile:empty::after{content:"Hero Image/Video"}}
   `;
   document.head.append(style);
   document.querySelectorAll('nav').forEach(nav => {
@@ -90,16 +91,30 @@
   if (booking && header && !booking.contains(header)) {
     const originalPosition = document.createComment('Booking desktop position');
     booking.before(originalPosition);
+    const heroMedia = document.querySelector('.media-hero,.detail-hero > .wire-image,.hero > .wire-image,.category-hero > .wire-image,.selection-copy > .selection-image');
+    const heroPosition = document.createComment('Hero media desktop position');
+    if (heroMedia) heroMedia.before(heroPosition);
     const mobileNavigation = [...header.parentElement.children].find(el =>
       el.matches('nav.wire-mobile-menu,nav.mobile-menu,nav.mobile-nav'));
     const mobileLayout = window.matchMedia('(max-width: 900px)');
     const placeBooking = () => {
       if (mobileLayout.matches) {
-        (mobileNavigation || header).after(booking);
+        const anchor = mobileNavigation || header;
+        if (heroMedia) {
+          anchor.after(heroMedia);
+          heroMedia.classList.add('cf-hero-media-mobile');
+          heroMedia.after(booking);
+        } else {
+          anchor.after(booking);
+        }
         booking.classList.add('cf-booking-first-mobile');
       } else {
         originalPosition.after(booking);
         booking.classList.remove('cf-booking-first-mobile');
+        if (heroMedia) {
+          heroPosition.after(heroMedia);
+          heroMedia.classList.remove('cf-hero-media-mobile');
+        }
       }
     };
     mobileLayout.addEventListener('change', placeBooking);
