@@ -34,6 +34,20 @@
     .wire-mobile-menu,.mobile-menu,.mobile-nav{position:relative;z-index:101}
     @media(max-width:900px){.cf-booking-first-mobile{position:static!important;order:0!important;width:100%!important;min-width:0!important;max-width:none!important;box-sizing:border-box}}
     @media(max-width:900px){.cf-hero-media-mobile:not(.media-hero){width:100%!important;max-width:none!important;min-height:0!important;height:auto!important;aspect-ratio:16/9;box-sizing:border-box;border-radius:0;display:grid;place-items:center;background:#dce8f3;color:#687789;font-weight:800}.cf-hero-media-mobile:empty::after{content:"Hero Image/Video"}}
+    .cf-ticket-link,.cf-ticket-dock{display:none}
+    @media(max-width:900px){
+      body.cf-mobile-ticket-flow{padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+      .cf-mobile-intro{display:block!important;width:100%;padding:24px 18px!important;margin:0!important;box-sizing:border-box;border-bottom:1px solid #c8d4e0}
+      .cf-mobile-intro h1{font-size:32px!important;line-height:1.15!important;margin:0 0 16px!important}
+      .cf-mobile-intro p{font-size:16px!important;line-height:1.55!important}
+      .cf-mobile-intro .quick-tabs,.cf-mobile-intro .wire-hero-actions,.cf-mobile-intro .actions{display:none!important}
+      .cf-ticket-link,.cf-ticket-dock a{display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;box-sizing:border-box;border:0;border-radius:6px;background:#1684d8;color:white;font:inherit;font-weight:800;text-decoration:none}
+      .cf-ticket-link{width:100%;margin-top:18px}
+      .cf-ticket-dock{display:block;position:fixed;bottom:0;left:0;right:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid #c8d4e0;z-index:200}
+      .cf-mobile-empty-hero{display:none!important}
+      .cf-booking-first-mobile{scroll-margin-top:16px}
+    }
+    @media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
   `;
   document.head.append(style);
   document.querySelectorAll('nav').forEach(nav => {
@@ -91,9 +105,30 @@
   if (booking && header && !booking.contains(header)) {
     const originalPosition = document.createComment('Booking desktop position');
     booking.before(originalPosition);
+    const contentLayout = booking.parentElement;
     const heroMedia = document.querySelector('.media-hero,.detail-hero > .wire-image,.hero > .wire-image,.category-hero > .wire-image,.selection-copy > .selection-image');
     const heroPosition = document.createComment('Hero media desktop position');
     if (heroMedia) heroMedia.before(heroPosition);
+    const heading = document.querySelector('h1');
+    const intro = heading?.closest('.detail-hero,.hero-copy,.page-intro,.intro');
+    const introPosition = document.createComment('Title desktop position');
+    if (intro) intro.before(introPosition);
+    const heroContainer = heroMedia?.parentElement;
+    if (!booking.id) booking.id = 'booking';
+    const ticketLink = document.createElement('a');
+    ticketLink.className = 'cf-ticket-link';
+    ticketLink.href = '#' + booking.id;
+    ticketLink.textContent = booking.id === 'membership-checkout' ? 'Membership' : 'Tickets';
+    const dock = document.createElement('div');
+    dock.className = 'cf-ticket-dock';
+    const dockLink = ticketLink.cloneNode(true);
+    dockLink.className = '';
+    dock.append(dockLink);
+    document.body.append(dock);
+    [ticketLink,dockLink].forEach(link => link.addEventListener('click', event => {
+      event.preventDefault();
+      booking.scrollIntoView({block:'start',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+    }));
     const mobileNavigation = [...header.parentElement.children].find(el =>
       el.matches('nav.wire-mobile-menu,nav.mobile-menu,nav.mobile-nav'));
     const mobileLayout = window.matchMedia('(max-width: 900px)');
@@ -103,14 +138,26 @@
         if (heroMedia) {
           anchor.after(heroMedia);
           heroMedia.classList.add('cf-hero-media-mobile');
-          heroMedia.after(booking);
-        } else {
-          anchor.after(booking);
         }
+        if (intro) {
+          (heroMedia || anchor).after(intro);
+          intro.classList.add('cf-mobile-intro');
+          intro.append(ticketLink);
+        }
+        contentLayout.after(booking);
+        if (heroContainer?.matches('.hero,.category-hero') && !heroContainer.textContent.trim()) heroContainer.classList.add('cf-mobile-empty-hero');
+        document.body.classList.add('cf-mobile-ticket-flow');
         booking.classList.add('cf-booking-first-mobile');
       } else {
         originalPosition.after(booking);
         booking.classList.remove('cf-booking-first-mobile');
+        document.body.classList.remove('cf-mobile-ticket-flow');
+        if (intro) {
+          introPosition.after(intro);
+          intro.classList.remove('cf-mobile-intro');
+          ticketLink.remove();
+        }
+        heroContainer?.classList.remove('cf-mobile-empty-hero');
         if (heroMedia) {
           heroPosition.after(heroMedia);
           heroMedia.classList.remove('cf-hero-media-mobile');
