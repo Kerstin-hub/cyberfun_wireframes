@@ -208,7 +208,9 @@
     modeButtons.forEach((button,index) => {
       button.innerHTML = birthday
         ? (button.dataset.mode === 'family' ? 'Kids Party<br>9:30-19:00' : 'Adult Party<br>17:00-22:00')
-        : modeLabels[index];
+        : currentCategory === 'ticket'
+          ? (button.dataset.mode === 'family' ? 'Family Time<br>(Kids until 15)' : 'Adult Time<br>(from 16 onwards)')
+          : modeLabels[index];
     });
     field.hidden = !birthday;
     field.style.display = birthday ? '' : 'none';
