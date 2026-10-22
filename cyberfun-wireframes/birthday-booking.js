@@ -10,6 +10,17 @@
     form.querySelector('[data-category="birthday"]').click();
   }
   const product = form.querySelector('#product');
+  const packageIncludes = document.createElement('div');
+  packageIncludes.className = 'birthday-package-includes';
+  packageIncludes.setAttribute('aria-label','Included in your package');
+  const includesTitle = document.createElement('span');
+  includesTitle.className = 'field-label'; includesTitle.textContent = 'Included';
+  const includesList = document.createElement('ul');
+  ['1 hour jumping','1 hour at the party table','Cake / Shot','Drink','Socks'].forEach(text=>{
+    const item=document.createElement('li'); item.textContent=text; includesList.append(item);
+  });
+  packageIncludes.append(includesTitle,includesList);
+  product.after(packageIncludes);
   const guests = form.querySelector('#guests');
   const calendar = form.querySelector('.calendar-grid');
   const dateField = calendar.closest('.field');
@@ -58,6 +69,9 @@
   form.querySelector('.summary-row.total').before(foodRow);
   const style = document.createElement('style');
   style.textContent = `.birthday-flow #birthday-duration-field{display:none!important}
+    .birthday-package-includes{margin-top:8px;padding:12px 0;border-bottom:1px solid var(--line)}
+    .birthday-package-includes .field-label{color:var(--muted);font-size:.75rem;font-weight:900;text-transform:uppercase}
+    .birthday-package-includes ul{display:grid;gap:6px;margin:10px 0 0;padding-left:18px;color:var(--ink);font-size:14px;line-height:1.45}
     .birthday-flow #package-primary-fields>.field:nth-child(2){display:none!important}
     .birthday-food-section{margin-top:18px}
     .birthday-food-section>.field-label{color:var(--muted);font-size:.75rem;font-weight:900;text-transform:uppercase}
@@ -77,6 +91,7 @@
   const originalSummary = updateSummary;
   updateSummary = function () {
     originalSummary();
+    packageIncludes.hidden = currentCategory !== 'birthday';
     foodRow.classList.add('hidden');
     if (currentCategory !== 'birthday') return;
     const row = form.querySelector('#summary-attractions-row');
@@ -106,6 +121,7 @@
   };
   const sync = () => {
     const birthday = currentCategory === 'birthday';
+    packageIncludes.hidden = !birthday;
     form.classList.toggle('birthday-flow',birthday);
     modeButtons.forEach((button,index) => {
       button.innerHTML = birthday
