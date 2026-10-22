@@ -1,6 +1,14 @@
 (() => {
   const form = document.querySelector('form.checkout');
   if (!form || !form.querySelector('[data-category="birthday"]')) return;
+  form.querySelectorAll('[data-category="package"],[data-category="attraction"]').forEach(button => {
+    button.hidden = true;
+    button.style.display = 'none';
+  });
+  form.querySelector('.category-tabs').style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+  if (!['birthday','ticket'].includes(currentCategory)) {
+    form.querySelector('[data-category="birthday"]').click();
+  }
   const product = form.querySelector('#product');
   const guests = form.querySelector('#guests');
   const calendar = form.querySelector('.calendar-grid');
@@ -11,6 +19,8 @@
   const visitModeFields = form.querySelector('#package-primary-fields');
   const partySlots = form.querySelector('#party-slots');
   const familyPartySlots = partySlots.innerHTML;
+  const modeButtons = [...form.querySelectorAll('[data-mode]')];
+  const modeLabels = modeButtons.map(button => button.innerHTML);
   const originalLabels = [productLabel.textContent, guestsLabel.textContent, dateLabel.textContent];
   const field = document.createElement('div');
   field.className = 'field';
@@ -85,7 +95,9 @@
   };
   const syncBirthdayTimes = () => {
     if (currentCategory !== 'birthday') return;
-    partySlots.innerHTML = currentMode === 'adult' ? form.querySelector('#package-slots').innerHTML : familyPartySlots;
+    partySlots.innerHTML = currentMode === 'adult'
+      ? ['17:00','18:00','19:00','20:00','21:00'].map((time,index)=>`<button type="button" class="time-slot ${index===1?'limited':''}" data-time="${time}">${time}</button>`).join('')
+      : familyPartySlots;
     const first = partySlots.querySelector('.time-slot:not(:disabled)');
     partySlots.querySelectorAll('.time-slot').forEach(button=>button.classList.toggle('selected',button===first));
     if(first) currentTime=first.dataset.time;
@@ -95,6 +107,11 @@
   const sync = () => {
     const birthday = currentCategory === 'birthday';
     form.classList.toggle('birthday-flow',birthday);
+    modeButtons.forEach((button,index) => {
+      button.innerHTML = birthday
+        ? (button.dataset.mode === 'family' ? 'Kids Party<br>9:30-19:00' : 'Adult Party<br>17:00-22:00')
+        : modeLabels[index];
+    });
     field.hidden = !birthday;
     field.style.display = birthday ? '' : 'none';
     productLabel.textContent = birthday ? 'Choose package' : originalLabels[0];
