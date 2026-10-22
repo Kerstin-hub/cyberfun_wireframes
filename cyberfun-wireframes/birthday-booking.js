@@ -50,16 +50,26 @@
   const foodLegend = document.createElement('span');
   foodLegend.className = 'field-label';
   foodLegend.id = 'birthday-food-label';
-  foodLegend.textContent = 'Additional Food Options';
+  foodLegend.textContent = 'Additional Food & Extras';
   foodField.setAttribute('aria-labelledby',foodLegend.id);
   foodSection.append(foodLegend,foodField);
+  const cakeSection = document.createElement('div');
+  cakeSection.className = 'field birthday-food-section';
+  const cakeTitle = document.createElement('span');
+  cakeTitle.className = 'field-label'; cakeTitle.id = 'birthday-cake-label';
+  cakeTitle.textContent = 'Choose your cake';
+  const cakeField = document.createElement('fieldset');
+  cakeField.className = 'birthday-food-options';
+  cakeField.setAttribute('aria-labelledby',cakeTitle.id);
+  cakeSection.append(cakeTitle,cakeField);
   [
     {name:'Chicken nuggets & Fries',price:'5.000 Ft'},
     {name:'Pizza',price:'5.000 Ft'},
     {name:'Kids Champagne',price:'5.000 Ft per bottle'},
     {name:'Decoration',price:'10.000 Ft'},
-    {name:'Cake "Boy"',price:'Included',cake:true},
-    {name:'Cake "Girl"',price:'Included',cake:true}
+    {name:'Strawberry Cake',price:'Included',cake:true},
+    {name:'Chocolate Cake',price:'Included',cake:true},
+    {name:'Apple Cake',price:'Included',cake:true}
   ].forEach(({name,price:priceText,cake}) => {
     const optionLabel = document.createElement('label');
     const checkbox = document.createElement('input');
@@ -70,15 +80,22 @@
     const price = document.createElement('strong'); price.textContent = priceText;
     offer.append(offerName,price);
     optionLabel.append(checkbox,offer);
-    foodField.append(optionLabel);
+    (cake ? cakeField : foodField).append(optionLabel);
   });
   form.querySelector('#birthday-fields').append(foodSection);
+  packageIncludes.after(cakeSection);
   const foodRow = document.createElement('div');
   foodRow.className = 'summary-row hidden';
   const foodSummaryLabel = document.createElement('span'); foodSummaryLabel.textContent = 'Food options';
   const foodSummary = document.createElement('strong'); foodSummary.id = 'summary-birthday-food';
   foodRow.append(foodSummaryLabel,foodSummary);
   form.querySelector('.summary-row.total').before(foodRow);
+  const cakeRow = document.createElement('div');
+  cakeRow.className = 'summary-row hidden';
+  const cakeSummaryLabel = document.createElement('span'); cakeSummaryLabel.textContent = 'Cake';
+  const cakeSummary = document.createElement('strong'); cakeSummary.id = 'summary-birthday-cake';
+  cakeRow.append(cakeSummaryLabel,cakeSummary);
+  form.querySelector('.summary-row.total').before(cakeRow);
   const style = document.createElement('style');
   style.textContent = `.birthday-flow #birthday-duration-field{display:none!important}
     .birthday-package-includes{margin-top:8px;padding:12px 0;border-bottom:1px solid var(--line)}
@@ -105,7 +122,10 @@
   updateSummary = function () {
     originalSummary();
     packageIncludes.hidden = currentCategory !== 'birthday';
+    cakeSection.hidden = currentCategory !== 'birthday';
+    cakeSection.style.display = currentCategory === 'birthday' ? '' : 'none';
     foodRow.classList.add('hidden');
+    cakeRow.classList.add('hidden');
     if (currentCategory !== 'birthday') return;
     const row = form.querySelector('#summary-attractions-row');
     row.classList.remove('hidden');
@@ -114,6 +134,9 @@
     const selectedFoods = [...foodField.querySelectorAll('input:checked')].map(input=>input.value);
     foodSummary.textContent = selectedFoods.join(', ');
     foodRow.classList.toggle('hidden',selectedFoods.length === 0);
+    const chosenCake = cakeField.querySelector('input:checked');
+    cakeSummary.textContent = chosenCake ? `${chosenCake.value} (Included)` : '';
+    cakeRow.classList.toggle('hidden',!chosenCake);
   };
   const setDurationFromPackage = () => {
     const name = product.selectedOptions[0]?.textContent || '';
@@ -135,6 +158,8 @@
   const sync = () => {
     const birthday = currentCategory === 'birthday';
     packageIncludes.hidden = !birthday;
+    cakeSection.hidden = !birthday;
+    cakeSection.style.display = birthday ? '' : 'none';
     form.classList.toggle('birthday-flow',birthday);
     modeButtons.forEach((button,index) => {
       button.innerHTML = birthday
@@ -158,6 +183,7 @@
   select.addEventListener('change',updateSummary);
   form.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',syncBirthdayTimes));
   foodField.addEventListener('change',updateSummary);
+  cakeField.addEventListener('change',updateSummary);
   calendar.addEventListener('click',event => {
     if(currentCategory !== 'birthday') return;
     const day = event.target.closest('.calendar-day:not(.empty)');
