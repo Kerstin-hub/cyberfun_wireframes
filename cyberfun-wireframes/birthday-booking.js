@@ -8,6 +8,9 @@
   const productLabel = form.querySelector('label[for="product"]');
   const guestsLabel = form.querySelector('label[for="guests"]');
   const dateLabel = dateField.querySelector('.field-label');
+  const visitModeFields = form.querySelector('#package-primary-fields');
+  const partySlots = form.querySelector('#party-slots');
+  const familyPartySlots = partySlots.innerHTML;
   const originalLabels = [productLabel.textContent, guestsLabel.textContent, dateLabel.textContent];
   const field = document.createElement('div');
   field.className = 'field';
@@ -21,9 +24,14 @@
   field.append(label,select); dateField.before(field);
   const foodField = document.createElement('fieldset');
   foodField.className = 'birthday-food-options';
-  const foodLegend = document.createElement('legend');
+  const foodSection = document.createElement('div');
+  foodSection.className = 'field birthday-food-section';
+  const foodLegend = document.createElement('span');
+  foodLegend.className = 'field-label';
+  foodLegend.id = 'birthday-food-label';
   foodLegend.textContent = 'Additional Food Options';
-  foodField.append(foodLegend);
+  foodField.setAttribute('aria-labelledby',foodLegend.id);
+  foodSection.append(foodLegend,foodField);
   ['Chicken nuggets & Fries','Pizza'].forEach(name => {
     const optionLabel = document.createElement('label');
     const checkbox = document.createElement('input');
@@ -31,7 +39,7 @@
     optionLabel.append(checkbox,document.createTextNode(name));
     foodField.append(optionLabel);
   });
-  form.querySelector('#birthday-fields').append(foodField);
+  form.querySelector('#birthday-fields').append(foodSection);
   const foodRow = document.createElement('div');
   foodRow.className = 'summary-row hidden';
   const foodSummaryLabel = document.createElement('span'); foodSummaryLabel.textContent = 'Food options';
@@ -40,9 +48,13 @@
   form.querySelector('.summary-row.total').before(foodRow);
   const style = document.createElement('style');
   style.textContent = `.birthday-flow #birthday-duration-field{display:none!important}
-    .birthday-food-options{display:grid;gap:12px;min-width:0;margin:18px 0;padding:14px;border:1px solid var(--line);border-radius:6px}
-    .birthday-food-options legend{padding:0 5px;color:var(--muted);font-size:12px;font-weight:800}
-    .birthday-food-options label{display:flex;gap:10px;align-items:center;font-size:14px;line-height:1.4;cursor:pointer}
+    .birthday-flow #package-primary-fields>.field:nth-child(2){display:none!important}
+    .birthday-food-section{margin-top:18px}
+    .birthday-food-section>.field-label{color:var(--muted);font-size:.75rem;font-weight:900;text-transform:uppercase}
+    .birthday-food-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;min-width:0;margin:0;padding:0;border:0}
+    .birthday-food-options label{display:flex;gap:8px;align-items:center;min-width:0;min-height:76px;box-sizing:border-box;padding:12px;border:1px solid var(--line);border-radius:6px;background:var(--paper);font-size:14px;line-height:1.4;cursor:pointer}
+    .birthday-food-options label:has(input:checked){border-color:var(--ink);background:var(--soft);box-shadow:inset 0 0 0 1px var(--ink)}
+    .birthday-food-options label:focus-within{outline:2px solid #1684d8;outline-offset:2px}
     .birthday-food-options input{width:18px;height:18px;flex:0 0 18px;margin:0}`;
   document.head.append(style);
   const days = [...calendar.querySelectorAll('.calendar-day:not(.empty)')];
@@ -71,6 +83,15 @@
     const match = [...select.options].find(option => name.toLowerCase().includes(option.value.toLowerCase()));
     select.value = match?.value || 'Trampoline';
   };
+  const syncBirthdayTimes = () => {
+    if (currentCategory !== 'birthday') return;
+    partySlots.innerHTML = currentMode === 'adult' ? form.querySelector('#package-slots').innerHTML : familyPartySlots;
+    const first = partySlots.querySelector('.time-slot:not(:disabled)');
+    partySlots.querySelectorAll('.time-slot').forEach(button=>button.classList.toggle('selected',button===first));
+    if(first) currentTime=first.dataset.time;
+    bindTimeSlots(partySlots);
+    updateSummary();
+  };
   const sync = () => {
     const birthday = currentCategory === 'birthday';
     form.classList.toggle('birthday-flow',birthday);
@@ -79,11 +100,17 @@
     productLabel.textContent = birthday ? 'Choose package' : originalLabels[0];
     guestsLabel.textContent = birthday ? 'Number of guests' : originalLabels[1];
     dateLabel.textContent = birthday ? 'Choose day' : originalLabels[2];
-    if (birthday) { setDurationFromPackage(); updateSummary(); }
+    if (birthday) {
+      visitModeFields.classList.remove('hidden');
+      setDurationFromPackage();
+      syncBirthdayTimes();
+      updateSummary();
+    }
   };
   form.querySelectorAll('.category-tab').forEach(button => button.addEventListener('click',sync));
   product.addEventListener('change',() => { if(currentCategory === 'birthday'){setDurationFromPackage();updateSummary();} });
   select.addEventListener('change',updateSummary);
+  form.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',syncBirthdayTimes));
   foodField.addEventListener('change',updateSummary);
   calendar.addEventListener('click',event => {
     if(currentCategory !== 'birthday') return;
