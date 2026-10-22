@@ -53,11 +53,23 @@
   foodLegend.textContent = 'Additional Food Options';
   foodField.setAttribute('aria-labelledby',foodLegend.id);
   foodSection.append(foodLegend,foodField);
-  ['Chicken nuggets & Fries','Pizza'].forEach(name => {
+  [
+    {name:'Chicken nuggets & Fries',price:'5.000 Ft'},
+    {name:'Pizza',price:'5.000 Ft'},
+    {name:'Kids Champagne',price:'5.000 Ft per bottle'},
+    {name:'Decoration',price:'10.000 Ft'},
+    {name:'Cake "Boy"',price:'Included',cake:true},
+    {name:'Cake "Girl"',price:'Included',cake:true}
+  ].forEach(({name,price:priceText,cake}) => {
     const optionLabel = document.createElement('label');
     const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox'; checkbox.name = 'birthday-food'; checkbox.value = name;
-    optionLabel.append(checkbox,document.createTextNode(name));
+    checkbox.type = cake ? 'radio' : 'checkbox'; checkbox.name = cake ? 'birthday-cake' : 'birthday-food'; checkbox.value = name;
+    const offer = document.createElement('span');
+    offer.className = 'birthday-food-offer';
+    const offerName = document.createElement('span'); offerName.textContent = name;
+    const price = document.createElement('strong'); price.textContent = priceText;
+    offer.append(offerName,price);
+    optionLabel.append(checkbox,offer);
     foodField.append(optionLabel);
   });
   form.querySelector('#birthday-fields').append(foodSection);
@@ -75,11 +87,12 @@
     .birthday-flow #package-primary-fields>.field:nth-child(2){display:none!important}
     .birthday-food-section{margin-top:18px}
     .birthday-food-section>.field-label{color:var(--muted);font-size:.75rem;font-weight:900;text-transform:uppercase}
-    .birthday-food-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;min-width:0;margin:0;padding:0;border:0}
-    .birthday-food-options label{display:flex;gap:8px;align-items:center;min-width:0;min-height:76px;box-sizing:border-box;padding:12px;border:1px solid var(--line);border-radius:6px;background:var(--paper);font-size:14px;line-height:1.4;cursor:pointer}
-    .birthday-food-options label:has(input:checked){border-color:var(--ink);background:var(--soft);box-shadow:inset 0 0 0 1px var(--ink)}
+    .birthday-food-options{display:grid;grid-template-columns:minmax(0,1fr);gap:0;min-width:0;margin:0;padding:0;border:0}
+    .birthday-food-options label{display:flex;gap:8px;align-items:center;min-width:0;min-height:42px;box-sizing:border-box;padding:8px 0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;font-size:13px;line-height:1.35;cursor:pointer}
+    .birthday-food-options label:has(input:checked){background:var(--soft)}
     .birthday-food-options label:focus-within{outline:2px solid #1684d8;outline-offset:2px}
     .birthday-food-options input{width:18px;height:18px;flex:0 0 18px;margin:0}`;
+  style.textContent += '.birthday-food-offer{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;min-width:0;flex:1}.birthday-food-offer strong{font-size:12px;white-space:normal;text-align:right;max-width:100px}';
   document.head.append(style);
   const days = [...calendar.querySelectorAll('.calendar-day:not(.empty)')];
   days.forEach(day => {
