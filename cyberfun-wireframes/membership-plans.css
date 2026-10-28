@@ -1,0 +1,39 @@
+.membership-plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.booking-layout>.category-content{display:block!important;min-width:0}
+.category-content .page-intro h1{font-size:44px;line-height:1.1}
+.category-content .section-head h2{font-size:30px;line-height:1.15}
+.category-content .hero-facts article{display:grid;gap:8px;min-width:0}
+.category-content .hero-facts span{line-height:1.5;color:var(--muted)}
+.category-content .faq-section details{margin:0;padding:16px 0;border:0;border-top:1px solid var(--line);border-radius:0;background:transparent}
+.category-content .faq-section summary{display:list-item;padding:0;background:transparent;border:0;border-radius:0;text-align:left;cursor:pointer;font-weight:700}
+.category-content .faq-section details p{margin:12px 0 0;line-height:1.5}
+.membership-plan-card{min-width:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper)}
+.membership-plan-card.selected{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.membership-card-image{display:grid;place-items:center;aspect-ratio:16/7;background:#dce6ef;color:var(--muted);font-size:18px;font-weight:800;border-bottom:1px solid var(--line)}
+.membership-card-body{padding:18px}
+.membership-card-body h3{font-size:22px;line-height:1.2;margin:10px 0 16px}
+.membership-card-body ul{padding-left:18px;color:var(--muted);line-height:1.6;font-size:14px}
+.membership-price{font-size:26px;font-weight:900;color:var(--ink);margin:0}
+.membership-price small{font-size:12px;font-weight:500;display:block;margin-top:4px}
+.membership-card-payment{font-size:13px;color:var(--ink);border-top:1px solid var(--line);padding-top:12px}
+.membership-card-body button{font:inherit;font-weight:800;border:1px solid var(--ink);background:var(--ink);color:white;border-radius:6px;padding:10px 14px;cursor:pointer}
+.membership-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:0;margin:0 0 22px;list-style:none}
+.membership-steps li{font-size:12px;text-align:center;padding:10px 4px;border-bottom:2px solid var(--line);color:var(--muted)}
+.membership-steps li.active{border-color:var(--ink);color:var(--ink);font-weight:800}
+.membership-panel[hidden],#membership-parent-field[hidden],#membership-back[hidden],#membership-status[hidden]{display:none!important}
+.membership-panel h3{font-size:20px;margin:0 0 18px}
+.membership-panel h3:focus{outline:none}
+.membership-panel .notice{font-size:13px}
+.membership-panel .field{margin-bottom:16px}
+.membership-panel .field label{display:block;margin-bottom:6px}
+.membership-panel .field input,.membership-panel .field select{box-sizing:border-box;width:100%;min-height:46px;padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--paper);font:inherit;color:var(--ink)}
+.membership-consent{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5;margin:20px 0}
+.membership-consent input{flex:0 0 18px;width:18px;height:18px;margin-top:2px}
+.membership-actions{display:flex;gap:8px;margin-top:20px}
+.membership-actions button{flex:1;font:inherit;font-weight:800;padding:12px;border:1px solid var(--ink);border-radius:6px;background:var(--ink);color:white;cursor:pointer}
+.membership-actions #membership-back{flex:0 0 auto;color:var(--ink);background:white}
+#membership-status{padding:14px;margin-top:18px;background:var(--soft);font-size:14px;line-height:1.5}
+.membership-summary .summary-row{align-items:flex-start}
+.membership-summary .summary-row strong{overflow-wrap:anywhere}
+.membership-source{font-size:12px;color:var(--muted);margin-top:16px}
+@media(max-width:680px){.membership-plans{grid-template-columns:1fr}.membership-card-image{aspect-ratio:16/6}.category-content .page-intro h1{font-size:32px}.category-content .section-head h2{font-size:26px}}

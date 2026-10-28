@@ -1220,12 +1220,13 @@
         }
       }
     </style>
-  </head>
+  <link rel="stylesheet" href="../../membership-plans.css?v=20261028-2">
+</head>
   <body>
     <main class="wire-page">
       <div class="wire-shell">
         <div class="wire-meta">
-          <p class="wire-label">Parties &amp; Packages category page wireframe</p>
+          <p class="wire-label">Membership page wireframe</p>
         </div>
         <input class="wire-menu-check" type="checkbox" id="wire-menu" aria-label="Toggle mobile navigation" />
         <div class="utility-bar">
@@ -1313,55 +1314,29 @@
               <div class="wire-image">Membership hero image / video</div>
             </section>
 
-            <section class="category-section ticket-section" id="memberships">
-              <div class="page-intro">
-                <p class="wire-label">Membership</p>
-                <h1>More Cyberfun, whenever you want it.</h1>
-                <p>Choose a recurring membership for regular visits, member benefits and an easier way to keep playing throughout the year.</p>
-              </div>
-              <div class="section-head">
-                <div><p class="wire-label">Membership plans</p><h2>Choose the plan that fits.</h2></div>
-                <p>Compare access, included benefits and the number of members before starting your subscription.</p>
-              </div>
-              <div class="activity-grid birthday-options-grid">
-                <article class="activity-card"><div class="wire-image">Membership image</div><div class="activity-meta"><span>Individual</span><span>Active play</span></div><h3>Jump Membership</h3><p>Recurring Trampoline access plus member pricing for selected extras.</p><strong>Draft: 12.900 Ft / month</strong><div class="card-actions"><a href="#membership-checkout" data-plan-link="jump">Choose plan</a></div></article>
-                <article class="activity-card"><div class="wire-image">Membership image</div><div class="activity-meta"><span>Individual</span><span>More games</span></div><h3>Play More Membership</h3><p>Trampoline access with monthly Tokens and discounts on selected attractions.</p><strong>Draft: 18.900 Ft / month</strong><div class="card-actions"><a href="#membership-checkout" data-plan-link="play">Choose plan</a></div></article>
-                <article class="activity-card"><div class="wire-image">Membership image</div><div class="activity-meta"><span>Up to 4</span><span>Family Time</span></div><h3>Family Membership</h3><p>A shared plan for families who want to visit regularly during Family Time.</p><strong>Draft: 39.900 Ft / month</strong><div class="card-actions"><a href="#membership-checkout" data-plan-link="family">Choose plan</a></div></article>
-              </div>
-            </section>
-
-            <section class="category-section attraction-intro" id="benefits">
-              <div class="section-head"><div><p class="wire-label">Member benefits</p><h2>More value on every visit.</h2></div><p>Membership is separate from the Loyalty Club. A membership provides recurring access and plan benefits; Loyalty rewards visits and purchases with points.</p></div>
-              <div class="hero-facts"><article><strong>Recurring access</strong><span>Visit within the times and limits of your chosen plan.</span></article><article><strong>Member pricing</strong><span>Save on selected attractions, packages and add-ons.</span></article><article><strong>Easy management</strong><span>Manage members, billing and renewals in your account.</span></article></div>
-            </section>
-
-            <section class="category-section compact-list" id="daytime-packages">
-              <div class="section-head"><div><p class="wire-label">How it works</p><h2>Start in three simple steps.</h2></div></div>
-              <div class="activity-grid birthday-options-grid"><article class="activity-card"><div class="activity-meta"><span>Step 1</span><span>Plan</span></div><h3>Choose a membership</h3><p>Compare the included access and benefits.</p></article><article class="activity-card"><div class="activity-meta"><span>Step 2</span><span>Members</span></div><h3>Add your members</h3><p>Set up the people covered by the subscription.</p></article><article class="activity-card"><div class="activity-meta"><span>Step 3</span><span>Account</span></div><h3>Complete your subscription</h3><p>Confirm payment and manage the plan through Login.</p></article></div>
-            </section>
-
-            <section class="category-section faq-section">
-              <div class="section-head"><div><p class="wire-label">FAQ</p><h2>Questions about Membership.</h2></div></div>
-              <div class="faq-list"><article class="faq-item"><span>When does my Membership start?</span></article><article class="faq-item"><span>Which visits are included?</span></article><article class="faq-item"><span>Can I add or change members?</span></article><article class="faq-item"><span>How does renewal and cancellation work?</span></article><article class="faq-item"><span>What is the difference between Membership and Loyalty Club?</span></article></div>
-            </section>
-
-            <section class="bottom-cta"><div><p class="wire-label">Already a member?</p><h2>Manage your subscription.</h2><p>Open your account to see billing, members, bookings and membership details.</p></div><a class="wire-button" href="../account-wireframes/login-page-v3.html">Login to account</a></section>
-          </div>
-
-          <aside class="ticket-checkout checkout-column" id="membership-checkout" aria-label="Membership checkout">
-            <form class="checkout" onsubmit="return false;">
-              <div class="checkout-header"><p class="eyebrow">Join Membership</p><h2>Choose your plan</h2><p>Select a membership and billing option to review your subscription.</p></div>
-              <div class="checkout-body">
-                <div class="field"><label for="membership-plan">Membership plan</label><select id="membership-plan"><option value="jump">Jump Membership — 12.900 Ft / month</option><option value="play">Play More Membership — 18.900 Ft / month</option><option value="family">Family Membership — 39.900 Ft / month</option></select></div>
-                <div class="field"><span class="field-label">Billing</span><div class="segment"><button class="active" type="button" data-billing="monthly">Monthly</button><button type="button" data-billing="annual">Annual</button></div></div>
-                <div class="field"><label for="membership-members">Members</label><div class="guest-stepper"><button id="member-minus" type="button" aria-label="Remove member">−</button><input id="membership-members" type="number" min="1" max="6" value="1" inputmode="numeric"><button id="member-plus" type="button" aria-label="Add member">+</button></div></div>
-                <div class="field"><label for="membership-start">Start date</label><select id="membership-start"><option>Start immediately</option><option>1 November 2026</option><option>1 December 2026</option></select></div>
-                <div class="included" id="membership-benefits"><div class="included-item"><span>Recurring access</span><strong>Included</strong></div><div class="included-item"><span>Member pricing</span><strong>Included</strong></div></div>
-                <div class="notice">Wireframe pricing and plan benefits must be confirmed before launch. The subscription renews according to the selected billing cycle.</div>
-                <div class="summary" aria-live="polite"><div class="summary-row"><span>Membership</span><strong id="membership-summary-plan">Jump Membership</strong></div><div class="summary-row"><span>Billing</span><strong id="membership-summary-billing">Monthly</strong></div><div class="summary-row"><span>Members</span><strong id="membership-summary-members">1</strong></div><div class="summary-row"><span>Starts</span><strong id="membership-summary-start">Start immediately</strong></div><div class="summary-row total"><span>Due per month</span><strong id="membership-summary-total">12.900 Ft</strong></div><button class="button block" type="button">Continue</button></div>
-              </div>
-            </form>
-          </aside>
+<section class="category-section ticket-section" id="memberships">
+<div class="page-intro"><p class="wire-label">Membership</p><h1>Make room for more jump days.</h1><p>Pick your level, choose a monthly plan or a 90-day pass, and keep your next visit close.</p></div>
+<div class="section-head"><div><p class="wire-label">Basic &amp; Premium</p><h2>Find your VIP membership.</h2></div></div>
+<div class="membership-plans" id="membership-plan-cards"></div>
+<p class="membership-source">Reference plans and prices: <a href="https://buda.cyberjump.hu/vip-kartya/" target="_blank" rel="noopener">Cyberjump Buda VIP Cards</a>. Cyberfun offers to be confirmed.</p></section>
+<section class="category-section" id="benefits"><div class="section-head"><div><p class="wire-label">Choose your level</p><h2>A plan for your kind of play.</h2></div><p>Basic keeps visits simple with one hour of jumping. Premium gives you longer access and extra benefits. Both are personal memberships for the named cardholder.</p></div></section>
+<section class="category-section"><div class="section-head"><div><p class="wire-label">How it works</p><h2>Choose. Register. Come back for more.</h2></div></div><div class="hero-facts"><article><strong>1. Choose your plan</strong><span>Basic or Premium, monthly or 90 days.</span></article><article><strong>2. Add your member</strong><span>Register yourself or a child through a parent or guardian.</span></article><article><strong>3. Review your payment</strong><span>See the amount due now and any future payments.</span></article></div></section>
+<section class="category-section faq-section"><div class="section-head"><div><p class="wire-label">FAQ</p><h2>Before you join.</h2></div></div>
+<details><summary>What is the difference between Card+ and Card 3?</summary><p>Card+ is a monthly subscription with a three-month minimum term. Card 3 is a prepaid 90-day pass.</p></details>
+<details><summary>How is Card+ billed?</summary><p>The first payment covers two months. Monthly charges begin in month three.</p></details>
+<details><summary>Can I buy a membership for a child?</summary><p>A parent or guardian registers and purchases for members under 18.</p></details>
+<details><summary>Is this the same as Loyalty Club?</summary><p>No. Membership provides the access described in your plan. Loyalty Club is a separate programme.</p></details></section>
+<section class="bottom-cta"><div><p class="wire-label">Already a member?</p><h2>Your next visit starts in your account.</h2></div><a class="wire-button" href="../account-wireframes/login-page-v3.html">Login</a></section>
+</div>
+<aside class="ticket-checkout checkout-column" id="membership-checkout" aria-label="Membership booking">
+<form class="checkout" id="membership-form" novalidate>
+<div class="checkout-header"><p class="eyebrow">Membership</p><h2>Become a VIP member</h2><p>Choose your plan and review the payment details.</p></div>
+<div class="checkout-body"><ol class="membership-steps" aria-label="Membership booking steps"><li data-step-indicator="1">1. Plan</li><li data-step-indicator="2">2. Member</li><li data-step-indicator="3">3. Review</li></ol>
+<section class="membership-panel" data-membership-step="1"><h3 tabindex="-1">Choose your membership</h3><div class="field"><label for="membership-plan">Membership plan</label><select id="membership-plan"></select></div><p id="membership-plan-access"></p><p id="membership-plan-term"></p><div class="notice" id="membership-billing-info"></div></section>
+<section class="membership-panel" data-membership-step="2" hidden><h3 tabindex="-1">Who is joining?</h3><div class="field"><label for="membership-for">Membership for</label><select id="membership-for"><option value="self">Myself (18+)</option><option value="child">A child / minor</option></select></div><div class="field"><label for="membership-holder-name">Member's full name</label><input id="membership-holder-name" autocomplete="name" required></div><div class="field"><label for="membership-dob">Member's date of birth</label><input type="date" id="membership-dob" required></div><div class="field" id="membership-parent-field" hidden><label for="membership-parent-name">Parent / guardian's full name</label><input id="membership-parent-name"></div><div class="field"><label for="membership-email">Contact email</label><input type="email" id="membership-email" autocomplete="email" required></div></section>
+<section class="membership-panel" data-membership-step="3" hidden><h3 tabindex="-1">Review your membership</h3><div class="summary membership-summary" aria-live="polite">
+<div class="summary-row"><span>Plan</span><strong id="membership-summary-plan"></strong></div><div class="summary-row"><span>Billing</span><strong id="membership-summary-billing"></strong></div><div class="summary-row"><span>Access</span><strong id="membership-summary-access"></strong></div><div class="summary-row"><span>Term</span><strong id="membership-summary-term"></strong></div><div class="summary-row"><span>For</span><strong id="membership-summary-owner"></strong></div><div class="summary-row"><span>Member</span><strong id="membership-summary-holder"></strong></div><div class="summary-row"><span>Email</span><strong id="membership-summary-email"></strong></div><div class="summary-row"><span>Future payments</span><strong id="membership-summary-renewal"></strong></div><div class="summary-row total"><span>Due today</span><strong id="membership-summary-total"></strong></div></div><label class="membership-consent"><input type="checkbox" required><span>I agree to the <a href="../../pages/legal/terms-conditions.html">Terms &amp; Conditions</a> and the billing terms shown above.</span></label></section>
+<div class="membership-actions"><button type="button" id="membership-back" hidden>Back</button><button type="submit" id="membership-next">Continue</button></div><p id="membership-status" role="status" tabindex="-1" hidden></p></div></form></aside>
         </div>
         <footer class="site-footer" aria-label="Footer">
           <div class="footer-block">
@@ -1391,19 +1366,7 @@
         </footer>
       </div>
     </main>
-    <script>
-      const memberships = { jump: { name: "Jump Membership", price: 12900, max: 1 }, play: { name: "Play More Membership", price: 18900, max: 1 }, family: { name: "Family Membership", price: 39900, max: 4 } };
-      let billing = "monthly";
-      const plan = document.getElementById("membership-plan");
-      const members = document.getElementById("membership-members");
-      const start = document.getElementById("membership-start");
-      const formatFt = (value) => new Intl.NumberFormat("hu-HU").format(value) + " Ft";
-      function updateMembership() { const item = memberships[plan.value]; members.max = item.max; if (Number(members.value) > item.max) members.value = item.max; document.getElementById("membership-summary-plan").textContent = item.name; document.getElementById("membership-summary-billing").textContent = billing === "monthly" ? "Monthly" : "Annual"; document.getElementById("membership-summary-members").textContent = members.value; document.getElementById("membership-summary-start").textContent = start.value; document.getElementById("membership-summary-total").textContent = billing === "monthly" ? formatFt(item.price) : formatFt(item.price * 11) + " / year"; }
-      document.querySelectorAll("[data-billing]").forEach((button) => button.addEventListener("click", () => { billing = button.dataset.billing; document.querySelectorAll("[data-billing]").forEach((item) => item.classList.toggle("active", item === button)); updateMembership(); }));
-      document.querySelectorAll("[data-plan-link]").forEach((link) => link.addEventListener("click", () => { plan.value = link.dataset.planLink; members.value = "1"; updateMembership(); }));
-      plan.addEventListener("change", () => { members.value = "1"; updateMembership(); }); members.addEventListener("input", updateMembership); start.addEventListener("change", updateMembership);
-      document.getElementById("member-minus").addEventListener("click", () => { members.value = Math.max(1, Number(members.value) - 1); updateMembership(); }); document.getElementById("member-plus").addEventListener("click", () => { members.value = Math.min(Number(members.max), Number(members.value) + 1); updateMembership(); }); updateMembership();
-    </script>
+<script src="../../membership-booking.js?v=20261028-1"></script>
   <script src="../../navigation-submenus.js?v=20261020-ticket-flow-10"></script>
   </body>
 </html>
