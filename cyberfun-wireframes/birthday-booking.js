@@ -201,10 +201,10 @@
     cakeSection.hidden = !birthday;
     cakeSection.style.display = birthday ? '' : 'none';
     form.classList.toggle('birthday-flow',birthday);
-    if (birthday || currentCategory === 'ticket') dateField.after(guestsField);
-    else guestsPosition.after(guestsField);
     if (currentCategory === 'ticket') ticketDurationField.before(productField);
     else productPosition.after(productField);
+    if (birthday || currentCategory === 'ticket') product.after(guestsField);
+    else guestsPosition.after(guestsField);
     modeButtons.forEach((button,index) => {
       button.innerHTML = birthday
         ? (button.dataset.mode === 'family' ? 'Kids Party<br>9:30-19:00' : 'Adult Party<br>17:00-22:00')
