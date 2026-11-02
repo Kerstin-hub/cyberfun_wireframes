@@ -1329,14 +1329,106 @@
 <section class="bottom-cta"><div><p class="wire-label">Already a member?</p><h2>Your next visit starts in your account.</h2></div><a class="wire-button" href="../account-wireframes/login-page-v3.html">Login</a></section>
 </div>
 <aside class="ticket-checkout checkout-column" id="membership-checkout" aria-label="Membership booking">
-<form class="checkout" id="membership-form" novalidate>
-<div class="checkout-header"><p class="eyebrow">Membership</p><h2>Become a VIP member</h2><p>Choose your plan and review the payment details.</p></div>
-<div class="checkout-body"><ol class="membership-steps" aria-label="Membership booking steps"><li data-step-indicator="1">1. Plan</li><li data-step-indicator="2">2. Member</li><li data-step-indicator="3">3. Review</li></ol>
-<section class="membership-panel" data-membership-step="1"><h3 tabindex="-1">Choose your membership</h3><div class="field"><label for="membership-plan">Membership plan</label><select id="membership-plan"></select></div><p id="membership-plan-access"></p><p id="membership-plan-term"></p><div class="notice" id="membership-billing-info"></div></section>
-<section class="membership-panel" data-membership-step="2" hidden><h3 tabindex="-1">Who is joining?</h3><div class="field"><label for="membership-for">Membership for</label><select id="membership-for"><option value="self">Myself (18+)</option><option value="child">A child / minor</option></select></div><div class="field"><label for="membership-holder-name">Member's full name</label><input id="membership-holder-name" autocomplete="name" required></div><div class="field"><label for="membership-dob">Member's date of birth</label><input type="date" id="membership-dob" required></div><div class="field" id="membership-parent-field" hidden><label for="membership-parent-name">Parent / guardian's full name</label><input id="membership-parent-name"></div><div class="field"><label for="membership-email">Contact email</label><input type="email" id="membership-email" autocomplete="email" required></div></section>
-<section class="membership-panel" data-membership-step="3" hidden><h3 tabindex="-1">Review your membership</h3><div class="summary membership-summary" aria-live="polite">
-<div class="summary-row"><span>Plan</span><strong id="membership-summary-plan"></strong></div><div class="summary-row"><span>Billing</span><strong id="membership-summary-billing"></strong></div><div class="summary-row"><span>Access</span><strong id="membership-summary-access"></strong></div><div class="summary-row"><span>Term</span><strong id="membership-summary-term"></strong></div><div class="summary-row"><span>For</span><strong id="membership-summary-owner"></strong></div><div class="summary-row"><span>Member</span><strong id="membership-summary-holder"></strong></div><div class="summary-row"><span>Email</span><strong id="membership-summary-email"></strong></div><div class="summary-row"><span>Future payments</span><strong id="membership-summary-renewal"></strong></div><div class="summary-row total"><span>Due today</span><strong id="membership-summary-total"></strong></div></div><label class="membership-consent"><input type="checkbox" required><span>I agree to the <a href="../../pages/legal/terms-conditions.html">Terms &amp; Conditions</a> and the billing terms shown above.</span></label></section>
-<div class="membership-actions"><button type="button" id="membership-back" hidden>Back</button><button type="submit" id="membership-next">Continue</button></div><p id="membership-status" role="status" tabindex="-1" hidden></p></div></form></aside>
+<form class="checkout" onsubmit="return false;">
+              <div class="checkout-header">
+                <p class="eyebrow">Book Cyberfun</p>
+                <h2>Build your visit</h2>
+                <p>Choose a category to see the options and prices.</p>
+              </div>
+              <div class="checkout-body">
+                <div class="category-tabs" role="tablist" aria-label="Booking category">
+                  <button class="category-tab" type="button" data-category="birthday">Birthday</button>
+                  <button class="category-tab" type="button" data-category="package">Packages</button>
+                  <button class="category-tab active" type="button" data-category="ticket">Tickets</button>
+                  <button class="category-tab" type="button" data-category="attraction">Attractions</button>
+                </div>
+
+                <div id="package-primary-fields">
+                  <div class="field">
+                    <span class="field-label">Choose visit mode</span>
+                    <div class="segment"><button type="button" class="active" data-mode="family">Family Time<br />9:30-18:00</button><button type="button" data-mode="adult">Adult Time<br />18:00-22:00</button></div>
+                  </div>
+                  <div class="field">
+                    <span class="field-label">Visit duration</span>
+                    <div class="segment"><button type="button" class="active" data-hours="1">1 hour</button><button type="button" data-hours="2">2 hours</button></div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="product">Choose option</label>
+                  <select id="product"></select>
+                </div>
+
+                <div class="field">
+                  <label for="guests">Guests / units</label>
+                  <div class="guest-stepper">
+                    <button id="guest-minus" type="button" aria-label="Remove one guest">−</button>
+                    <input id="guests" type="number" min="5" value="6" inputmode="numeric" />
+                    <button id="guest-plus" type="button" aria-label="Add one guest">+</button>
+                  </div>
+                </div>
+
+                <div class="field hidden" id="birthday-duration-field">
+                  <span class="field-label">Package duration</span>
+                  <div class="segment"><button type="button" class="active" data-duration="2">2 hours</button><button type="button" data-duration="3">3 hours</button></div>
+                </div>
+
+                <div class="field">
+                  <span class="field-label">Choose an available date</span>
+                  <div class="availability">
+                    <div class="calendar-head"><button type="button" aria-label="Previous month">‹</button><strong>October 2026</strong><button type="button" aria-label="Next month">›</button></div>
+                    <div class="calendar-weekdays"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                    <div class="calendar-grid" id="calendar-grid">
+                      <button type="button" class="calendar-day empty" aria-hidden="true"></button><button type="button" class="calendar-day empty" aria-hidden="true"></button><button type="button" class="calendar-day empty" aria-hidden="true"></button>
+                      <button type="button" class="calendar-day" data-date="1 Oct 2026">1</button><button type="button" class="calendar-day" data-date="2 Oct 2026">2</button><button type="button" class="calendar-day limited" data-date="3 Oct 2026">3</button><button type="button" class="calendar-day limited" data-date="4 Oct 2026">4</button>
+                      <button type="button" class="calendar-day" data-date="5 Oct 2026">5</button><button type="button" class="calendar-day" data-date="6 Oct 2026">6</button><button type="button" class="calendar-day" data-date="7 Oct 2026">7</button><button type="button" class="calendar-day sold" disabled>8</button><button type="button" class="calendar-day" data-date="9 Oct 2026">9</button><button type="button" class="calendar-day limited" data-date="10 Oct 2026">10</button><button type="button" class="calendar-day" data-date="11 Oct 2026">11</button>
+                      <button type="button" class="calendar-day" data-date="12 Oct 2026">12</button><button type="button" class="calendar-day" data-date="13 Oct 2026">13</button><button type="button" class="calendar-day sold" disabled>14</button><button type="button" class="calendar-day" data-date="15 Oct 2026">15</button><button type="button" class="calendar-day" data-date="16 Oct 2026">16</button><button type="button" class="calendar-day limited" data-date="17 Oct 2026">17</button><button type="button" class="calendar-day" data-date="18 Oct 2026">18</button>
+                      <button type="button" class="calendar-day" data-date="19 Oct 2026">19</button><button type="button" class="calendar-day" data-date="20 Oct 2026">20</button><button type="button" class="calendar-day" data-date="21 Oct 2026">21</button><button type="button" class="calendar-day limited" data-date="22 Oct 2026">22</button><button type="button" class="calendar-day" data-date="23 Oct 2026">23</button><button type="button" class="calendar-day selected limited" data-date="24 Oct 2026">24</button><button type="button" class="calendar-day" data-date="25 Oct 2026">25</button>
+                      <button type="button" class="calendar-day" data-date="26 Oct 2026">26</button><button type="button" class="calendar-day sold" disabled>27</button><button type="button" class="calendar-day" data-date="28 Oct 2026">28</button><button type="button" class="calendar-day" data-date="29 Oct 2026">29</button><button type="button" class="calendar-day limited" data-date="30 Oct 2026">30</button><button type="button" class="calendar-day limited" data-date="31 Oct 2026">31</button>
+                    </div>
+                    <div class="availability-legend"><span><i class="legend-dot"></i>Available</span><span><i class="legend-dot limited"></i>Limited</span><span><i class="legend-dot sold"></i>Sold out</span></div>
+                  </div>
+                </div>
+
+                <div id="birthday-fields" class="hidden">
+                  <div class="field"><span class="field-label">Available party starts</span><div class="time-slots" id="party-slots"><button type="button" class="time-slot selected" data-time="10:00">10:00</button><button type="button" class="time-slot" data-time="12:30">12:30</button><button type="button" class="time-slot limited" data-time="15:00">15:00</button><button type="button" class="time-slot sold" disabled>17:30</button></div></div>
+                  <div class="notice">The activity schedule is included in the selected party package. No separate attraction times are needed.</div>
+                </div>
+
+                <div id="package-fields" class="hidden">
+                  <div class="field"><span class="field-label">Available arrival / start times</span><div class="time-slots" id="package-slots"></div></div>
+                  <div class="field"><div class="field-label-row"><label for="first-attraction">First attraction</label><em class="field-note" id="first-attraction-note">Arranged on site</em></div><select id="first-attraction"><option>Lasertag</option><option>Pixel</option><option>Karaoke</option><option>MiniGolf</option><option>VR</option></select></div>
+                  <div class="field"><div class="field-label-row"><label for="second-attraction">Second attraction</label><em class="field-note">Follows automatically</em></div><select id="second-attraction"><option>Pixel</option><option>Lasertag</option><option>Karaoke</option><option>MiniGolf</option><option>VR</option></select></div>
+                  <div class="notice" id="package-notice">During Family Time, you book an arrival time only. Individual attraction sessions are arranged on site.</div>
+                </div>
+
+                <div id="attraction-fields" class="hidden">
+                  <div class="field"><span class="field-label">Adult Time slots from 18:00</span><div class="time-slots" id="attraction-slots"><button type="button" class="time-slot selected" data-time="18:00">18:00</button><button type="button" class="time-slot" data-time="18:30">18:30</button><button type="button" class="time-slot limited" data-time="19:00">19:00</button><button type="button" class="time-slot" data-time="20:00">20:00</button><button type="button" class="time-slot" data-time="20:30">20:30</button><button type="button" class="time-slot limited" data-time="21:00">21:00</button></div></div>
+                  <div class="notice">Attraction sessions are bookable during Adult Time only, from 18:00. The displayed price starts with the attraction’s minimum fee, with a small per-person amount added as the group grows.</div>
+                </div>
+
+                <div id="ticket-fields">
+                  <div class="field"><span class="field-label">Available arrival times</span><div class="time-slots" id="ticket-slots"></div></div>
+                  <div class="notice">Single Tickets include Trampoline access only. Additional attractions can be booked on site, subject to availability.</div>
+                </div>
+
+                <div class="summary" aria-live="polite">
+                  <div class="summary-row"><span>Category</span><strong id="summary-category">Birthday Party</strong></div>
+                  <div class="summary-row"><span>Selection</span><strong id="summary-product">Cyberfun</strong></div>
+                  <div class="summary-row"><span>Date</span><strong id="summary-date">24 Oct 2026</strong></div>
+                  <div class="summary-row"><span>Time</span><strong id="summary-time">10:00</strong></div>
+                  <div class="summary-row"><span>Guests / units</span><strong id="summary-guests">6</strong></div>
+                  <div class="summary-row" id="summary-duration-row"><span>Duration</span><strong id="summary-duration">2 hours</strong></div>
+                  <div class="summary-row hidden" id="summary-mode-row"><span>Visit mode</span><strong id="summary-mode">Family Time</strong></div>
+                  <div class="summary-row hidden" id="summary-attractions-row"><span>Attractions</span><strong id="summary-attractions">Lasertag + Pixel</strong></div>
+                  <div class="summary-row hidden" id="summary-base-row"><span>Base price</span><strong id="summary-base">8.900 Ft</strong></div>
+                  <div class="summary-row hidden" id="summary-extra-row"><span>Price per additional guest</span><strong id="summary-extra">900 Ft</strong></div>
+                  <div class="summary-row" id="summary-person-row"><span>Price per person</span><strong id="summary-basis">8.900 Ft</strong></div>
+                  <div class="summary-row total"><span>Total</span><strong id="summary-total">53.400 Ft</strong></div>
+                  <button class="button block" type="button">Continue</button>
+                </div>
+              </div>
+            </form></aside>
         </div>
         <footer class="site-footer" aria-label="Footer">
           <div class="footer-block">
@@ -1366,7 +1458,223 @@
         </footer>
       </div>
     </main>
-<script src="../../membership-booking.js?v=20261028-1"></script>
+    <script>
+      const products = {
+        birthday: [
+          { name: "Cyberpartyfun", price: 8900, basis: "Per person" },
+          { name: "Cyberfun", price: 11900, basis: "Per person" },
+          { name: "Cybermegafun", price: 14900, basis: "Per person" }
+        ],
+        package: [
+          { name: "Family Play", price: 4800, basis: "Per person" },
+          { name: "Family Play 2h", price: 6800, basis: "Per person" },
+          { name: "Active Duo", price: 7800, basis: "Per person" },
+          { name: "Double Challenge", price: 8800, basis: "Per person" },
+          { name: "Social Mix", price: 9800, basis: "Per person" },
+          { name: "Mega Mix", price: 10900, basis: "Per person" },
+          { name: "Pixel + Lasertag", price: 8800, basis: "Per person" },
+          { name: "Softplay + Karaoke", price: 8400, basis: "Per person" },
+          { name: "Karaoke + Pixel + VR", price: 11900, basis: "Per person" },
+          { name: "Darts + VR + Pixel", price: 11900, basis: "Per person" },
+          { name: "MiniGolf + Arcade", price: 8900, basis: "Per person" },
+          { name: "Night Challenge", price: 12900, basis: "Per person" }
+        ],
+        attraction: [
+          { name: "Lasertag", price: 10000, extra: 1200, basis: "Minimum + guests" },
+          { name: "Pixel", price: 10000, extra: 1200, basis: "Minimum + guests" },
+          { name: "Karaoke", price: 20000, extra: 900, basis: "Minimum + guests" },
+          { name: "MiniGolf", price: 4800, extra: 900, basis: "Minimum + guests" },
+          { name: "VR", price: 5000, extra: 1200, basis: "Minimum + guests" }
+        ],
+        ticket: [
+          { name: "Trampoline Single Ticket", price: 4800, basis: "Per person" }
+        ]
+      };
+
+      let currentCategory = "ticket";
+      let currentMode = "family";
+      let currentDate = "24 Oct 2026";
+      let currentTime = "10:00";
+      let currentDuration = 2;
+      let currentHours = 1;
+
+      const productSelect = document.getElementById("product");
+      const guestInput = document.getElementById("guests");
+      const birthdayFields = document.getElementById("birthday-fields");
+      const birthdayDurationField = document.getElementById("birthday-duration-field");
+      const packagePrimaryFields = document.getElementById("package-primary-fields");
+      const packageFields = document.getElementById("package-fields");
+      const attractionFields = document.getElementById("attraction-fields");
+      const ticketFields = document.getElementById("ticket-fields");
+      const packageSlots = document.getElementById("package-slots");
+      const ticketSlots = document.getElementById("ticket-slots");
+      const packageNotice = document.getElementById("package-notice");
+      const firstAttractionNote = document.getElementById("first-attraction-note");
+      const baseLimitedDates = new Set(Array.from(document.querySelectorAll(".calendar-day.limited[data-date]")).map(button => button.dataset.date));
+
+      function formatFt(value) {
+        return new Intl.NumberFormat("hu-HU").format(value) + " Ft";
+      }
+
+      function fillProducts() {
+        productSelect.innerHTML = products[currentCategory].map((item, index) => `<option value="${index}">${item.name} - from ${formatFt(item.price)}</option>`).join("");
+        updateSummary();
+      }
+
+      function updateTimes() {
+        const times = currentMode === "family"
+          ? [{ time: "09:30" }, { time: "10:30" }, { time: "12:30", status: "limited" }, { time: "14:30" }, { time: "16:30", status: "sold" }, { time: "17:30" }]
+          : [{ time: "18:00", status: "limited" }, { time: "19:00" }, { time: "20:00", status: "sold" }, { time: "21:00" }];
+        const firstAvailable = times.find(slot => slot.status !== "sold");
+        currentTime = firstAvailable.time;
+        packageSlots.innerHTML = times.map((slot, index) => `<button type="button" class="time-slot ${slot.status || ""} ${index === times.indexOf(firstAvailable) ? "selected" : ""}" ${slot.status === "sold" ? "disabled" : `data-time="${slot.time}"`}>${slot.time}</button>`).join("");
+        ticketSlots.innerHTML = times.map((slot, index) => `<button type="button" class="time-slot ${slot.status || ""} ${index === times.indexOf(firstAvailable) ? "selected" : ""}" ${slot.status === "sold" ? "disabled" : `data-time="${slot.time}"`}>${slot.time}</button>`).join("");
+        firstAttractionNote.textContent = currentMode === "family" ? "Arranged on site" : `Starts at ${currentTime}`;
+        packageNotice.textContent = currentMode === "family"
+          ? "During Family Time, you book an arrival time only. Individual attraction sessions are arranged on site."
+          : "Adult Time is for guests 16+. Choose the first attraction start; the second attraction follows automatically.";
+        bindTimeSlots(packageSlots);
+        bindTimeSlots(ticketSlots);
+        updateSummary();
+      }
+
+      function updateSummary() {
+        const item = products[currentCategory][Number(productSelect.value || 0)];
+        const guests = Math.max(1, Number(guestInput.value || 1));
+        let total = item.price * guests;
+        if (currentCategory === "birthday" && currentDuration === 3) total += guests * 2000;
+        if (currentCategory === "package" && currentHours === 2) total += guests * 2000;
+        if (currentCategory === "ticket" && currentHours === 2) total = guests * 6800;
+        if (currentCategory === "attraction") total = item.price + Math.max(0, guests - 1) * item.extra;
+        const pricePerPerson = Math.round(total / guests);
+        const isAttraction = currentCategory === "attraction";
+        document.getElementById("summary-category").textContent = currentCategory === "birthday" ? "Birthday Party" : currentCategory === "package" ? "Package" : currentCategory === "ticket" ? "Single Ticket" : "Attraction";
+        document.getElementById("summary-product").textContent = item.name;
+        document.getElementById("summary-date").textContent = currentDate;
+        document.getElementById("summary-time").textContent = currentTime;
+        document.getElementById("summary-guests").textContent = guests;
+        document.getElementById("summary-duration").textContent = currentCategory === "birthday" ? `${currentDuration} hours` : `${currentHours} hour${currentHours === 1 ? "" : "s"}`;
+        document.getElementById("summary-mode").textContent = currentMode === "family" ? "Family Time 9:30-18:00" : "Adult Time 18:00-22:00";
+        document.getElementById("summary-attractions").textContent = `${document.getElementById("first-attraction").value} + ${document.getElementById("second-attraction").value}`;
+        document.getElementById("summary-duration-row").classList.toggle("hidden", currentCategory === "attraction");
+        document.getElementById("summary-mode-row").classList.add("hidden");
+        document.getElementById("summary-attractions-row").classList.toggle("hidden", currentCategory !== "package");
+        document.getElementById("summary-base-row").classList.toggle("hidden", !isAttraction);
+        document.getElementById("summary-extra-row").classList.toggle("hidden", !isAttraction);
+        document.getElementById("summary-person-row").classList.toggle("hidden", isAttraction);
+        document.getElementById("summary-base").textContent = formatFt(item.price);
+        document.getElementById("summary-extra").textContent = formatFt(item.extra || 0);
+        document.getElementById("summary-basis").textContent = formatFt(pricePerPerson);
+        document.getElementById("summary-total").textContent = formatFt(total);
+      }
+
+      function applyGuestRules() {
+        const minimum = currentCategory === "birthday" ? 5 : 1;
+        guestInput.min = String(minimum);
+        if (Number(guestInput.value) < minimum) guestInput.value = String(minimum);
+        updateSummary();
+      }
+
+      function updateBirthdayAvailability() {
+        const unavailableForThreeHours = new Set(["2 Oct 2026", "9 Oct 2026", "16 Oct 2026", "23 Oct 2026", "30 Oct 2026"]);
+        document.querySelectorAll(".calendar-day[data-date]").forEach(button => {
+          const unavailable = currentDuration === 3 && unavailableForThreeHours.has(button.dataset.date);
+          button.disabled = unavailable;
+          button.classList.toggle("sold", unavailable);
+          button.classList.toggle("limited", !unavailable && baseLimitedDates.has(button.dataset.date));
+        });
+        const selected = document.querySelector(".calendar-day.selected");
+        if (selected && selected.disabled) {
+          selected.classList.remove("selected");
+          const nextAvailable = document.querySelector(".calendar-day[data-date]:not(:disabled)");
+          nextAvailable.classList.add("selected");
+          currentDate = nextAvailable.dataset.date;
+        }
+      }
+
+      function bindTimeSlots(container) {
+        container.querySelectorAll(".time-slot:not(:disabled)").forEach(button => {
+          button.addEventListener("click", () => {
+            container.querySelectorAll(".time-slot").forEach(item => item.classList.toggle("selected", item === button));
+            currentTime = button.dataset.time;
+            if (currentCategory === "package" && currentMode === "adult") firstAttractionNote.textContent = `Starts at ${currentTime}`;
+            updateSummary();
+          });
+        });
+      }
+
+      document.querySelectorAll(".category-tab").forEach(button => {
+        button.addEventListener("click", () => {
+          currentCategory = button.dataset.category;
+          document.querySelectorAll(".category-tab").forEach(item => item.classList.toggle("active", item === button));
+          birthdayFields.classList.toggle("hidden", currentCategory !== "birthday");
+          birthdayDurationField.classList.toggle("hidden", currentCategory !== "birthday");
+          packagePrimaryFields.classList.toggle("hidden", currentCategory !== "package" && currentCategory !== "ticket");
+          packageFields.classList.toggle("hidden", currentCategory !== "package");
+          attractionFields.classList.toggle("hidden", currentCategory !== "attraction");
+          ticketFields.classList.toggle("hidden", currentCategory !== "ticket");
+          const slotGroup = currentCategory === "birthday" ? "party" : currentCategory === "package" ? "package" : currentCategory === "ticket" ? "ticket" : "attraction";
+          const activeSlot = document.querySelector(`#${slotGroup}-slots .time-slot:not(:disabled)`);
+          if (activeSlot) currentTime = activeSlot.dataset.time;
+          fillProducts();
+          applyGuestRules();
+        });
+      });
+
+      document.querySelectorAll("[data-mode]").forEach(button => {
+        button.addEventListener("click", () => {
+          currentMode = button.dataset.mode;
+          document.querySelectorAll("[data-mode]").forEach(item => item.classList.toggle("active", item === button));
+          updateTimes();
+        });
+      });
+
+      document.querySelectorAll("[data-duration], [data-hours]").forEach(button => {
+        button.addEventListener("click", () => {
+          button.parentElement.querySelectorAll("button").forEach(item => item.classList.toggle("active", item === button));
+          if (button.dataset.duration) currentDuration = Number(button.dataset.duration);
+          if (button.dataset.hours) currentHours = Number(button.dataset.hours);
+          if (button.dataset.duration) updateBirthdayAvailability();
+          updateSummary();
+        });
+      });
+
+      document.querySelectorAll(".calendar-day[data-date]").forEach(button => {
+        button.addEventListener("click", () => {
+          document.querySelectorAll(".calendar-day").forEach(item => item.classList.toggle("selected", item === button));
+          currentDate = button.dataset.date;
+          updateSummary();
+        });
+      });
+
+      document.getElementById("first-attraction").addEventListener("change", updateSummary);
+      document.getElementById("second-attraction").addEventListener("change", updateSummary);
+      productSelect.addEventListener("change", updateSummary);
+      guestInput.addEventListener("input", updateSummary);
+      guestInput.addEventListener("change", applyGuestRules);
+      document.getElementById("guest-minus").addEventListener("click", () => {
+        const minimum = Number(guestInput.min || 1);
+        guestInput.value = String(Math.max(minimum, Number(guestInput.value || minimum) - 1));
+        updateSummary();
+      });
+      document.getElementById("guest-plus").addEventListener("click", () => {
+        guestInput.value = String(Number(guestInput.value || 0) + 1);
+        updateSummary();
+      });
+
+
+      fillProducts();
+      updateTimes();
+      currentTime = "09:30";
+      bindTimeSlots(document.getElementById("party-slots"));
+      bindTimeSlots(document.getElementById("attraction-slots"));
+      updateSummary();
+    </script>
   <script src="../../navigation-submenus.js?v=20261020-ticket-flow-10"></script>
-  </body>
+  <script src="../../birthday-booking.js?v=20261102-tickets-memberships-21"></script>
+<script src="../../ticket-booking.js?v=20261102-shared-memberships-13"></script>
+<script src="../../birthday-packages.js?v=20261102-party-options-5"></script>
+
+<script src="../../membership-booking.js?v=20261102-shared-checkout"></script>
+</body>
 </html>

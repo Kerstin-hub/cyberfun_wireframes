@@ -5,7 +5,13 @@
     button.hidden = true;
     button.style.display = 'none';
   });
-  form.querySelector('.category-tabs').style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+  const categoryTabs = form.querySelector('.category-tabs');
+  categoryTabs.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+  const ticketTab = categoryTabs.querySelector('[data-category="ticket"]');
+  const birthdayTab = categoryTabs.querySelector('[data-category="birthday"]');
+  ticketTab.textContent = 'Tickets & Memberships';
+  birthdayTab.textContent = 'Birthday & Parties';
+  categoryTabs.prepend(ticketTab, birthdayTab);
   if (!['birthday','ticket'].includes(currentCategory)) {
     form.querySelector('[data-category="birthday"]').click();
   }
@@ -187,7 +193,7 @@
   const syncBirthdayTimes = () => {
     if (currentCategory !== 'birthday') return;
     partySlots.innerHTML = currentMode === 'adult'
-      ? ['17:00','18:00','19:00','20:00','21:00'].map((time,index)=>`<button type="button" class="time-slot ${index===1?'limited':''}" data-time="${time}">${time}</button>`).join('')
+      ? ['19:00','20:00','21:00'].map(time=>`<button type="button" class="time-slot" data-time="${time}">${time}</button>`).join('')
       : familyPartySlots;
     const first = partySlots.querySelector('.time-slot:not(:disabled)');
     partySlots.querySelectorAll('.time-slot').forEach(button=>button.classList.toggle('selected',button===first));
@@ -207,7 +213,7 @@
     else guestsPosition.after(guestsField);
     modeButtons.forEach((button,index) => {
       button.innerHTML = birthday
-        ? (button.dataset.mode === 'family' ? 'Kids Party<br>9:30-19:00' : 'Adult Party<br>17:00-22:00')
+        ? (button.dataset.mode === 'family' ? 'Before 19h: all ages' : 'After 19h: 16+ only')
         : currentCategory === 'ticket'
           ? (button.dataset.mode === 'family' ? 'Family Time<br>(Kids until 15)' : 'Adult Time<br>(from 16 onwards)')
           : modeLabels[index];

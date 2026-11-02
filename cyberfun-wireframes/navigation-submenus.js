@@ -66,6 +66,10 @@
       }
       return link;
     }));
+    if(mobile){
+      const login=document.createElement('a');login.textContent='Login';login.className=linkClass;
+      login.href=new URL('outputs/account-wireframes/login-page-v3.html',base).href;nav.append(login);
+    }
     [...nav.children].forEach(child => {
       const link = child.matches('a') ? child : child.querySelector(':scope > a');
       if (!link) return;

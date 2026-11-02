@@ -3,11 +3,9 @@
   if(!form?.querySelector('#birthday-attraction'))return;
   // Prices are per person; index 0 is Mon-Thu, index 1 is Fri-Sun.
   const packages=[
-    {name:'JumpStar',price:[7850,9150],food:[9700,11000],jump:2,games:0,gameMinutes:0,socks:true},
-    {name:'JumpParty',price:[6250,7150],food:[8100,9000],jump:1,games:0,gameMinutes:0,socks:true},
-    {name:'MegaFun*Jump',price:[9650,10650],food:[11500,12500],jump:1.5,games:1,gameMinutes:30,socks:true},
-    {name:'Fun*Party',price:[6800,6800],food:[8650,8650],jump:0,games:1,gameMinutes:60,socks:false},
-    {name:'MegaFun*Party',price:[11800,11800],food:[13650,13650],jump:0,games:2,gameMinutes:60,socks:false}
+    {name:'Jump Party',price:[6250,7150],food:[8100,9000],jump:1,games:0,gameMinutes:0,socks:true},
+    {name:'Jump Star',price:[7850,9150],food:[9700,11000],jump:2,games:0,gameMinutes:0,socks:true},
+    {name:'Jump Fun Party',price:[6800,6800],food:[8650,8650],jump:0,games:1,gameMinutes:60,socks:true},
   ];
   products.birthday=packages.map(item=>({name:item.name,price:item.price[0],basis:'Per person'}));
   const product=form.querySelector('#product');
@@ -16,7 +14,71 @@
   const attractionField=form.querySelector('#birthday-attraction-field');
   const food=form.querySelector('#birthday-food');
   const extra=form.querySelector('#birthday-extras');
+  const foodSection=food.closest('.field');
+  food.hidden=true;
+  const foodOptions=document.createElement('div');foodOptions.className='birthday-food-options';
+  ['Chicken nuggets & Fries','Pizza',''].forEach(value=>{
+    const label=document.createElement('label');const input=document.createElement('input');
+    input.type='radio';input.name='birthday-food-choice';input.value=value;input.checked=!value;
+    const text=document.createElement('span');text.dataset.foodName=value;
+    label.append(input,text);foodOptions.append(label);
+    input.addEventListener('change',()=>{food.value=value;updateSummary();});
+  });
+  food.after(foodOptions);
+  const cake=form.querySelector('#birthday-cake');
+  cake.hidden=true;
+  const cakeOptions=document.createElement('div');cakeOptions.className='birthday-food-options';
+  [...cake.options].filter(option=>option.value).forEach(option=>{
+    const label=document.createElement('label');const input=document.createElement('input');
+    input.type='radio';input.name='birthday-cake-choice';input.value=option.value;input.checked=cake.value===option.value;
+    label.append(input,document.createTextNode(option.value));cakeOptions.append(label);
+    input.addEventListener('change',()=>{cake.value=input.value;updateSummary();});
+  });
+  cake.after(cakeOptions);
+  form.querySelector('#birthday-cake-label').textContent='Choose cake (included)';
+  foodSection.after(cake.closest('.field'));
+  const extrasSection=extra.closest('.field');extra.hidden=true;
+  const champagneRow=document.createElement('div');champagneRow.className='birthday-champagne-option';
+  const champagneLabel=document.createElement('label');champagneLabel.className='birthday-decoration-option';
+  const champagneEnabled=document.createElement('input');champagneEnabled.type='checkbox';
+  const champagneText=document.createElement('span');champagneText.textContent='Kids Champagne · 5.000 Ft / bottle';
+  champagneLabel.append(champagneEnabled,champagneText);
+  const champagne=document.createElement('select');champagne.id='birthday-champagne';champagne.setAttribute('aria-label','Number of Kids Champagne bottles');champagne.disabled=true;
+  for(let count=1;count<=20;count++){const option=document.createElement('option');option.value=String(count);option.textContent=String(count);champagne.append(option);}
+  champagneRow.append(champagneLabel,champagne);
+  const decorationLabel=document.createElement('label');decorationLabel.className='birthday-decoration-option';
+  const decoration=document.createElement('input');decoration.type='checkbox';
+  const decorationText=document.createElement('span');decorationText.textContent='Decoration · 10.000 Ft';
+  decorationLabel.append(decoration,decorationText);
+  extrasSection.append(champagneRow,decorationLabel);
+  champagneEnabled.addEventListener('change',()=>{champagne.disabled=!champagneEnabled.checked;updateSummary();});
+  champagne.addEventListener('change',()=>updateSummary());decoration.addEventListener('change',()=>updateSummary());
+  const timeHint=document.createElement('p');timeHint.className='birthday-time-hint';timeHint.textContent='Your time is not available? Try another day or a different attraction.';
+  form.querySelector('#party-slots').after(timeHint);
+  const cleanLimited=()=>{
+    form.querySelectorAll('.limited').forEach(node=>node.classList.remove('limited'));
+    form.querySelectorAll('.availability-legend span').forEach(node=>{if(node.textContent.trim()==='Limited')node.hidden=true;});
+  };
+  new MutationObserver(cleanLimited).observe(form,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  cleanLimited();
+  const extrasStyle=document.createElement('style');extrasStyle.textContent='.field .birthday-decoration-option{display:flex;align-items:center;gap:10px;min-width:0;margin-top:12px;white-space:normal}.field .birthday-decoration-option input{flex:0 0 18px;width:18px;height:18px;min-height:18px;padding:0;margin:0}.birthday-decoration-option span{min-width:0;overflow-wrap:break-word}';document.head.append(extrasStyle);
   const includes=form.querySelector('.birthday-package-includes ul');
+  extrasStyle.textContent+='.birthday-champagne-option{display:flex;align-items:center;gap:10px;margin-top:12px}.field .birthday-champagne-option label{flex:1;margin-top:0}.field .birthday-champagne-option select{flex:0 0 64px;width:64px;min-height:36px;padding:6px}.birthday-champagne-option select:disabled{opacity:.5}';
+  [foodSection,cake.closest('.field'),extrasSection].forEach(section=>section.classList.add('birthday-compact-options'));
+  extrasStyle.textContent+=`
+    .birthday-compact-options{margin-top:14px!important;gap:4px}
+    .birthday-compact-options select[hidden]{display:none!important}
+    .birthday-compact-options .birthday-food-options label,
+    .birthday-compact-options .birthday-decoration-option{display:flex;align-items:center;gap:8px;min-height:36px;margin:0;padding:6px 0;box-sizing:border-box;border:0;border-bottom:1px solid var(--line);font-size:13px;font-weight:500;line-height:1.35;text-transform:none;background:transparent!important;cursor:pointer}
+    .birthday-compact-options .birthday-champagne-option{gap:8px;margin:0;border-bottom:1px solid var(--line);min-height:40px}
+    .birthday-compact-options .birthday-champagne-option label{border:0}
+    .birthday-compact-options input[type=radio],.birthday-compact-options input[type=checkbox]{appearance:none!important;display:block;flex:0 0 16px;width:16px!important;height:16px!important;min-height:16px!important;margin:0!important;padding:0!important;border:1px solid var(--muted)!important;background:var(--paper)!important;box-shadow:none!important;position:relative}
+    .birthday-compact-options input[type=radio]{border-radius:50%!important}
+    .birthday-compact-options input[type=checkbox]{border-radius:3px!important}
+    .birthday-compact-options input:checked{border-color:var(--ink)!important;background:var(--ink)!important;box-shadow:inset 0 0 0 3px var(--paper)!important}
+    .birthday-compact-options input:focus-visible{outline:2px solid #1684d8;outline-offset:3px}
+    .field .birthday-compact-options select#birthday-champagne{flex-basis:54px;width:54px;min-height:30px;padding:3px 5px;font-size:13px}
+  `;
   const calendar=form.querySelector('.calendar-grid');
   const calendarField=calendar.closest('.field');
   const calendarMinimums=new Map();
@@ -64,11 +126,18 @@
     warning.hidden=true;minimumRow.classList.add('hidden');note.hidden=currentCategory!=='birthday';
     secondField.style.display='none';
     if(currentCategory!=='birthday')return;
+    if(currentMode==='adult'&&chosen().jump){product.value=String(packages.findIndex(item=>!item.jump));}
+    [...product.options].forEach(option=>{option.hidden=currentMode==='adult'&&!!packages[Number(option.value)]?.jump;option.disabled=option.hidden;});
+    const productField=product.closest('.field');
+    product.after(form.querySelector('.birthday-package-includes'));
+    product.after(note);
+    productField.after(attractionField);
+    attractionField.after(guests.closest('.field'));
     const item=chosen(),day=dayIndex(),minimum=day===1?8:4;
     const count=Math.max(0,Math.floor(Number(guests.value)||0));
     guests.min='1';
-    form.querySelector('label[for="guests"]').textContent='Number of guests (from 4)';
-    note.textContent=`${format(item.price[day])} / person for the selected day (${day?'Fri-Sun':'Mon-Thu'}) · Minimum ${minimum} guests. With food: from ${format(Math.min(...item.food))} / person.`;
+    form.querySelector('label[for="guests"]').textContent='Number of guests (Mon–Thu from 4 guests. Fri–Sun from 8 guests.)';
+    note.textContent='Prices and minimum guest numbers vary by day of the week.';
     [...product.options].forEach((option,index)=>{if(packages[index])option.textContent=`${packages[index].name} - from ${format(Math.min(...packages[index].price))} / person · from 4 guests`;});
     const included=[];
     if(item.jump)included.push(`${item.jump} ${item.jump===1?'hour':'hours'} jumping`);
@@ -80,12 +149,17 @@
     const row=form.querySelector('#summary-attractions-row');row.classList.remove('hidden');
     form.querySelector('#summary-attractions').textContent=item.games?`${item.jump?'Jumping + ':''}${attraction.value}${item.games===2?' + '+second.value:''}`:'Jumping';
     const perPerson=food.value?item.food[day]:item.price[day];
-    const extrasPrice=extra.value==='Kindersekt'?5000:extra.value==='Dekoration'?10000:0;
+    const bottles=champagneEnabled.checked?Math.max(0,Math.floor(Number(champagne.value)||0)):0;
+    const extrasPrice=bottles*5000+(decoration.checked?10000:0);
     form.querySelector('#summary-product').textContent=item.name;
     form.querySelector('#summary-guests').textContent=String(count);
     form.querySelector('#summary-basis').textContent=format(perPerson);
     form.querySelector('#summary-total').textContent=format(perPerson*count+extrasPrice);
-    form.querySelector('#birthday-food-label').textContent=`Additional Food Options · +${format(item.food[day]-item.price[day])} / person`;
+    form.querySelector('#birthday-food-label').textContent='Choose Food';
+    foodOptions.querySelectorAll('[data-food-name]').forEach(label=>{label.textContent=label.dataset.foodName?`${label.dataset.foodName} · +${format(item.food[day]-item.price[day])} / person`:'No additional food';});
+    const extrasSummary=form.querySelector('#summary-birthday-extras');
+    extrasSummary.textContent=[bottles?`${bottles} × Kids Champagne (${format(bottles*5000)})`:'',decoration.checked?'Decoration (10.000 Ft)':''].filter(Boolean).join(' + ');
+    extrasSummary.closest('.summary-row').classList.toggle('hidden',!extrasPrice);
     if(food.value)form.querySelector('#summary-birthday-food').textContent=`${food.value} (+${format(item.food[day]-item.price[day])} / person, included in total)`;
     minimumValue.textContent=String(minimum);minimumRow.classList.remove('hidden');
     calendar.querySelectorAll('.calendar-day:not(.empty)').forEach(button=>{
@@ -108,6 +182,7 @@
     product.value=String(index);populateAttractions();updateSummary();
   };
   form.querySelectorAll('.category-tab').forEach(button=>button.addEventListener('click',sync));
+  form.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',sync));
   product.addEventListener('change',()=>{if(currentCategory==='birthday'){populateAttractions();updateSummary();}});
   guests.addEventListener('change',event=>{if(currentCategory==='birthday'){event.stopImmediatePropagation();updateSummary();}},true);
   guests.addEventListener('input',()=>{if(currentCategory==='birthday')updateSummary();});
