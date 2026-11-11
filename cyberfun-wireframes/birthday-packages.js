@@ -3,9 +3,9 @@
   if(!form?.querySelector('#birthday-attraction'))return;
   // Prices are per person; index 0 is Mon-Thu, index 1 is Fri-Sun.
   const packages=[
-    {name:'Jump Party',price:[6250,7150],food:[8100,9000],jump:1,games:0,gameMinutes:0,socks:true},
-    {name:'Jump Star',price:[7850,9150],food:[9700,11000],jump:2,games:0,gameMinutes:0,socks:true},
-    {name:'Jump Fun Party',price:[6800,6800],food:[8650,8650],jump:0,games:1,gameMinutes:60,socks:true},
+    {name:'CyberParty',price:[6250,7150],food:[8100,9000],jump:1,games:0,gameMinutes:0,socks:true},
+    {name:'CyberStar',price:[7850,9150],food:[9700,11000],jump:2,games:0,gameMinutes:0,socks:true},
+    {name:'CyberFun',price:[6800,6800],food:[8650,8650],jump:0,games:1,gameMinutes:60,socks:true},
   ];
   products.birthday=packages.map(item=>({name:item.name,price:item.price[0],basis:'Per person'}));
   const product=form.querySelector('#product');

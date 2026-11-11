@@ -13,13 +13,13 @@
       const card=document.createElement('article');card.className='membership-plan-card';
       card.innerHTML=`<div class="membership-card-image" role="img" aria-label="${plan.tier} VIP Card">${plan.tier} VIP Card</div><div class="membership-card-body"><p class="wire-label">${plan.billing}</p><h3>${plan.name}</h3><p class="membership-price">${format(plan.monthly)} <small>/ month${plan.recurring?'':' equivalent'}</small></p><ul><li>${plan.access}</li><li>${plan.term}</li>${plan.premium?'<li>Welcome pack &amp; birthday benefit</li>':''}</ul><p>${plan.recurring?'Billed monthly':format(plan.due)+' paid upfront'}</p><button type="button">Choose plan</button></div>`;
       card.querySelector('button').addEventListener('click',()=>{
-        document.querySelector('[data-category="ticket"]').click();const select=document.getElementById('product');select.value='membership:'+plan.id;select.dispatchEvent(new Event('change',{bubbles:true}));document.querySelector('form.checkout').scrollIntoView({block:'start',behavior:'smooth'});
+        document.querySelector('[data-category="ticket"]').click();window.selectCyberfunMembership(plan.id);document.querySelector('form.checkout').scrollIntoView({block:'start',behavior:'smooth'});
       });cards.append(card);
     });
     document.querySelector('[data-category="ticket"]').click();
     const requested=new URLSearchParams(window.location.search).get('plan');
     if(plans.some(plan=>plan.id===requested)){
-      const select=document.getElementById('product');select.value='membership:'+requested;select.dispatchEvent(new Event('change',{bubbles:true}));
+      window.selectCyberfunMembership(requested);
     }
     return;
   }

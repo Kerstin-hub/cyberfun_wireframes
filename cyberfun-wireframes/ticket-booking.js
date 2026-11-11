@@ -14,11 +14,21 @@
   const registrationUrl=new URL('outputs/checkout-html-screens/02-registration-page.html',new URL('.',document.currentScript.src));
   const membershipDetails=document.createElement('div');membershipDetails.className='notice';membershipDetails.hidden=true;product.after(membershipDetails);
   const memberships=[['premium-plus','Premium VIP Card+',5600],['premium-three','Premium VIP Card 3',8040],['basic-plus','Basic VIP Card+',3700],['basic-three','Basic VIP Card 3',5300]];
-  product.addEventListener('change',event=>{
-    if(currentCategory==='ticket'&&product.value.startsWith('membership:')){
-      event.stopImmediatePropagation();updateSummary();
-    }
-  },true);
+  let selectedMembership=null;
+  const membershipChoices=document.createElement('div');membershipChoices.className='ticket-membership-choices';membershipChoices.hidden=true;
+  const membershipHeading=document.createElement('span');membershipHeading.className='field-label';membershipHeading.textContent='Explore our Jump Memberships:';
+  membershipHeading.style.cssText='color:var(--muted);font-size:.75rem;font-weight:900;text-transform:uppercase';
+  const membershipGrid=document.createElement('div');membershipGrid.className='ticket-membership-grid';
+  memberships.forEach(([id,name,monthly])=>{
+    const button=document.createElement('button');button.type='button';button.dataset.membership=id;button.setAttribute('aria-pressed','false');
+    const title=document.createElement('span');title.textContent=name;
+    const price=document.createElement('strong');price.textContent=new Intl.NumberFormat('de-DE').format(monthly)+' Ft';
+    const billing=document.createElement('small');billing.textContent=id.endsWith('three')?'/ month equivalent':'/ month';
+    button.append(title,price,billing);button.addEventListener('click',()=>{selectedMembership=selectedMembership===id?null:id;updateSummary();});membershipGrid.append(button);
+  });
+  membershipChoices.append(membershipHeading,membershipGrid);product.after(membershipChoices);
+  window.selectCyberfunMembership=id=>{if(!memberships.some(item=>item[0]===id))return;product.value='0';selectedMembership=id;updateSummary();};
+  product.addEventListener('change',()=>{selectedMembership=null;},true);
   const guests = form.querySelector('#guests');
   const attractionMinimum=document.createElement('p');
   attractionMinimum.className='ticket-price-note';attractionMinimum.hidden=true;
@@ -81,6 +91,7 @@
   style.textContent='.ticket-pricing-flow .ticket-duration-legacy,.birthday-flow .ticket-duration-legacy{display:none!important}.ticket-variants{display:flex;flex-wrap:wrap;gap:6px}.ticket-variants button{flex:1;min-width:75px;min-height:46px;padding:8px 5px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit;font-size:13px;font-weight:800;cursor:pointer}.ticket-variants button.active{background:var(--ink);color:white;border-color:var(--ink)}.ticket-price-note{margin:5px 0 0;font-size:12px;line-height:1.5;color:var(--muted)}';
   style.textContent+='.ticket-day-minimum{display:none}.ticket-pricing-flow .calendar-day:not(.empty){min-height:64px;padding:5px 1px 10px}.ticket-pricing-flow .ticket-day-minimum{display:block;margin-top:4px;font-size:9px;line-height:1.2;font-weight:600;white-space:normal}.ticket-minimum-warning[hidden]{display:none!important}.ticket-minimum-warning{padding:12px;margin:0 0 16px;border-left:3px solid #d18b00;background:#fff6de;color:var(--ink)}.ticket-minimum-warning p{margin:0 0 10px;font-size:13px;line-height:1.5;color:inherit}.ticket-minimum-actions{display:flex;flex-wrap:wrap;gap:8px}.ticket-minimum-actions button{min-height:40px;padding:8px 10px;border:1px solid var(--ink);border-radius:6px;background:var(--ink);color:white;font:inherit;font-size:12px;cursor:pointer}.ticket-minimum-actions button+button{background:white;color:var(--ink)}.checkout .button:disabled{opacity:.45;cursor:not-allowed}';
   document.head.append(style);
+  style.textContent+='.ticket-membership-choices[hidden]{display:none!important}.ticket-membership-choices{margin:12px 0}.ticket-membership-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-top:8px}.ticket-membership-grid button{display:flex;flex-direction:column;justify-content:space-between;gap:8px;min-width:0;min-height:112px;padding:8px 4px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit;font-size:11px;line-height:1.35;cursor:pointer;overflow-wrap:anywhere}.ticket-membership-grid button[aria-pressed=true]{border:2px solid var(--ink);background:var(--soft)}.ticket-membership-grid small{font-size:10px}.ticket-membership-grid button:focus-visible{outline:2px solid #1684d8;outline-offset:2px}';
   style.textContent+='.membership-product-flow .field:not(:has(#product)),.membership-product-flow #ticket-fields,.membership-product-flow .calendar,.membership-product-flow .calendar-wrap,.membership-product-flow .availability-legend,.membership-product-flow .ticket-required-socks,.membership-product-flow .ticket-minimum-warning,.membership-product-flow .ticket-price-note,.membership-product-flow .summary-row:not(:has(#summary-category)):not(:has(#summary-product)):not(:has(#summary-basis)):not(.total){display:none!important}';
   style.textContent+='.ticket-required-socks[hidden]{display:none!important}.ticket-required-socks{display:grid;gap:6px;margin-top:12px;padding:12px 0;border-top:1px solid var(--line);font-size:13px;line-height:1.5}.ticket-required-socks span{color:var(--muted)}';
   style.textContent+='.ticket-required-socks .birthday-decoration-option{cursor:pointer}.ticket-required-socks input[type=checkbox]{pointer-events:auto;cursor:pointer}.ticket-required-socks #ticket-socks-quantity{width:60px;flex:0 0 60px;min-height:34px;padding:4px}';
@@ -98,12 +109,16 @@
   socksEnabled.addEventListener('change',()=>{socksQuantity.disabled=!socksEnabled.checked;if(socksEnabled.checked&&!Number(socksQuantity.value))socksQuantity.value='1';updateSummary();});
   socksQuantity.addEventListener('change',()=>updateSummary());
   updateSummary=function(){
-    const member=currentCategory==='ticket'&&product.value.startsWith('membership:')?memberships.find(item=>item[0]===product.value.slice(11)):null;
+    const isJump=currentCategory==='ticket'&&selectedItem().name==='Jump';
+    membershipChoices.hidden=!isJump;
+    if(isJump)product.after(membershipChoices);
+    const member=isJump?memberships.find(item=>item[0]===selectedMembership):null;
+    membershipGrid.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.membership===member?.[0])));
     form.classList.toggle('membership-product-flow',!!member);
     membershipDetails.hidden=!member;
     if(member){
       const [id,name,monthly]=member,recurring=id.endsWith('plus'),premium=id.startsWith('premium');
-      product.after(membershipDetails);
+      membershipChoices.after(membershipDetails);
       membershipDetails.textContent=`${name} · ${priceText(monthly)} / month${recurring?'':' equivalent'}. ${premium?'Unlimited jumping on school days; 2 hours on weekends and school holidays. Welcome pack and birthday benefit.':'1 hour of jumping on school days, weekends and school holidays.'} ${recurring?'3-month minimum term; cancellable afterwards.':'90-day pass. '+priceText(monthly*3)+' paid upfront. No automatic renewal.'}`;
       form.querySelector('#summary-category').textContent='Membership';
       form.querySelector('#summary-product').textContent=name;
@@ -184,11 +199,7 @@
     const ticket=currentCategory==='ticket';form.classList.toggle('ticket-pricing-flow',ticket);duration.style.display='none';
     if(!ticket){minRow.classList.add('hidden');return;}
     product.innerHTML=ticketProducts.map(({item,variant},index)=>`<option value="${index}">${item.name} · ${variant.label} — ${priceText(variant.price)} / person</option>`).join('');
-    const jumpTwoHours=product.options[1];
-    jumpTwoHours.after(...memberships.map(([id,name,monthly])=>{
-      const option=document.createElement('option');option.value=`membership:${id}`;
-      option.textContent=`${name} — ${priceText(monthly)} / month${id.endsWith('three')?' equivalent':''}`;return option;
-    }));
+    selectedMembership=null;
     product.closest('.field').after(duration);
     renderVariants();
   };

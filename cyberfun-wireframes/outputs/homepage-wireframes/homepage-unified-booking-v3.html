@@ -69,6 +69,7 @@
       .content-column { min-width: 0; border-right: 1px solid var(--line); }
       .content-section { padding: clamp(1.7rem, 4vw, 4rem); border-bottom: 1px solid var(--line); }
       .section-copy { max-width: 760px; }
+      .group-entry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
       .tile-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; margin-top: 1.6rem; }
       .tile { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
       .tile-image { display: grid; place-items: center; aspect-ratio: 4 / 3; background: var(--soft-2); color: var(--muted); font-weight: 900; }
@@ -256,71 +257,61 @@
         <section class="intro">
           <p class="eyebrow">One place. Every kind of fun.</p>
           <h1>Cyberfun</h1>
-          <p>Plan a birthday, choose a package or book an attraction directly. Explore everything Cyberfun offers and build your visit in one simple booking flow.</p>
+          <p>Where digital worlds meet real-world play. Jump, compete and sing with your favourite people at CyberFun Budapest.</p>
         </section>
 
         <div class="main-layout">
           <div class="content-column">
+            <section class="content-section" id="tickets">
+              <div class="section-copy">
+                <p class="eyebrow">Tickets &amp; Attractions</p>
+                <h2>Play it real.</h2>
+                <p>Jump into the action, challenge your friends or take the mic. Discover five ways to play at CyberFun &mdash; and find your next shared moment.</p>
+              </div>
+              <div class="tile-grid" id="attractions">
+                <article class="tile"><div class="tile-image">Jump image</div><div class="tile-body"><h3>Jump</h3><p>Big jumps. Bigger smiles. Get moving on the trampolines.</p><p>1 or 2 hours</p><span class="price">From 4.500 Ft / person</span><br><a class="more-link" href="../ticket-product-wireframes/ticket-product-template.html">More</a></div></article>
+                <article class="tile"><div class="tile-image">Pixel image</div><div class="tile-body"><h3>Pixel</h3><p>Think fast. Move faster. Take on interactive floor challenges.</p><p>30 or 60 min</p><span class="price">From 3.000 Ft / person</span><br><a class="more-link" href="../activity-detail-wireframes/karaoke-activity-detail-template.html">More</a></div></article>
+                <article class="tile"><div class="tile-image">Lasertag image</div><div class="tile-body"><h3>Lasertag</h3><p>Pick your team. Step into the arena. Make every hit count.</p><p>30 or 60 min</p><span class="price">From 3.500 Ft / person</span><br><a class="more-link" href="../activity-detail-wireframes/karaoke-activity-detail-template.html">More</a></div></article>
+                <article class="tile"><div class="tile-image">Darts image</div><div class="tile-body"><h3>Darts</h3><p>A little friendly rivalry. A lot to celebrate.</p><p>30 or 60 min</p><span class="price">From 3.000 Ft / person</span><br><a class="more-link" href="../activity-detail-wireframes/karaoke-activity-detail-template.html">More</a></div></article>
+                <article class="tile"><div class="tile-image">Karaoke image</div><div class="tile-body"><h3>Karaoke</h3><p>Your favourite people. Your favourite songs. Your moment.</p><p>30 or 60 min</p><span class="price">From 3.000 Ft / person</span><br><a class="more-link" href="../activity-detail-wireframes/karaoke-activity-detail-template.html">More</a></div></article>
+              </div>
+              <p><a class="more-link" href="../category-wireframes/attractions-tickets-category-page-v3.html">Explore all tickets &amp; attractions</a></p>
+            </section>
+
             <section class="content-section" id="birthday">
               <div class="section-copy">
                 <p class="eyebrow">Birthday Parties</p>
-                <h2>Big birthday energy, easy to organise.</h2>
-                <p>Choose the right format for your group. Every package combines the essentials for a complete birthday experience.</p>
+                <h2>Their big day. Your easy plan.</h2>
+                <p>Bring the friends. We&rsquo;ll bring the birthday fun. Explore CyberParty, CyberStar and CyberFun &mdash; with cake, a drink and jump socks included.</p>
               </div>
               <div class="tile-grid">
-                <article class="tile"><div class="tile-image">Party image</div><div class="tile-body"><h3>Cyberpartyfun</h3><p>Ticket, cake, drink and socks. From 5 guests.</p><span class="price">From 8.900 Ft pp</span><br><a class="more-link" href="../parties-events-wireframes/birthday-parties-page.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Party image</div><div class="tile-body"><h3>Cyberfun</h3><p>Birthday essentials plus Tokens for extra games.</p><span class="price">From 11.900 Ft pp</span><br><a class="more-link" href="../parties-events-wireframes/birthday-parties-page.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Party image</div><div class="tile-body"><h3>Cybermegafun</h3><p>More time, more Tokens and the biggest party format.</p><span class="price">From 14.900 Ft pp</span><br><a class="more-link" href="../parties-events-wireframes/birthday-parties-page.html">More</a></div></article>
+                <article class="tile"><div class="tile-image">CyberParty image</div><div class="tile-body"><h3>CyberParty</h3><p>One hour of jumping, one hour at the party table, cake, a drink and socks.</p><span class="price">From 6.250 Ft / person</span><br><a class="more-link" href="../parties-events-wireframes/birthday-parties-page.html">More</a></div></article>
+                <article class="tile"><div class="tile-image">CyberStar image</div><div class="tile-body"><h3>CyberStar</h3><p>Two hours of jumping, one hour at the party table, cake, a drink and socks.</p><span class="price">From 7.850 Ft / person</span><br><a class="more-link" href="../parties-events-wireframes/birthday-parties-page.html">More</a></div></article>
+                <article class="tile"><div class="tile-image">CyberFun image</div><div class="tile-body"><h3>CyberFun</h3><p>A 60-minute game, one hour at the party table, cake, a drink and socks.</p><span class="price">From 6.800 Ft / person</span><br><a class="more-link" href="../parties-events-wireframes/birthday-parties-page.html">More</a></div></article>
+              </div>
+              <p>Prices and minimum guest numbers vary by day of the week.</p>
+              <p><a class="more-link" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Explore parties &amp; packages</a></p>
+            </section>
+
+            <section class="content-section" id="memberships">
+              <div class="section-copy">
+                <p class="eyebrow">Jump Memberships</p>
+                <h2>More jumps. More reasons to come back.</h2>
+                <p>Make jumping a regular part of your plans. Choose Basic or Premium, with a monthly subscription or a prepaid 90-day pass.</p>
+                <p><span class="price">From 3.700 Ft / month</span></p>
+                <p><a class="more-link" href="../membership-wireframes/membership-page-v3.html">Explore Jump Memberships</a></p>
               </div>
             </section>
 
-            <section class="content-section" id="packages">
+            <section class="content-section" id="groups">
               <div class="section-copy">
-                <p class="eyebrow">Packages</p>
-                <h2>Choose your time. Combine your favourites.</h2>
-                <p>Package your visit around the way your group wants to play, from easy Family Time entry to a two-attraction evening challenge.</p>
+                <p class="eyebrow">Schools, Corporates &amp; Groups</p>
+                <h2>Bring your people. Get into the action.</h2>
+                <p>From class trips to team outings, give your group something to experience &mdash; and talk about &mdash; together.</p>
               </div>
-              <div class="package-grid">
-                <article class="tile"><div class="tile-image">Package image</div><div class="tile-body"><h3>Family Play 1h</h3><p>One hour of flexible daytime play.</p><span class="price">From 4.800 Ft pp</span><br><a class="more-link" href="../package-wireframes/package-product-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Package image</div><div class="tile-body"><h3>Family Play 2h</h3><p>Two hours for a longer family visit.</p><span class="price">From 6.800 Ft pp</span><br><a class="more-link" href="../package-wireframes/package-product-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Package image</div><div class="tile-body"><h3>Active Duo</h3><p>Active entry plus one extra game.</p><span class="price">From 7.800 Ft pp</span><br><a class="more-link" href="../package-wireframes/package-product-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Package image</div><div class="tile-body"><h3>Double Challenge</h3><p>Two connected attraction sessions.</p><span class="price">From 8.800 Ft pp</span><br><a class="more-link" href="../package-wireframes/package-product-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Package image</div><div class="tile-body"><h3>Social Mix</h3><p>Games and Tokens for friends.</p><span class="price">From 9.800 Ft pp</span><br><a class="more-link" href="../package-wireframes/package-product-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Package image</div><div class="tile-body"><h3>Mega Mix</h3><p>The broadest mix of games and play.</p><span class="price">From 10.900 Ft pp</span><br><a class="more-link" href="../package-wireframes/package-product-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Package image</div><div class="tile-body"><h3>Pixel + Lasertag</h3><p>Two competitive favourites combined.</p><span class="price">From 8.800 Ft pp</span><br><a class="more-link" href="../package-wireframes/package-product-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Package image</div><div class="tile-body"><h3>Softplay + Karaoke</h3><p>Family play with a private room.</p><span class="price">From 8.400 Ft pp</span><br><a class="more-link" href="../package-wireframes/package-product-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Package image</div><div class="tile-body"><h3>Karaoke + Pixel + VR</h3><p>Three social and digital challenges.</p><span class="price">From 11.900 Ft pp</span><br><a class="more-link" href="../package-wireframes/package-product-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Package image</div><div class="tile-body"><h3>Darts + VR + Pixel</h3><p>A competitive evening combination.</p><span class="price">From 11.900 Ft pp</span><br><a class="more-link" href="../package-wireframes/package-product-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Package image</div><div class="tile-body"><h3>MiniGolf + Arcade</h3><p>A relaxed mix for families and groups.</p><span class="price">From 8.900 Ft pp</span><br><a class="more-link" href="../package-wireframes/package-product-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Package image</div><div class="tile-body"><h3>Night Challenge</h3><p>Adult Time with selected sessions.</p><span class="price">From 12.900 Ft pp</span><br><a class="more-link" href="../package-wireframes/package-product-template.html">More</a></div></article>
-              </div>
-            </section>
-
-            <section class="content-section" id="tickets">
-              <div class="section-copy">
-                <p class="eyebrow">Single Tickets</p>
-                <h2>Jump for one or two hours.</h2>
-                <p>Single Tickets include Trampoline access during Family Time or Adult Time. Choose your visit duration and arrival time online; additional attractions can be booked on site, subject to availability.</p>
-              </div>
-              <div class="tile-grid">
-                <article class="tile"><div class="tile-image">Ticket image</div><div class="tile-body"><h3>1 Hour Ticket</h3><p>One hour of Trampoline access from your selected arrival time.</p><span class="price">From 4.800 Ft pp</span><br><a class="more-link" href="../category-wireframes/attractions-tickets-category-page-v3.html#tickets">More</a></div></article>
-                <article class="tile"><div class="tile-image">Ticket image</div><div class="tile-body"><h3>2 Hour Ticket</h3><p>Two hours of Trampoline access for a longer visit.</p><span class="price">From 6.800 Ft pp</span><br><a class="more-link" href="../category-wireframes/attractions-tickets-category-page-v3.html#tickets">More</a></div></article>
-              </div>
-            </section>
-
-            <section class="content-section" id="attractions">
-              <div class="section-copy">
-                <p class="eyebrow">Attractions</p>
-                <h2>Pick one favourite or make a full day of it.</h2>
-                <p>From active play and digital challenges to social games, Karaoke and VR. Select an attraction to see its starting price.</p>
-              </div>
-              <div class="tile-grid">
-                <article class="tile"><div class="tile-image">Attraction image</div><div class="tile-body"><h3>Trampoline</h3><p>Active play for Family Time visits.</p><span class="price">Included in entry</span><br><a class="more-link" href="../activity-detail-wireframes/karaoke-activity-detail-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Attraction image</div><div class="tile-body"><h3>Lasertag</h3><p>Competitive group sessions.</p><span class="price">From 2.500 Ft</span><br><a class="more-link" href="../activity-detail-wireframes/karaoke-activity-detail-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Attraction image</div><div class="tile-body"><h3>Pixel</h3><p>Fast interactive floor challenges.</p><span class="price">From 2.500 Ft</span><br><a class="more-link" href="../activity-detail-wireframes/karaoke-activity-detail-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Attraction image</div><div class="tile-body"><h3>Karaoke</h3><p>Private rooms for friends and parties.</p><span class="price">From 4.800 Ft</span><br><a class="more-link" href="../activity-detail-wireframes/karaoke-activity-detail-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Attraction image</div><div class="tile-body"><h3>MiniGolf</h3><p>15 holes for families and groups.</p><span class="price">From 4.800 Ft</span><br><a class="more-link" href="../activity-detail-wireframes/karaoke-activity-detail-template.html">More</a></div></article>
-                <article class="tile"><div class="tile-image">Attraction image</div><div class="tile-body"><h3>VR, Darts &amp; more</h3><p>Extra challenges to complete your visit.</p><span class="price">View all</span><br><a class="more-link" href="../activity-detail-wireframes/karaoke-activity-detail-template.html">More</a></div></article>
+              <div class="tile-grid group-entry-grid">
+                <article class="tile"><div class="tile-image">School group image</div><div class="tile-body"><p class="eyebrow">School Groups</p><h3>More action. More class memories.</h3><p>Take learning beyond the classroom with active games, shared challenges and plenty of fun. Plan a school trip that gets everyone involved.</p><a class="more-link" href="../group-wireframes/school-groups-page.html">Explore school visits</a></div></article>
+                <article class="tile"><div class="tile-image">Corporate group image</div><div class="tile-body"><p class="eyebrow">Corporates &amp; Groups</p><h3>Out of office. Into the action.</h3><p>Swap the usual get-together for active challenges, friendly competition and shared wins. Give your team something to talk about besides work.</p><a class="more-link" href="../group-wireframes/corporates-groups-category-page-v3.html">Explore group events</a></div></article>
               </div>
             </section>
 
@@ -345,10 +336,10 @@
               <p class="eyebrow">FAQ</p>
               <h2>Good to know before you book.</h2>
               <div class="faq-list">
-                <details><summary>What is the difference between Family Time and Adult Time?</summary><p>Adults can book during Family Time. Children up to 15 cannot book Adult Time. The available booking options change with the selected date and time.</p></details>
+                <details><summary>What is the difference between Family Time and Adult Time?</summary><p>Before 19:00, all ages are welcome. After 19:00, visits are for guests aged 16 and over.</p></details>
                 <details><summary>Can I prebook attraction times during Family Time?</summary><p>Daytime packages include an arrival time, but individual attraction times are arranged on site.</p></details>
                 <details><summary>How do two-attraction packages work?</summary><p>You choose a start time for the first attraction. The second attraction follows automatically and does not need another time selection.</p></details>
-                <details><summary>What is included in birthday packages?</summary><p>Birthday packages include tickets, cake, a drink and socks. Selected packages also include Tokens for additional games.</p></details>
+                <details><summary>What is included in birthday packages?</summary><p>CyberParty and CyberStar include jumping; CyberFun includes a 60-minute game. Every birthday package includes one hour at the party table, cake, a drink and jump socks.</p></details>
                 <details><summary>Can company and private groups book?</summary><p>Yes. Corporate, school and private groups can choose dedicated formats or request a tailored visit.</p></details>
               </div>
             </section>
@@ -363,9 +354,9 @@
               </div>
               <div class="checkout-body">
                 <div class="category-tabs" role="tablist" aria-label="Booking category">
-                  <button class="category-tab active" type="button" data-category="birthday">Birthday</button>
+                  <button class="category-tab" type="button" data-category="birthday">Birthday</button>
                   <button class="category-tab" type="button" data-category="package">Packages</button>
-                  <button class="category-tab" type="button" data-category="ticket">Tickets</button>
+                  <button class="category-tab active" type="button" data-category="ticket">Tickets &amp; Memberships</button>
                   <button class="category-tab" type="button" data-category="attraction">Attractions</button>
                 </div>
 
@@ -505,7 +496,7 @@
         ]
       };
 
-      let currentCategory = "birthday";
+      let currentCategory = "ticket";
       let currentMode = "family";
       let currentDate = "24 Oct 2026";
       let currentTime = "10:00";
@@ -692,7 +683,8 @@
     </script>
   <script src="../../navigation-submenus.js?v=20261020-ticket-flow-10"></script>
   <script src="../../birthday-booking.js?v=20261102-tickets-memberships-21"></script>
-<script src="../../ticket-booking.js?v=20261102-shared-memberships-13"></script>
-<script src="../../birthday-packages.js?v=20261102-party-options-5"></script>
+<script src="../../ticket-booking-list.js?v=20261111-compact-2"></script>
+<script src="../../birthday-packages-cards.js?v=20261111-cards-2"></script>
+<script>document.querySelector('form.checkout [data-category="ticket"]').click();</script>
 </body>
 </html>
