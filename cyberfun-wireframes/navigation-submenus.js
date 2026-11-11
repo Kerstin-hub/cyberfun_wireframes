@@ -4,7 +4,7 @@
   const mainMenu = [
     ['Attractions & Tickets', 'outputs/category-wireframes/attractions-tickets-category-page-v3.html'],
     ['Parties & Packages', 'outputs/parties-events-wireframes/parties-packages-category-page-v3.html'],
-    ['Corporates & Groups', 'outputs/group-wireframes/corporates-groups-category-page-v3.html'],
+    ['School Groups', 'outputs/group-wireframes/corporates-groups-category-page-v3.html'],
     ['Membership', 'outputs/membership-wireframes/membership-page-v3.html'],
     ['Your Visit', 'pages/plan-your-visit/index.html'],
     ['Loyalty Club', 'outputs/loyalty-club-wireframes/loyalty-club-page-v3.html'],
@@ -12,7 +12,7 @@
   const groups = {
     'Attractions & Tickets': [['Trampoline', activity], ['Pixel', activity], ['Lasertag', activity], ['Darts', activity], ['Karaoke', activity], ['Single Tickets', 'outputs/ticket-product-wireframes/ticket-product-template.html']],
     'Parties & Packages': [['Birthday Parties', 'outputs/parties-events-wireframes/birthday-parties-page.html'], ['Daytime Packages', 'outputs/package-wireframes/package-product-template.html'], ['Nighttime Packages', 'outputs/package-wireframes/nighttime-package-product-v3.html'], ['Adult Parties', 'outputs/parties-events-wireframes/adult-parties-page-v2-concept.html'], ['Event Schedule', 'outputs/event-schedule-wireframes/event-schedule-page.html']],
-    'Corporates & Groups': [['School Groups', 'outputs/group-wireframes/school-groups-page.html'], ['Corporate Groups', 'outputs/group-wireframes/corporate-groups-page.html']],
+    'School Groups': [['School Groups', 'outputs/group-wireframes/school-groups-page.html'], ['Corporate Groups', 'outputs/group-wireframes/corporate-groups-page.html']],
   };
   const aliases = {'Attractions':'Attractions & Tickets','Experiences':'Attractions & Tickets','Tickets & Packages':'Parties & Packages','Parties & Events':'Parties & Packages','Parties':'Parties & Packages','Groups':'Corporates & Groups','Groups & Events':'Corporates & Groups'};
   const style = document.createElement('style');
