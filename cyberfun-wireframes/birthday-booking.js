@@ -9,7 +9,7 @@
   categoryTabs.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
   const ticketTab = categoryTabs.querySelector('[data-category="ticket"]');
   const birthdayTab = categoryTabs.querySelector('[data-category="birthday"]');
-  ticketTab.textContent = 'Tickets & Memberships';
+  ticketTab.textContent = 'Tickets';
   birthdayTab.textContent = 'Birthday & Parties';
   categoryTabs.prepend(ticketTab, birthdayTab);
   if (!['birthday','ticket'].includes(currentCategory)) {

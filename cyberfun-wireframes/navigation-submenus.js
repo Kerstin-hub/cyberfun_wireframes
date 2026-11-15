@@ -1,20 +1,17 @@
 (() => {
   const base = new URL('.', document.currentScript.src);
-  const activity = 'outputs/activity-detail-wireframes/karaoke-activity-detail-template.html';
   const mainMenu = [
-    ['Attractions & Tickets', 'outputs/category-wireframes/attractions-tickets-category-page-v3.html'],
-    ['Parties & Packages', 'outputs/parties-events-wireframes/parties-packages-category-page-v3.html'],
-    ['School Groups', 'outputs/group-wireframes/corporates-groups-category-page-v3.html'],
-    ['Membership', 'outputs/membership-wireframes/membership-page-v3.html'],
-    ['Your Visit', 'pages/plan-your-visit/index.html'],
-    ['Loyalty Club', 'outputs/loyalty-club-wireframes/loyalty-club-page-v3.html'],
+    ['Attractions', 'outputs/category-wireframes/attractions-tickets-category-page-v3.html'],
+    ['Birthdays & Parties', 'outputs/parties-events-wireframes/parties-packages-category-page-v3.html'],
+    ['Schools', 'outputs/group-wireframes/school-groups-page.html'],
+    ['Companies', 'outputs/group-wireframes/corporate-groups-page.html'],
+    ['Memberships', 'outputs/membership-wireframes/membership-page-v3.html'],
+    ['Explore', 'pages/explore/index.html'],
   ];
   const groups = {
-    'Attractions & Tickets': [['Trampoline', activity], ['Pixel', activity], ['Lasertag', activity], ['Darts', activity], ['Karaoke', activity], ['Single Tickets', 'outputs/ticket-product-wireframes/ticket-product-template.html']],
-    'Parties & Packages': [['Birthday Parties', 'outputs/parties-events-wireframes/birthday-parties-page.html'], ['Daytime Packages', 'outputs/package-wireframes/package-product-template.html'], ['Nighttime Packages', 'outputs/package-wireframes/nighttime-package-product-v3.html'], ['Adult Parties', 'outputs/parties-events-wireframes/adult-parties-page-v2-concept.html'], ['Event Schedule', 'outputs/event-schedule-wireframes/event-schedule-page.html']],
-    'School Groups': [['School Groups', 'outputs/group-wireframes/school-groups-page.html'], ['Corporate Groups', 'outputs/group-wireframes/corporate-groups-page.html']],
+    'Birthdays & Parties': [['Kids Birthdays', 'outputs/parties-events-wireframes/birthday-parties-page.html'], ['Adult Parties', 'outputs/parties-events-wireframes/adult-parties-page-v2-concept.html']],
+    'Explore': [['Family Fun', 'pages/explore/family-fun.html'], ['Teen Fun', 'pages/explore/teen-fun.html'], ['Adult Fun', 'pages/explore/adult-fun.html'], ['Your Visit', 'pages/plan-your-visit/index.html'], ['Loyalty Program', 'outputs/loyalty-club-wireframes/loyalty-club-page-v3.html']],
   };
-  const aliases = {'Attractions':'Attractions & Tickets','Experiences':'Attractions & Tickets','Tickets & Packages':'Parties & Packages','Parties & Events':'Parties & Packages','Parties':'Parties & Packages','Groups':'Corporates & Groups','Groups & Events':'Corporates & Groups'};
   const style = document.createElement('style');
   style.textContent = `
     nav a[aria-current="page"]{background:#17212d!important;color:#fff!important;border-color:#17212d!important}
@@ -74,7 +71,7 @@
       const link = child.matches('a') ? child : child.querySelector(':scope > a');
       if (!link) return;
       const label = link.textContent.trim().replace(/\s+/g,' ');
-      const items = groups[aliases[label] || label];
+      const items = groups[label];
       if (!items) return;
       const wrapper = document.createElement('div');
       wrapper.className = 'cf-menu-group' + (mobile ? ' cf-mobile-group' : '');

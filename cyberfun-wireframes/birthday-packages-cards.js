@@ -5,7 +5,8 @@
   const packages=[
     {name:'CyberParty',price:[6250,7150],food:[8100,9000],jump:1,games:0,gameMinutes:0,socks:true},
     {name:'CyberStar',price:[7850,9150],food:[9700,11000],jump:2,games:0,gameMinutes:0,socks:true},
-    {name:'CyberFun',price:[6800,6800],food:[8650,8650],jump:0,games:1,gameMinutes:60,socks:true},
+    {name:'CyberFun Fun Party',price:[9650,10650],food:[11500,12500],jump:1.5,games:1,gameMinutes:30,socks:true},
+    {name:'Fun Party',price:[6800,6800],food:[8650,8650],jump:0,games:1,gameMinutes:60,socks:false},
   ];
   products.birthday=packages.map(item=>({name:item.name,price:item.price[0],basis:'Per person'}));
   const product=form.querySelector('#product');
@@ -18,7 +19,7 @@
     const unit=document.createElement('small');unit.textContent='/ person';button.append(title,price,unit);
     button.addEventListener('click',()=>{product.value=String(index);product.dispatchEvent(new Event('change',{bubbles:true}));});packageCards.append(button);
   });
-  const cardStyle=document.createElement('style');cardStyle.textContent='.birthday-flow #product{display:none!important}.birthday-package-cards[hidden],.birthday-package-cards button[hidden]{display:none!important}.birthday-package-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:6px 0}.birthday-package-cards button{display:grid;gap:5px;min-width:0;min-height:84px;padding:9px 4px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit;font-size:12px;cursor:pointer}.birthday-package-cards button strong{font-size:12px}.birthday-package-cards button small{font-size:10px}.birthday-package-cards button[aria-pressed=true]{background:var(--ink);color:white;border-color:var(--ink)}.birthday-package-cards button:focus-visible{outline:2px solid #1684d8;outline-offset:2px}';document.head.append(cardStyle);
+  const cardStyle=document.createElement('style');cardStyle.textContent='.birthday-flow #product{display:none!important}.birthday-package-cards[hidden],.birthday-package-cards button[hidden]{display:none!important}.birthday-package-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:6px 0}.birthday-package-cards button{display:grid;gap:5px;min-width:0;min-height:84px;padding:9px 4px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit;font-size:12px;cursor:pointer}.birthday-package-cards button strong{font-size:12px}.birthday-package-cards button small{font-size:10px}.birthday-package-cards button[aria-pressed=true]{background:var(--ink);color:white;border-color:var(--ink)}.birthday-package-cards button:focus-visible{outline:2px solid #1684d8;outline-offset:2px}';document.head.append(cardStyle);
   const guests=form.querySelector('#guests');
   const attraction=form.querySelector('#birthday-attraction');
   const attractionField=form.querySelector('#birthday-attraction-field');
@@ -132,7 +133,7 @@
   const originalSummary=updateSummary;
   updateSummary=function(){
     packageCards.hidden=currentCategory!=='birthday';
-    if(currentCategory==='birthday')currentDuration=chosen().jump||chosen().games*chosen().gameMinutes/60;
+    if(currentCategory==='birthday')currentDuration=chosen().jump+chosen().games*chosen().gameMinutes/60;
     originalSummary();
     warning.hidden=true;minimumRow.classList.add('hidden');note.hidden=currentCategory!=='birthday';
     secondField.style.display='none';
@@ -157,7 +158,8 @@
     const included=[];
     if(item.jump)included.push(`${item.jump} ${item.jump===1?'hour':'hours'} jumping`);
     if(item.games)included.push(`${item.games===2?'2 games':'1 game'} · ${item.gameMinutes} minutes${item.games===2?' each':''}`);
-    included.push('1 hour at the party table','Cake / Shot','Drink');if(item.socks)included.push('Socks');
+    if(!item.games)included.push('1 hour at the party table');
+    included.push('Cake / Shot','Drink');if(item.socks)included.push('Socks');
     includes.replaceChildren(...included.map(text=>{const li=document.createElement('li');li.textContent=text;return li;}));
     attractionField.style.display=item.games?'':'none';
     secondField.style.display=item.games===2?'':'none';

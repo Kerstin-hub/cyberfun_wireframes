@@ -7,22 +7,7 @@
   ];
   const format = value => new Intl.NumberFormat('de-DE').format(value)+' Ft';
   const form=document.getElementById('membership-form');
-  if(!form){
-    const cards=document.getElementById('membership-plan-cards');
-    plans.forEach(plan=>{
-      const card=document.createElement('article');card.className='membership-plan-card';
-      card.innerHTML=`<div class="membership-card-image" role="img" aria-label="${plan.tier} VIP Card">${plan.tier} VIP Card</div><div class="membership-card-body"><p class="wire-label">${plan.billing}</p><h3>${plan.name}</h3><p class="membership-price">${format(plan.monthly)} <small>/ month${plan.recurring?'':' equivalent'}</small></p><ul><li>${plan.access}</li><li>${plan.term}</li>${plan.premium?'<li>Welcome pack &amp; birthday benefit</li>':''}</ul><p>${plan.recurring?'Billed monthly':format(plan.due)+' paid upfront'}</p><button type="button">Choose plan</button></div>`;
-      card.querySelector('button').addEventListener('click',()=>{
-        document.querySelector('[data-category="ticket"]').click();window.selectCyberfunMembership(plan.id);document.querySelector('form.checkout').scrollIntoView({block:'start',behavior:'smooth'});
-      });cards.append(card);
-    });
-    document.querySelector('[data-category="ticket"]').click();
-    const requested=new URLSearchParams(window.location.search).get('plan');
-    if(plans.some(plan=>plan.id===requested)){
-      window.selectCyberfunMembership(requested);
-    }
-    return;
-  }
+  if(!form)return;
   plans.filter(item=>item.recurring).forEach(item=>{item.due=item.monthly;});
   const memberPanel=form.querySelector('[data-membership-step="2"]');
   const addField=(id,label,type='text',required=false)=>{
@@ -110,15 +95,12 @@
     event.preventDefault();
     update();
     for(const input of form.querySelectorAll('input,select,textarea')){if(!input.reportValidity())return;}
-    status.textContent='Your membership selection is ready. This wireframe does not create a subscription or take payment.';status.hidden=false;status.focus();
+    const item=plan();
+    const target=new URL('../checkout-html-screens/02-registration-page.html',window.location.href);
+    target.searchParams.set('booking',JSON.stringify([['Category','Membership'],['Selection',item.name],['Activation date',activation.value],['Total',format(item.due)]]));
+    window.location.href=target.href;
   });
   const requestedPlan=new URLSearchParams(window.location.search).get('plan');
   if(plans.some(item=>item.id===requestedPlan))select.value=requestedPlan;
   showStep(1);
-  if(new URLSearchParams(window.location.search).get('embedded')==='1'){
-    document.body.replaceChildren(form);
-    const embeddedStyle=document.createElement('style');embeddedStyle.textContent='html,body{margin:0!important;padding:0!important;min-width:0!important;background:#fff!important}.checkout{width:100%!important;max-width:none!important;margin:0!important;border:0!important;box-shadow:none!important}.checkout-body{padding:10px!important}';document.head.append(embeddedStyle);
-    const reportHeight=()=>window.parent.postMessage({type:'cyberfun-membership-height',height:Math.ceil(form.getBoundingClientRect().height)+24},'*');
-    new ResizeObserver(reportHeight).observe(form);reportHeight();
-  }
 })();
