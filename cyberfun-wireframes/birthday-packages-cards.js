@@ -20,6 +20,7 @@
     button.addEventListener('click',()=>{product.value=String(index);product.dispatchEvent(new Event('change',{bubbles:true}));});packageCards.append(button);
   });
   const cardStyle=document.createElement('style');cardStyle.textContent='.birthday-flow #product{display:none!important}.birthday-package-cards[hidden],.birthday-package-cards button[hidden]{display:none!important}.birthday-package-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:6px 0}.birthday-package-cards button{display:grid;gap:5px;min-width:0;min-height:84px;padding:9px 4px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit;font-size:12px;cursor:pointer}.birthday-package-cards button strong{font-size:12px}.birthday-package-cards button small{font-size:10px}.birthday-package-cards button[aria-pressed=true]{background:var(--ink);color:white;border-color:var(--ink)}.birthday-package-cards button:focus-visible{outline:2px solid #1684d8;outline-offset:2px}';document.head.append(cardStyle);
+  const partyMinimum=4;
   const guests=form.querySelector('#guests');
   const attraction=form.querySelector('#birthday-attraction');
   const attractionField=form.querySelector('#birthday-attraction-field');
@@ -138,22 +139,20 @@
     warning.hidden=true;minimumRow.classList.add('hidden');note.hidden=currentCategory!=='birthday';
     secondField.style.display='none';
     if(currentCategory!=='birthday')return;
-    if(currentMode==='adult'&&chosen().jump){product.value=String(packages.findIndex(item=>!item.jump));}
     packageCards.querySelectorAll('button').forEach(button=>{
-      button.hidden=currentMode==='adult'&&!!packages[Number(button.dataset.birthdayPackage)].jump;
       button.setAttribute('aria-pressed',String(button.dataset.birthdayPackage===product.value));
     });
-    [...product.options].forEach(option=>{option.hidden=currentMode==='adult'&&!!packages[Number(option.value)]?.jump;option.disabled=option.hidden;});
     const productField=product.closest('.field');
     product.after(form.querySelector('.birthday-package-includes'));
     product.after(note);
     productField.after(attractionField);
     attractionField.after(guests.closest('.field'));
-    const item=chosen(),day=dayIndex(),minimum=day===1?8:4;
-    const count=Math.max(0,Math.floor(Number(guests.value)||0));
-    guests.min='1';
-    form.querySelector('label[for="guests"]').textContent='Number of guests (Mon–Thu from 4 guests. Fri–Sun from 8 guests.)';
-    note.textContent='Prices and minimum guest numbers vary by day of the week.';
+    const item=chosen(),day=dayIndex(),minimum=partyMinimum;
+    const count=Math.max(minimum,Math.floor(Number(guests.value)||0));
+    if(Number(guests.value)!==count)guests.value=String(count);
+    guests.min=String(partyMinimum);
+    form.querySelector('label[for="guests"]').textContent='Number of guests (min. 4)';
+    note.textContent='Prices vary by day of the week. Minimum 4 guests.';
     [...product.options].forEach((option,index)=>{if(packages[index])option.textContent=`${packages[index].name} - from ${format(Math.min(...packages[index].price))} / person · from 4 guests`;});
     const included=[];
     if(item.jump)included.push(`${item.jump} ${item.jump===1?'hour':'hours'} jumping`);
@@ -168,6 +167,7 @@
     const perPerson=food.value?item.food[day]:item.price[day];
     const bottles=champagneEnabled.checked?Math.max(0,Math.floor(Number(champagne.value)||0)):0;
     const extrasPrice=bottles*5000+(decoration.checked?10000:0);
+    form.querySelector('#summary-category').textContent='Birthday & Parties';
     form.querySelector('#summary-product').textContent=item.name;
     form.querySelector('#summary-guests').textContent=String(count);
     form.querySelector('#summary-basis').textContent=format(perPerson);
@@ -182,7 +182,7 @@
     calendar.querySelectorAll('.calendar-day:not(.empty)').forEach(button=>{
       const date=button.dataset.date||button.dataset.birthdayDate;
       button.querySelector('.birthday-calendar-price').textContent=format(food.value?item.food[dayIndex(date)]:item.price[dayIndex(date)]);
-      calendarMinimums.get(button).replaceChildren(document.createTextNode(`Min. ${dayIndex(date)?8:4}`),document.createElement('br'),document.createTextNode('guests'));
+      calendarMinimums.get(button).replaceChildren(document.createTextNode(`Min. ${partyMinimum}`),document.createElement('br'),document.createTextNode('guests'));
     });
     guests.setCustomValidity('');next.disabled=false;
     if(count<minimum){
@@ -191,7 +191,7 @@
     }
   };
   const originalGuestRules=applyGuestRules;
-  applyGuestRules=function(){if(currentCategory==='birthday'){guests.min='1';updateSummary();}else originalGuestRules();};
+  applyGuestRules=function(){if(currentCategory==='birthday'){guests.min=String(partyMinimum);updateSummary();}else originalGuestRules();};
   const sync=()=>{
     if(currentCategory!=='birthday'){note.hidden=true;secondField.style.display='none';warning.hidden=true;return;}
     const index=Math.min(Number(product.value)||0,packages.length-1);
@@ -205,7 +205,7 @@
   guests.addEventListener('input',()=>{if(currentCategory==='birthday')updateSummary();});
   second.addEventListener('change',updateSummary);
   form.addEventListener('change',()=>{if(currentCategory==='birthday')updateSummary();});
-  increase.addEventListener('click',()=>{guests.value=String(dayIndex()?8:4);updateSummary();guests.closest('.field').scrollIntoView({block:'center',behavior:'smooth'});guests.focus({preventScroll:true});});
+  increase.addEventListener('click',()=>{guests.value=String(partyMinimum);updateSummary();guests.closest('.field').scrollIntoView({block:'center',behavior:'smooth'});guests.focus({preventScroll:true});});
   changeDay.addEventListener('click',()=>{calendarField.scrollIntoView({block:'center',behavior:'smooth'});calendar.querySelector('.calendar-day.selected')?.focus({preventScroll:true});});
   sync();
 })();

@@ -9,6 +9,13 @@
     ['Explore', 'pages/explore/index.html'],
   ];
   const groups = {
+    'Attractions': [
+      ['Jump', 'outputs/activity-detail-wireframes/jump.html'],
+      ['Pixel', 'outputs/activity-detail-wireframes/pixel.html'],
+      ['Lasertag', 'outputs/activity-detail-wireframes/lasertag.html'],
+      ['Darts', 'outputs/activity-detail-wireframes/darts.html'],
+      ['Karaoke', 'outputs/activity-detail-wireframes/karaoke.html'],
+    ],
     'Birthdays & Parties': [['Kids Birthdays', 'outputs/parties-events-wireframes/birthday-parties-page.html'], ['Adult Parties', 'outputs/parties-events-wireframes/adult-parties-page-v2-concept.html']],
     'Explore': [['Family Fun', 'pages/explore/family-fun.html'], ['Teen Fun', 'pages/explore/teen-fun.html'], ['Adult Fun', 'pages/explore/adult-fun.html'], ['Your Visit', 'pages/plan-your-visit/index.html'], ['Loyalty Program', 'outputs/loyalty-club-wireframes/loyalty-club-page-v3.html']],
   };

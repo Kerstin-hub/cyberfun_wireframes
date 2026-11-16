@@ -344,6 +344,10 @@
         text-align: left;
       }
 
+      .attraction-intro .section-head > p {
+        max-width: none;
+      }
+
       .category-filter {
         display: flex;
         flex-wrap: wrap;
@@ -577,6 +581,24 @@
         font-weight: 900;
       }
 
+      .visit-ideas { background: var(--soft); }
+      .visit-ideas-list { margin-top: 1rem; }
+      .visit-idea {
+        display: grid;
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-top: 1px solid var(--line);
+      }
+      .visit-idea h3 { margin: 0.2rem 0 0.35rem; font-size: 1.25rem; }
+      .visit-idea p { margin: 0; }
+      .visit-idea .wire-image { aspect-ratio: 3 / 2; min-height: 0; }
+      .visit-idea .wire-button { margin-top: 0.65rem; }
+      @media (max-width: 680px) {
+        .visit-idea { grid-template-columns: 1fr; gap: 0.55rem; }
+      }
+
       .booking-layout {
         display: grid;
         grid-template-columns: minmax(0, 1fr) minmax(340px, 390px);
@@ -589,13 +611,6 @@
         min-width: 0;
         border-right: 1px solid var(--line);
       }
-
-      .category-hero { order: 1; }
-      .ticket-section { order: 2; }
-      .attraction-intro { order: 3; }
-      #all-attractions { order: 4; }
-      .faq-section { order: 5; }
-      .bottom-cta { order: 6; }
 
       .ticket-checkout {
         position: sticky;
@@ -1192,9 +1207,9 @@
           border-top: 0;
           border-bottom: 1px solid var(--line);
         }
-        .ticket-section { order: 3; }
         .attraction-intro { order: 4; }
         #all-attractions { order: 5; }
+        .visit-ideas { order: 5; }
         .faq-section { order: 6; }
         .bottom-cta { order: 7; }
       }
@@ -1234,7 +1249,6 @@
                 <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
                 <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
                 <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
-                <a href="../ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
               </div>
             </div>
             <div class="wire-nav-group">
@@ -1273,7 +1287,6 @@
               <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
               <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
               <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
-              <a href="../ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
             </div>
           </div>
           <div class="wire-nav-group">
@@ -1306,17 +1319,13 @@
             <h1>Play it real.</h1>
             <p>Jump into the action, challenge your friends or take the mic. Five ways to play, with tickets for your kind of visit.</p>
           </div>
-          <div class="hero-facts">
-            <div class="fact-row"><strong>9:30</strong><span>Before 19:00, all ages are welcome.</span></div>
-            <div class="fact-row"><strong>19:00</strong><span>After 19:00, visits are for guests aged 16 and over.</span></div>
-          </div>
         </section>
 
         <section class="category-section attraction-intro">
           <div class="section-head">
             <div>
               <p class="wire-label">5 Attractions</p>
-              <h2>Move. Compete. Sing.</h2>
+              <h2>Choose your activity</h2>
             </div>
             <p>Bring your favourite people. Find your next challenge, shared win or sing-along moment.</p>
           </div>
@@ -1326,68 +1335,72 @@
           <div class="activity-grid">
             <article class="activity-card">
               <div class="wire-image">Image</div>
-              <div class="activity-meta"><span>Active play</span><span>Tickets</span></div>
-              <h3>Trampoline</h3>
+              <h3>Jump</h3>
               <p>Big jumps. Bigger smiles. Get moving on the trampolines.</p>
-              <div class="card-actions"><a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Find out more</a></div>
+              <p>1 or 2 hours<br><strong>From 4.500 Ft / person</strong></p>
+              <div class="card-actions"><a href="../activity-detail-wireframes/jump.html">Find out more</a></div>
             </article>
             <article class="activity-card">
               <div class="wire-image">Image</div>
-              <div class="activity-meta"><span>Competitive</span><span>Digital</span></div>
               <h3>Pixel</h3>
               <p>Think fast. Move faster. Take on interactive floor challenges.</p>
-              <div class="card-actions"><a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Find out more</a></div>
+              <p>30 or 60 min<br><strong>From 3.000 Ft / person</strong></p>
+              <div class="card-actions"><a href="../activity-detail-wireframes/pixel.html">Find out more</a></div>
             </article>
             <article class="activity-card">
               <div class="wire-image">Image</div>
-              <div class="activity-meta"><span>Team play</span><span>Competitive</span></div>
               <h3>Lasertag</h3>
               <p>Pick your team. Step into the arena. Make every hit count.</p>
-              <div class="card-actions"><a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Find out more</a></div>
+              <p>30 or 60 min<br><strong>From 3.500 Ft / person</strong></p>
+              <div class="card-actions"><a href="../activity-detail-wireframes/lasertag.html">Find out more</a></div>
             </article>
             <article class="activity-card">
               <div class="wire-image">Image</div>
-              <div class="activity-meta"><span>Social</span><span>Competitive</span></div>
               <h3>Darts</h3>
               <p>A little friendly rivalry. A lot to celebrate.</p>
-              <div class="card-actions"><a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Find out more</a></div>
+              <p>30 or 60 min<br><strong>From 3.000 Ft / person</strong></p>
+              <div class="card-actions"><a href="../activity-detail-wireframes/darts.html">Find out more</a></div>
             </article>
             <article class="activity-card">
               <div class="wire-image">Image</div>
-              <div class="activity-meta"><span>Social</span><span>Private room</span></div>
               <h3>Karaoke</h3>
               <p>Your favourite people. Your favourite songs. Your moment.</p>
-              <div class="card-actions"><a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Find out more</a></div>
+              <p>30 or 60 min<br><strong>From 3.000 Ft / person</strong></p>
+              <div class="card-actions"><a href="../activity-detail-wireframes/karaoke.html">Find out more</a></div>
             </article>
           </div>
         </section>
 
-        <section class="category-section ticket-section" id="tickets">
+        <section class="category-section visit-ideas" aria-labelledby="visit-ideas-heading">
           <div class="section-head">
-            <div>
-              <p class="wire-label">Single Tickets</p>
-              <h2>Jump for one or two hours.</h2>
-            </div>
-            <p>Single tickets include Trampoline access only. Choose your visit duration and arrival time online, then add other attractions on site.</p>
+            <div><h2 id="visit-ideas-heading">Make a day of it. Or a night.</h2></div>
           </div>
-          <div class="ticket-grid">
-            <article class="activity-card">
-              <div class="wire-image">Ticket image</div>
-              <div class="activity-meta"><span>Trampoline only</span><span>1 hour</span></div>
-              <h3>1 Hour Ticket</h3>
-              <p>One hour of Trampoline access from your selected arrival time.</p>
-              <div class="card-actions"><a href="../ticket-product-wireframes/ticket-product-template.html">View ticket</a></div>
+          <div class="visit-ideas-list">
+            <article class="visit-idea">
+              <div class="wire-image" aria-hidden="true">Family Fun image</div>
+              <div><p class="wire-label">Family Fun</p>
+                <h3>The kids aren't the only ones jumping.</h3>
+                <p>Race across the Pixel floor or see who can jump the highest. The best part? Everyone gets to join in.</p>
+                <a class="wire-button" href="../../pages/explore/family-fun.html">Explore Family Fun</a>
+              </div>
             </article>
-            <article class="activity-card">
-              <div class="wire-image">Ticket image</div>
-              <div class="activity-meta"><span>Trampoline only</span><span>2 hours</span></div>
-              <h3>2 Hour Ticket</h3>
-              <p>Two hours of Trampoline access from your selected arrival time.</p>
-              <div class="card-actions"><a href="../ticket-product-wireframes/ticket-product-template.html">View ticket</a></div>
+            <article class="visit-idea">
+              <div class="wire-image" aria-hidden="true">Adult Fun image</div>
+              <div><p class="wire-label">Adult Fun</p>
+                <h3>Give the group chat new material.</h3>
+                <p>Start with a round of Darts, then hand the mic to the friend who swore they wouldn't sing.</p>
+                <a class="wire-button" href="../../pages/explore/adult-fun.html">Explore Adult Fun</a>
+              </div>
+            </article>
+            <article class="visit-idea">
+              <div class="wire-image" aria-hidden="true">Teen Fun image</div>
+              <div><p class="wire-label">Teen Fun</p>
+                <h3>One more round?</h3>
+                <p>Pick your Lasertag team or chase a new Pixel high score. Someone's going to call for a rematch.</p>
+                <a class="wire-button" href="../../pages/explore/teen-fun.html">Explore Teen Fun</a>
+              </div>
             </article>
           </div>
-          <p class="info-note">Individual attraction sessions cannot be prebooked with a Single Ticket. Additional attractions can be booked on site, subject to availability.</p>
-          <p>To book more attractions, please visit <a class="section-crosslink" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a>.</p>
         </section>
 
         <section class="category-section faq-section">
@@ -1398,8 +1411,7 @@
             </div>
           </div>
           <div class="faq-grid">
-            <article class="faq-item"><span>What is included in a Single Ticket?</span></article>
-            <article class="faq-item"><span>Can I add attractions after booking a Single Ticket?</span></article>
+            <article class="faq-item"><span>Can I bring my own trampoline grip socks?</span></article>
             <article class="faq-item"><span>Which attractions are available during Family Time?</span></article>
             <article class="faq-item"><span>Which attractions are available during Adult Time?</span></article>
             <article class="faq-item"><span>Can adults book during Family Time?</span></article>
@@ -1759,9 +1771,9 @@
       bindTimeSlots(document.getElementById("attraction-slots"));
       updateSummary();
     </script>
-  <script src="../../navigation-submenus.js?v=20261115-menu-booking"></script>
+  <script src="../../navigation-submenus.js?v=20261116-attraction-pages"></script>
   <script src="../../birthday-booking.js?v=20261115-menu-booking"></script>
 <script src="../../ticket-booking-list.js?v=20261115-menu-booking"></script>
-<script src="../../birthday-packages-cards.js?v=20261116-party-name"></script>
+<script src="../../birthday-packages-cards.js?v=20261116-all-party-packages"></script>
 </body>
 </html>
