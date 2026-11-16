@@ -5,7 +5,7 @@
   const packages=[
     {name:'CyberParty',price:[6250,7150],food:[8100,9000],jump:1,games:0,gameMinutes:0,socks:true},
     {name:'CyberStar',price:[7850,9150],food:[9700,11000],jump:2,games:0,gameMinutes:0,socks:true},
-    {name:'CyberFun Fun Party',price:[9650,10650],food:[11500,12500],jump:1.5,games:1,gameMinutes:30,socks:true},
+    {name:'CyberFun Party',price:[9650,10650],food:[11500,12500],jump:1.5,games:1,gameMinutes:30,socks:true},
     {name:'Fun Party',price:[6800,6800],food:[8650,8650],jump:0,games:1,gameMinutes:60,socks:false},
   ];
   products.birthday=packages.map(item=>({name:item.name,price:item.price[0],basis:'Per person'}));
