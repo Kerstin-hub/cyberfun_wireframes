@@ -1,5 +1,10 @@
 (() => {
   const base = new URL('.', document.currentScript.src);
+  const homePreviews = [
+    ['Home1', 'outputs/homepage-wireframes/homepage-unified-booking-v3.html'],
+    ['Home2', 'outputs/homepage-wireframes/homepage-branding-v2.html'],
+  ];
+  const isHomePreview = homePreviews.some(([, target]) => new URL(target, base).pathname === location.pathname);
   const mainMenu = [
     ['Attractions', 'outputs/category-wireframes/attractions-tickets-category-page-v3.html'],
     ['Birthdays & Parties', 'outputs/parties-events-wireframes/parties-packages-category-page-v3.html'],
@@ -59,12 +64,13 @@
     if (!nav.matches('.nav-links,.wire-links,.desktop-nav,.wire-mobile-menu,.mobile-menu,.mobile-nav')) return;
     const mobile = /mobile/.test(nav.className);
     const linkClass = nav.querySelector('.wire-pill') ? 'wire-pill' : nav.querySelector('.nav-link') ? 'nav-link' : '';
-    nav.replaceChildren(...mainMenu.map(([label, target]) => {
+    const entries = isHomePreview ? [...homePreviews, ...mainMenu] : mainMenu;
+    nav.replaceChildren(...entries.map(([label, target]) => {
       const link = document.createElement('a');
       link.textContent = label;
       link.href = new URL(target, base).href;
       link.className = linkClass;
-      if (link.href === window.location.href.split('#')[0]) {
+      if (new URL(link.href).pathname === location.pathname) {
         link.classList.add('active');
         link.setAttribute('aria-current', 'page');
       }

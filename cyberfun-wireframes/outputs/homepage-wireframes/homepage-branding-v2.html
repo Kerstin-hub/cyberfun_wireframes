@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberFun | Homepage V2 Branding</title>
+    <style>
+      :root {
+        --ink: #17212d;
+        --muted: #687789;
+        --line: #c8d4e0;
+        --soft: #edf2f6;
+        --soft-2: #dbe7f1;
+        --paper: #ffffff;
+        --accent: #1684d8;
+        --limited: #f4a21b;
+        --success: #27b875;
+        --radius: 8px;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; color: var(--ink); background: #f7f9fb; }
+      a { color: inherit; text-decoration: none; }
+      button, input, select { font: inherit; }
+      button { color: inherit; }
+      h1, h2, h3, p { margin-top: 0; }
+      h1 { margin-bottom: 0.5rem; font-size: 4.8rem; line-height: 0.95; letter-spacing: 0; }
+      h2 { margin-bottom: 0.75rem; font-size: 2.65rem; line-height: 1; letter-spacing: 0; }
+      h3 { margin-bottom: 0.45rem; font-size: 1.22rem; line-height: 1.15; }
+      p { color: var(--muted); line-height: 1.55; }
+
+      .page { width: min(1600px, 96vw); margin: 0 auto; padding: 24px 0 48px; }
+      .shell { overflow: hidden; border: 2px solid var(--ink); border-radius: var(--radius); background: var(--paper); }
+      .utility-bar { display: flex; justify-content: flex-end; align-items: center; gap: 0.55rem; min-height: 40px; padding: 0 1.2rem; border-bottom: 1px solid var(--line); }
+      .utility-item { min-height: 30px; padding: 0.35rem 0.6rem; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); font-size: 0.76rem; font-weight: 800; }
+      .nav { display: grid; grid-template-columns: 140px minmax(0, 1fr) auto auto; gap: 0.7rem; align-items: center; min-height: 76px; padding: 0 1.2rem; border-bottom: 1px solid var(--line); }
+      .logo, .nav-link, .button, .icon-button { display: inline-grid; place-items: center; min-height: 40px; border: 1px solid var(--line); border-radius: var(--radius); font-weight: 900; }
+      .logo { justify-self: start; min-width: 120px; padding: 0 0.8rem; background: var(--soft); }
+      .nav-links { display: flex; justify-content: center; gap: 0.4rem; min-width: 0; }
+      .nav-link { padding: 0 0.6rem; color: var(--muted); background: var(--paper); font-size: 0.75rem; white-space: nowrap; }
+      .button { padding: 0.65rem 0.9rem; border-color: var(--ink); background: var(--ink); color: #fff; cursor: pointer; }
+      .button.secondary { border-color: var(--line); background: var(--paper); color: var(--ink); }
+      .button.small { min-height: 34px; width: fit-content; padding: 0.45rem 0.65rem; font-size: 0.8rem; }
+      .button.block { width: 100%; }
+      .burger { display: none; width: 42px; height: 42px; padding: 9px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+      .burger span { display: block; height: 2px; margin: 4px 0; background: var(--ink); }
+      .mobile-menu { display: none; padding: 0.8rem 1rem; border-bottom: 1px solid var(--line); background: var(--soft); }
+      .mobile-menu.open { display: grid; gap: 0.45rem; }
+      .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+      .quote { min-height: 170px; padding: 1.1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--soft); }
+      .stars { color: var(--limited); letter-spacing: 0; }
+      .quote blockquote { margin: 1rem 0 0.6rem; font-size: 1.2rem; font-weight: 900; line-height: 1.25; }
+      .quote cite { color: var(--muted); font-size: 0.8rem; font-style: normal; }
+      .map { display: grid; place-items: center; min-height: 360px; margin-top: 1.4rem; border: 1px solid var(--line); border-radius: var(--radius); background: repeating-linear-gradient(45deg, #edf2f6, #edf2f6 24px, #e4ebf1 24px, #e4ebf1 48px); color: var(--muted); font-weight: 900; }
+      .address-row { display: flex; justify-content: space-between; gap: 1rem; align-items: center; margin-top: 0.8rem; }
+      .address-row p { margin: 0; }
+      .content-section, .story { padding: clamp(1.25rem, 5%, 4rem); border-bottom: 1px solid var(--line); }
+      .eyebrow { margin-bottom: 0.7rem; font-size: 0.82rem; font-weight: 900; text-transform: uppercase; }
+      .brand-hero { position: relative; min-height: 420px; aspect-ratio: 2.6; display: grid; align-items: end; isolation: isolate; }
+      .hero-media { position: absolute; inset: 0; z-index: -1; background: #dbe7f1; display: grid; align-items: start; justify-items: end; padding: 1.25rem; color: #43586e; }
+      .hero-copy { padding: clamp(1.25rem, 5%, 4rem); max-width: 48rem; }
+      .hero-copy h1 { overflow-wrap: anywhere; }
+      .hero-copy p:not(.eyebrow) { max-width: 31rem; color: var(--ink); font-size: 1.12rem; }
+      .story { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(1rem, 5%, 4rem); align-items: center; }
+      .story.flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+      .story.flip .story-media { grid-column: 2; grid-row: 1; }
+      .story-media { display: grid; place-items: center; aspect-ratio: 16 / 10; background: var(--soft-2); color: var(--muted); text-align: center; padding: 1rem; }
+      .story:nth-child(2) .story-media { background: #e1e9e3; }
+      .story:nth-child(3) .story-media { background: #e7e3ee; }
+      .story-copy { min-width: 0; overflow-wrap: anywhere; }
+      .story-link { display: inline-flex; align-items: center; min-height: 44px; font-weight: 800; text-decoration: underline; text-underline-offset: 0.25em; }
+      .party-story .story-media { background: #f0e5e1; }
+      .party-story-links { display: flex; flex-wrap: wrap; gap: 0 1.25rem; }
+      .attraction-gallery { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.85rem; margin-top: 1.25rem; }
+      .attraction-gallery a { display: grid; align-content: start; gap: 0.55rem; min-width: 0; padding-bottom: 0.5rem; font-weight: 800; }
+      .attraction-gallery a:hover .gallery-name, .attraction-gallery a:focus-visible .gallery-name { text-decoration: underline; text-underline-offset: 0.2em; }
+      .gallery-photo { display: grid; place-items: center; aspect-ratio: 4 / 3; padding: 0.65rem; background: var(--soft-2); color: var(--muted); font-size: 0.8rem; text-align: center; }
+      .brand-outro { background: var(--soft); }
+      .site-footer { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; padding: 2rem; background: var(--ink); color: white; }
+      .site-footer p { color: #dbe7f1; }
+      .footer-links { display: grid; gap: 0.5rem; }
+      @media (max-width: 1280px) {
+        .nav { grid-template-columns: minmax(0, 1fr) auto auto; }
+        .nav-links { display: none; }
+        .burger { display: block; }
+      }
+      @media (max-width: 700px) {
+        .page { width: 100%; padding: 0; }
+        .shell { border: 0; border-radius: 0; }
+        .utility-bar { display: none; }
+        .nav { min-height: 64px; padding: 0 0.75rem; gap: 0.5rem; }
+        .logo { min-width: 0; }
+        .brand-hero { min-height: 390px; aspect-ratio: auto; }
+        h1 { font-size: 3.2rem; }
+        h2 { font-size: 2rem; }
+        .story, .story.flip, .reviews { grid-template-columns: minmax(0, 1fr); }
+        .attraction-gallery { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(140px, 62%); overflow-x: auto; padding: 0.25rem 0.25rem 0.65rem; scroll-snap-type: x mandatory; }
+        .attraction-gallery a { scroll-snap-align: start; }
+        .story.flip .story-media { grid-column: auto; grid-row: auto; }
+        .quote { min-height: 0; }
+        .map { min-height: 240px; }
+        .address-row { flex-wrap: wrap; }
+        .site-footer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="shell">
+        <div class="utility-bar">
+          <span class="utility-item">Today: 9:30-22:00</span>
+          <a class="utility-item" >HU / EN</a>
+          <a class="utility-item" href="../account-wireframes/login-page-v3.html">Login</a>
+        </div>
+
+        <header class="nav">
+          <a class="logo" href="homepage-branding-v2.html">Cyberfun</a>
+          <nav class="nav-links" aria-label="Main navigation">
+            <a class="nav-link" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
+            <a class="nav-link" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a>
+            <a class="nav-link" href="../group-wireframes/school-groups-page.html">School Groups</a>
+            <a class="nav-link" href="../membership-wireframes/membership-page-v3.html">Membership</a>
+            <a class="nav-link" href="../../pages/plan-your-visit/index.html">Your Visit</a>
+            <a class="nav-link" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
+          </nav>
+          <a class="button" href="homepage-unified-booking-v3.html#checkout">Book Now</a>
+          <button class="burger" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+        </header>
+        <nav class="mobile-menu" aria-label="Mobile navigation">
+          <a class="nav-link" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
+          <a class="nav-link" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a>
+          <a class="nav-link" href="../group-wireframes/school-groups-page.html">School Groups</a>
+          <a class="nav-link" href="../membership-wireframes/membership-page-v3.html">Membership</a>
+          <a class="nav-link" href="../../pages/plan-your-visit/index.html">Your Visit</a>
+          <a class="nav-link" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
+        </nav>
+
+        <section class="brand-hero" aria-labelledby="brand-title">
+          <div class="hero-media" aria-hidden="true">Hero film: a day at CyberFun</div>
+          <div class="hero-copy">
+            <p class="eyebrow">Play it real</p>
+            <h1 id="brand-title">CyberFun Budapest</h1>
+            <p>First jumps, last songs and the kind of laughs you bring home. Come play with your favourite people.</p>
+            <a class="button" href="#stories">Find your kind of fun</a>
+          </div>
+        </section>
+
+        <div id="stories">
+          <section class="story">
+            <div class="story-media" aria-hidden="true">Family photo: kids and parents mid-jump</div>
+            <div class="story-copy">
+              <p class="eyebrow">Family Fun</p>
+              <h2>The rainy day they keep talking about.</h2>
+              <p>Let the kids bring a friend, jump in with them and see who asks for one more go. When there's a birthday, bring the whole crew.</p>
+              <a class="story-link" href="../../pages/explore/family-fun.html">Explore Family Fun &rarr;</a>
+            </div>
+          </section>
+
+          <section class="story flip">
+            <div class="story-media" aria-hidden="true">Teen photo: friends racing across the Pixel floor</div>
+            <div class="story-copy">
+              <p class="eyebrow">Teen Fun</p>
+              <h2>Someone's going to want a rematch.</h2>
+              <p>Round up your friends, pick a team and see how long that high score lasts.</p>
+              <a class="story-link" href="../../pages/explore/teen-fun.html">Explore Teen Fun &rarr;</a>
+            </div>
+          </section>
+
+          <section class="story">
+            <div class="story-media" aria-hidden="true">Adult photo: friends cheering at karaoke</div>
+            <div class="story-copy">
+              <p class="eyebrow">Adult Fun</p>
+              <h2>The night nobody wants to call early.</h2>
+              <p>Start with a round of darts, hand the mic to the quiet one and catch up over a drink between games.</p>
+              <a class="story-link" href="../../pages/explore/adult-fun.html">Explore Adult Fun &rarr;</a>
+            </div>
+          </section>
+        </div>
+
+        <section class="content-section" aria-labelledby="attraction-gallery-title">
+          <h2 id="attraction-gallery-title">Explore our attractions</h2>
+          <p>Go for a big jump, beat the high score or take the mic.</p>
+          <div class="attraction-gallery">
+            <a href="../activity-detail-wireframes/jump.html"><span class="gallery-photo" aria-hidden="true">Jump photo</span><span class="gallery-name">Jump &rarr;</span></a>
+            <a href="../activity-detail-wireframes/pixel.html"><span class="gallery-photo" aria-hidden="true">Pixel photo</span><span class="gallery-name">Pixel &rarr;</span></a>
+            <a href="../activity-detail-wireframes/lasertag.html"><span class="gallery-photo" aria-hidden="true">Lasertag photo</span><span class="gallery-name">Lasertag &rarr;</span></a>
+            <a href="../activity-detail-wireframes/darts.html"><span class="gallery-photo" aria-hidden="true">Darts photo</span><span class="gallery-name">Darts &rarr;</span></a>
+            <a href="../activity-detail-wireframes/karaoke.html"><span class="gallery-photo" aria-hidden="true">Karaoke photo</span><span class="gallery-name">Karaoke &rarr;</span></a>
+          </div>
+          <a class="story-link" href="../category-wireframes/attractions-tickets-category-page-v3.html">View all attractions &rarr;</a>
+        </section>
+
+        <section class="story flip party-story" aria-labelledby="party-story-title">
+          <div class="story-media" aria-hidden="true">Party photo: friends celebrating at CyberFun</div>
+          <div class="story-copy">
+            <p class="eyebrow">Birthdays &amp; Parties</p>
+            <h2 id="party-story-title">Make it a party.</h2>
+            <p>From birthday cake after a big jump to a karaoke chorus with your favourite people, give your crew something to celebrate.</p>
+            <div class="party-story-links">
+              <a class="story-link" href="../parties-events-wireframes/birthday-parties-page.html">Kids Birthdays &rarr;</a>
+              <a class="story-link" href="../parties-events-wireframes/adult-parties-page-v2-concept.html">Adult Parties &rarr;</a>
+            </div>
+          </div>
+        </section>
+
+            <section class="content-section">
+              <p class="eyebrow">What guests say</p>
+              <h2>Real reasons to come back.</h2>
+              <div class="reviews">
+                <article class="quote"><span class="stars">★★★★★</span><blockquote>“What a great birthday party.”</blockquote><cite>Birthday guest</cite></article>
+                <article class="quote"><span class="stars">★★★★★</span><blockquote>“We are coming back.”</blockquote><cite>Family Time visitor</cite></article>
+                <article class="quote"><span class="stars">★★★★★</span><blockquote>“Best night out.”</blockquote><cite>Adult Time group</cite></article>
+              </div>
+            </section>
+
+            <section class="content-section" id="visit">
+              <p class="eyebrow">Getting here</p>
+              <h2>Find Cyberfun.</h2>
+              <div class="map">Google Maps map embed</div>
+              <div class="address-row"><p>Cyberfun Budapest · Address placeholder</p><a class="button small secondary" href="../../pages/plan-your-visit/location-directions.html">Directions</a></div>
+            </section>
+
+        <section class="content-section brand-outro">
+          <h2>See you at CyberFun.</h2>
+          <a class="button" href="homepage-unified-booking-v3.html#checkout">Book Now</a>
+        </section>
+
+        <footer class="site-footer">
+          <div><h3>Cyberfun</h3><p>Family Time, Adult Time, parties, attractions and group experiences in one place.</p></div>
+          <div><h3>Explore</h3><div class="footer-links"><a href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions</a><a href="../parties-events-wireframes/parties-packages-category-page-v3.html">Birthdays &amp; Parties</a><a href="../group-wireframes/corporate-groups-page.html">Companies</a></div></div>
+          <div><h3>Your Visit</h3><div class="footer-links"><a href="../../pages/plan-your-visit/opening-hours.html">Opening hours</a><a href="../../pages/plan-your-visit/location-directions.html">Directions</a><a href="../../pages/plan-your-visit/contact.html">Contact</a></div></div>
+          <div><h3>Legal</h3><div class="footer-links"><a href="../../pages/legal/imprint.html">Imprint</a><a href="../../pages/legal/terms-conditions.html">Terms &amp; Conditions</a><a href="../../pages/legal/privacy-policy.html">Privacy Policy</a></div></div>
+        </footer>
+      </div>
+    </main>
+    <script>
+      const burger = document.querySelector('.burger');
+      const menu = document.querySelector('.mobile-menu');
+      burger.addEventListener('click', () => {
+        const open = menu.classList.toggle('open');
+        burger.setAttribute('aria-expanded', String(open));
+        burger.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      });
+    </script>
+    <script src="../../navigation-submenus.js?v=20261117-home-preview"></script>
+  </body>
+</html>

@@ -68,6 +68,19 @@
       .main-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(360px, 0.75fr); align-items: start; }
       .content-column { min-width: 0; border-right: 1px solid var(--line); }
       .content-section { padding: clamp(1.7rem, 4vw, 4rem); border-bottom: 1px solid var(--line); }
+      .home-entry-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin: 0 0 1.75rem; }
+      .home-entry-links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 800; text-decoration: underline; text-underline-offset: 0.2em; }
+      .home-audience-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; margin-top: 1rem; }
+      .home-audience-grid .tile { display: block; }
+      .home-audience-grid .tile-image { aspect-ratio: 16 / 10; text-align: center; padding: 0.6rem; font-size: 0.82rem; }
+      .home-audience-grid .tile-body p { min-height: 0; margin-bottom: 0; }
+      .home-audience-grid .tile:hover, .home-audience-grid .tile:focus-visible { border-color: var(--ink); }
+      .home-audience-grid h3 span { margin-left: 0.25em; white-space: nowrap; }
+      @media (max-width: 600px) {
+        .home-audience-grid { grid-template-columns: 1fr; }
+        .home-audience-grid .tile { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: center; }
+        .home-audience-grid .tile-image { height: 100%; aspect-ratio: auto; min-height: 96px; }
+      }
       .section-copy { max-width: 760px; }
       .group-entry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
       .tile-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; margin-top: 1.6rem; }
@@ -262,6 +275,32 @@
 
         <div class="main-layout">
           <div class="content-column">
+            <section class="content-section" aria-labelledby="home-entry-title">
+              <p class="eyebrow">Find your kind of fun</p>
+              <h2 id="home-entry-title">What are you in the mood for?</h2>
+              <nav class="home-entry-links" aria-label="Explore offers">
+                <a href="#tickets">Attractions &amp; tickets</a>
+                <a href="#birthday">Birthdays &amp; parties</a>
+                <a href="#memberships">Memberships</a>
+                <a href="#groups">Schools &amp; companies</a>
+              </nav>
+              <h3>Make it your kind of day or night</h3>
+              <div class="home-audience-grid">
+                <a class="tile" href="../../pages/explore/family-fun.html">
+                  <div class="tile-image" aria-hidden="true">Family jump photo</div>
+                  <div class="tile-body"><h3>Family Fun <span aria-hidden="true">&rarr;</span></h3><p>Let the kids bounce with friends, or get the whole family jumping.</p></div>
+                </a>
+                <a class="tile" href="../../pages/explore/teen-fun.html">
+                  <div class="tile-image" aria-hidden="true">Teen Pixel challenge photo</div>
+                  <div class="tile-body"><h3>Teen Fun <span aria-hidden="true">&rarr;</span></h3><p>Bring your crew and see who can beat the high score.</p></div>
+                </a>
+                <a class="tile" href="../../pages/explore/adult-fun.html">
+                  <div class="tile-image" aria-hidden="true">Friends at karaoke photo</div>
+                  <div class="tile-body"><h3>Adult Fun <span aria-hidden="true">&rarr;</span></h3><p>Turn after-work plans into a darts rematch or a karaoke night.</p></div>
+                </a>
+              </div>
+            </section>
+
             <section class="content-section" id="tickets">
               <div class="section-copy">
                 <p class="eyebrow">Tickets &amp; Attractions</p>
@@ -682,7 +721,7 @@
       bindTimeSlots(document.getElementById("attraction-slots"));
       updateSummary();
     </script>
-  <script src="../../navigation-submenus.js?v=20261117-school-groups"></script>
+  <script src="../../navigation-submenus.js?v=20261117-home-preview"></script>
   <script src="../../birthday-booking.js?v=20261115-menu-booking"></script>
 <script src="../../ticket-booking-list.js?v=20261115-menu-booking"></script>
 <script src="../../birthday-packages-cards.js?v=20261117-weekend-minimum"></script>
