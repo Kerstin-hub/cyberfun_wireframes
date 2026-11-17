@@ -21,6 +21,7 @@
   });
   const cardStyle=document.createElement('style');cardStyle.textContent='.birthday-flow #product{display:none!important}.birthday-package-cards[hidden],.birthday-package-cards button[hidden]{display:none!important}.birthday-package-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:6px 0}.birthday-package-cards button{display:grid;gap:5px;min-width:0;min-height:84px;padding:9px 4px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit;font-size:12px;cursor:pointer}.birthday-package-cards button strong{font-size:12px}.birthday-package-cards button small{font-size:10px}.birthday-package-cards button[aria-pressed=true]{background:var(--ink);color:white;border-color:var(--ink)}.birthday-package-cards button:focus-visible{outline:2px solid #1684d8;outline-offset:2px}';document.head.append(cardStyle);
   const partyMinimum=4;
+  const minimumForDay=day=>currentMode==='adult'||day===0?partyMinimum:8;
   const guests=form.querySelector('#guests');
   const attraction=form.querySelector('#birthday-attraction');
   const attractionField=form.querySelector('#birthday-attraction-field');
@@ -147,18 +148,18 @@
     product.after(note);
     productField.after(attractionField);
     attractionField.after(guests.closest('.field'));
-    const item=chosen(),day=dayIndex(),minimum=partyMinimum;
-    const count=Math.max(minimum,Math.floor(Number(guests.value)||0));
+    const item=chosen(),day=dayIndex(),minimum=minimumForDay(day);
+    const count=Math.max(partyMinimum,Math.floor(Number(guests.value)||0));
     if(Number(guests.value)!==count)guests.value=String(count);
     guests.min=String(partyMinimum);
-    form.querySelector('label[for="guests"]').textContent='Number of guests (min. 4)';
-    note.textContent='Prices vary by day of the week. Minimum 4 guests.';
+    form.querySelector('label[for="guests"]').textContent=`Number of guests (min. ${minimum})`;
+    note.textContent=currentMode==='adult'?'Prices vary by day of the week. Minimum 4 guests.':'Prices vary by day. Minimum guests: Mon-Thu 4, Fri-Sun 8.';
     [...product.options].forEach((option,index)=>{if(packages[index])option.textContent=`${packages[index].name} - from ${format(Math.min(...packages[index].price))} / person · from 4 guests`;});
     const included=[];
     if(item.jump)included.push(`${item.jump} ${item.jump===1?'hour':'hours'} jumping`);
     if(item.games)included.push(`${item.games===2?'2 games':'1 game'} · ${item.gameMinutes} minutes${item.games===2?' each':''}`);
     if(!item.games)included.push('1 hour at the party table');
-    included.push('Cake / Shot','Drink');if(item.socks)included.push('Socks');
+    included.push(currentMode==='adult'?'Cake / Shot':'Cake','Drink');if(item.socks)included.push('Socks');
     includes.replaceChildren(...included.map(text=>{const li=document.createElement('li');li.textContent=text;return li;}));
     attractionField.style.display=item.games?'':'none';
     secondField.style.display=item.games===2?'':'none';
@@ -182,7 +183,7 @@
     calendar.querySelectorAll('.calendar-day:not(.empty)').forEach(button=>{
       const date=button.dataset.date||button.dataset.birthdayDate;
       button.querySelector('.birthday-calendar-price').textContent=format(food.value?item.food[dayIndex(date)]:item.price[dayIndex(date)]);
-      calendarMinimums.get(button).replaceChildren(document.createTextNode(`Min. ${partyMinimum}`),document.createElement('br'),document.createTextNode('guests'));
+      calendarMinimums.get(button).replaceChildren(document.createTextNode(`Min. ${minimumForDay(dayIndex(date))}`),document.createElement('br'),document.createTextNode('guests'));
     });
     guests.setCustomValidity('');next.disabled=false;
     if(count<minimum){
@@ -205,7 +206,7 @@
   guests.addEventListener('input',()=>{if(currentCategory==='birthday')updateSummary();});
   second.addEventListener('change',updateSummary);
   form.addEventListener('change',()=>{if(currentCategory==='birthday')updateSummary();});
-  increase.addEventListener('click',()=>{guests.value=String(partyMinimum);updateSummary();guests.closest('.field').scrollIntoView({block:'center',behavior:'smooth'});guests.focus({preventScroll:true});});
+  increase.addEventListener('click',()=>{guests.value=String(minimumForDay(dayIndex()));updateSummary();guests.closest('.field').scrollIntoView({block:'center',behavior:'smooth'});guests.focus({preventScroll:true});});
   changeDay.addEventListener('click',()=>{calendarField.scrollIntoView({block:'center',behavior:'smooth'});calendar.querySelector('.calendar-day.selected')?.focus({preventScroll:true});});
   sync();
 })();

@@ -295,7 +295,7 @@
 
       .price-columns {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 1rem;
         align-items: stretch;
       }
@@ -495,30 +495,6 @@
         margin-bottom: 0.25rem;
         font-size: clamp(1.45rem, 2.4vw, 2.1rem);
         line-height: 1.05;
-      }
-
-      .faq-grid {
-        display: grid;
-        gap: 0.55rem;
-      }
-
-      .faq-item {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 1rem;
-        align-items: center;
-        min-height: 58px;
-        padding: 1rem;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: var(--paper);
-        font-weight: 900;
-      }
-
-      .faq-item::after {
-        content: "+";
-        font-size: 1.4rem;
-        font-weight: 900;
       }
 
       .bottom-cta {
@@ -812,6 +788,7 @@
         .category-tab { font-size: 0.625rem; padding-inline: 0.1rem; }
       }
     </style>
+    <link rel="stylesheet" href="../../category-faq.css?v=20261117-left">
   </head>
   <body>
     <main class="wire-page">
@@ -831,11 +808,11 @@
             <div class="wire-nav-group">
               <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
               <div class="wire-subnav">
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+                <a href="../activity-detail-wireframes/jump.html">Trampoline</a>
+                <a href="../activity-detail-wireframes/pixel.html">Pixel</a>
+                <a href="../activity-detail-wireframes/lasertag.html">Lasertag</a>
+                <a href="../activity-detail-wireframes/darts.html">Darts</a>
+                <a href="../activity-detail-wireframes/karaoke.html">Karaoke</a>
                 <a href="../ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
               </div>
             </div>
@@ -849,7 +826,7 @@
               </div>
             </div>
             <div class="wire-nav-group">
-              <a class="wire-pill" href="../group-wireframes/corporates-groups-category-page-v3.html">School Groups</a>
+              <a class="wire-pill" href="../group-wireframes/school-groups-page.html">School Groups</a>
               <div class="wire-subnav">
                 <a href="../group-wireframes/school-groups-page.html">School Groups</a>
                 <a href="../group-wireframes/corporate-groups-page.html">Corporate Groups</a>
@@ -870,11 +847,11 @@
           <div class="wire-nav-group">
             <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
             <div class="wire-subnav">
-              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
-              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
-              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
-              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
-              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+              <a href="../activity-detail-wireframes/jump.html">Trampoline</a>
+              <a href="../activity-detail-wireframes/pixel.html">Pixel</a>
+              <a href="../activity-detail-wireframes/lasertag.html">Lasertag</a>
+              <a href="../activity-detail-wireframes/darts.html">Darts</a>
+              <a href="../activity-detail-wireframes/karaoke.html">Karaoke</a>
               <a href="../ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
             </div>
           </div>
@@ -888,7 +865,7 @@
             </div>
           </div>
           <div class="wire-nav-group">
-            <a class="wire-pill" href="../group-wireframes/corporates-groups-category-page-v3.html">School Groups</a>
+            <a class="wire-pill" href="../group-wireframes/school-groups-page.html">School Groups</a>
             <div class="wire-subnav">
               <a href="../group-wireframes/school-groups-page.html">School Groups</a>
               <a href="../group-wireframes/corporate-groups-page.html">Corporate Groups</a>
@@ -909,53 +886,43 @@
             <div class="quick-tabs">
               <a class="active" href="#packages">Packages</a>
               <a href="#occasions">Occasions</a>
-              <a href="#how-it-works">How it works</a>
               <a href="#booking">Book now</a>
             </div>
           </div>
         </section>
 
-        <section class="section" id="occasions"><div class="section-head"><div><p class="wire-label">Occasions</p><h2>Make a night of it.</h2></div><p>From 19:00 for guests aged 16 and over.</p></div><div class="package-grid"><article class="package-card"><h3>Stag &amp; Hen Parties</h3><p>Give the wedding crew a team challenge before the big day.</p><a class="wire-button" href="#booking">Plan this party</a></article><article class="package-card"><h3>Karaoke Parties</h3><p>Get your favourite people together and take turns at the mic.</p><a class="wire-button" href="#booking">Plan this party</a></article><article class="package-card"><h3>Christmas Parties</h3><p>Swap the usual Christmas get-together for games and friendly rivalry.</p><a class="wire-button" href="#booking">Plan this party</a></article><article class="package-card"><h3>Friends’ Night Out</h3><p>Get the group chat out of the chat. Pick a game and make a night of it.</p><a class="wire-button" href="#booking">Plan this party</a></article></div></section>
+        <section class="section" id="occasions"><div class="section-head"><div><p class="wire-label">Occasions</p><h2>Make a night of it.</h2></div><p>From 19:00 for guests aged 16 and over.</p></div><div class="package-grid"><article class="package-card"><h3>Stag &amp; Hen Parties</h3><p>Give the wedding crew a team challenge before the big day.</p><a class="wire-button" href="#booking">Plan this party</a></article><article class="package-card"><h3>Karaoke Parties</h3><p>Get your favourite people together and take turns at the mic.</p><a class="wire-button" href="#fun-party">Explore Fun Party</a></article><article class="package-card"><h3>Christmas Parties</h3><p>Swap the usual Christmas get-together for games and friendly rivalry.</p><a class="wire-button" href="#booking">Plan this party</a></article><article class="package-card"><h3>Friends’ Night Out</h3><p>Get the group chat out of the chat. Pick a game and make a night of it.</p><a class="wire-button" href="#booking">Plan this party</a></article></div></section>
 
-            <section class="section" id="packages"><div class="section-head"><div><p class="wire-label">Adult Parties</p><h2>Fun Party</h2></div><p>Choose a 60-minute game. Cake or a shot and a drink are included.</p></div><a class="wire-button" href="#booking">Book Fun Party</a></section>
+            <section class="section" id="packages">
+              <div class="section-head"><div><p class="wire-label">Adult Parties</p><h2>Choose your party package</h2></div><p>All four packages are available during Adult Time. Minimum 4 guests.</p></div>
+              <div class="price-columns">
+                <article class="price-column"><h3>CyberParty</h3><p>Kick off the celebration with an hour on the trampolines.</p><div class="price"><span>From</span><strong>6.250 Ft</strong><small>/ person</small></div><ul class="feature-list"><li>1 hour jumping</li><li>1 hour at the party table</li><li>Cake or a shot, a drink and jump socks included</li><li>Minimum 4 guests</li></ul><div class="column-actions"><a href="#booking" data-party-choice="0">Book CyberParty</a></div></article>
+                <article class="price-column"><h3>CyberStar</h3><p>Give your crew more time on the trampolines.</p><div class="price"><span>From</span><strong>7.850 Ft</strong><small>/ person</small></div><ul class="feature-list"><li>2 hours jumping</li><li>1 hour at the party table</li><li>Cake or a shot, a drink and jump socks included</li><li>Minimum 4 guests</li></ul><div class="column-actions"><a href="#booking" data-party-choice="1">Book CyberStar</a></div></article>
+                <article class="price-column"><h3>CyberFun Party</h3><p>Switch from trampoline time to a game with friends.</p><div class="price"><span>From</span><strong>9.650 Ft</strong><small>/ person</small></div><ul class="feature-list"><li>90 minutes of jumping</li><li>30-minute game</li><li>Cake or a shot, a drink and jump socks included</li><li>Minimum 4 guests</li></ul><div class="column-actions"><a href="#booking" data-party-choice="2">Book CyberFun Party</a></div></article>
+                <article class="price-column" id="fun-party"><h3>Fun Party</h3><p>Pick a game and bring your favourite rivals.</p><div class="price"><span>From</span><strong>6.800 Ft</strong><small>/ person</small></div><ul class="feature-list"><li>60-minute game</li><li>Cake or a shot and a drink included</li><li>Minimum 4 guests</li></ul><div class="column-actions"><a href="#booking" data-party-choice="3">Book Fun Party</a></div></article>
+              </div>
+            </section>
 
-        <section class="section">
-          <div class="section-head">
-            <div>
-              <p class="wire-label">For companies</p>
-              <h2>Planning a team or corporate event?</h2>
-            </div>
-            <p>Company events can also start from 19:00, but larger groups should use the Corporate Groups request flow for coordination, food options and custom planning.</p>
-          </div>
-          <div class="package-grid">
-            <article class="package-card">
-              <div class="wire-image">Corporate event image</div>
-              <p class="wire-label">Corporate Groups</p>
-              <h3>Custom evening for teams</h3>
-              <p>For departments, team building, client events and larger groups that need a planned format.</p>
-              <a class="wire-button" href="../group-wireframes/corporate-groups-page.html">Request corporate event</a>
-            </article>
-            <article class="package-card">
-              <div class="wire-image">Night Session image</div>
-              <p class="wire-label">Self-booking</p>
-              <h3>Book a smaller group directly</h3>
-              <p>For friends and smaller adult groups who want to choose their package and start time online.</p>
-              <a class="wire-button" href="#booking">Book Night Session</a>
-            </article>
-          </div>
-        </section>
-
-<section class="section" id="how-it-works"><div class="section-head"><div><p class="wire-label">How it works</p><h2>Your people. A new kind of celebration.</h2></div><p>Choose your game and guest count, then select a date and start time. See your price per person and total before continuing.</p></div></section>
 
         
 
+        <section class="section faq-section" aria-labelledby="adult-party-faq-heading">
+          <div class="section-head"><div><p class="wire-label">FAQ</p><h2 id="adult-party-faq-heading">Before your night out.</h2></div></div>
+          <div class="faq-grid">
+            <details class="faq-item"><summary><span>When can I book an adult party?</span></summary><p>Adult parties start from 19:00 and are for guests aged 16 and over.</p></details>
+            <details class="faq-item"><summary><span>How many guests do we need?</span></summary><p>All four adult party packages are available for groups of 4 or more.</p></details>
+            <details class="faq-item"><summary><span>What is included in a party package?</span></summary><p>All packages include cake or a shot and a drink. Jumping packages also include jump socks. Check the package list above for activity and party table times.</p></details>
+            <details class="faq-item"><summary><span>Which attractions can we choose for our party?</span></summary><p>CyberParty and CyberStar include trampoline time. CyberFun Party combines jumping with your choice of a 30-minute game, and Fun Party includes a 60-minute game. Choose from Pixel, Lasertag, Darts or Karaoke when booking a game package. <a href="../category-wireframes/attractions-tickets-category-page-v3.html">Explore all attractions</a>.</p></details>
+          </div>
+        </section>
+
         <section class="bottom-cta">
           <div>
-            <p class="wire-label">Ready to celebrate?</p>
-            <h2>Nights full of fun. Moments worth sharing.</h2>
-            <p>Choose your package, guests and start time in the booking panel.</p>
+            <p class="wire-label">Corporate Events</p>
+            <h2>Out of office. Into the action.</h2>
+            <p>Planning a team outing or company celebration? Bring your colleagues together for games and friendly competition.</p>
           </div>
-          <a class="wire-button" href="#booking">Book now</a>
+          <a class="wire-button" href="../group-wireframes/corporate-groups-page.html">Explore Corporate Events</a>
         </section>
 
         </div>
@@ -1060,12 +1027,6 @@
                 </div>
               </div>
             </form>
-<section class="wire-card wire-faq"><p class="wire-label">FAQ</p><h2>Before your night out.</h2>
-<details><summary>When can I book an adult party?</summary><p>Adult parties start from 19:00.</p></details>
-<details><summary>Who can join?</summary><p>Adult parties are for guests aged 16 and over.</p></details>
-<details><summary>Do both attractions have a fixed time?</summary><p>You choose the start time for the first attraction. The second follows flexibly without a separate fixed slot.</p></details>
-<details><summary>How is the package priced?</summary><p>The package has a price per person. Your selected package and guest count determine the total.</p></details>
-<details><summary>Can we book a company celebration?</summary><p>For larger groups and tailored events, explore Corporates &amp; Groups.</p></details></section>
           </aside>
         </div>
         <footer class="site-footer" aria-label="Footer">
@@ -1315,9 +1276,19 @@
 document.querySelector('[data-mode="adult"]').click();
 document.querySelector('.checkout .button.block').addEventListener('click',()=>{window.location.href='../checkout-html-screens/02-registration-page.html';});
 </script>
-  <script src="../../navigation-submenus.js?v=20261116-attraction-pages"></script>
+  <script src="../../navigation-submenus.js?v=20261117-school-groups"></script>
   <script src="../../birthday-booking.js?v=20261115-menu-booking"></script>
 <script src="../../ticket-booking-list.js?v=20261115-menu-booking"></script>
-<script src="../../birthday-packages-cards.js?v=20261116-all-party-packages"></script>
+<script src="../../birthday-packages-cards.js?v=20261117-weekend-minimum"></script>
+<script>
+  document.querySelectorAll('[data-party-choice]').forEach(link => {
+    link.addEventListener('click', () => {
+      const booking = document.getElementById('booking');
+      if (currentCategory !== 'birthday') booking.querySelector('[data-category="birthday"]').click();
+      if (currentMode !== 'adult') booking.querySelector('[data-mode="adult"]').click();
+      booking.querySelector(`[data-birthday-package="${link.dataset.partyChoice}"]`).click();
+    });
+  });
+</script>
 </body>
 </html>

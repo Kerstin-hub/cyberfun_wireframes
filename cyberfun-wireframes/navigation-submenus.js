@@ -3,7 +3,7 @@
   const mainMenu = [
     ['Attractions', 'outputs/category-wireframes/attractions-tickets-category-page-v3.html'],
     ['Birthdays & Parties', 'outputs/parties-events-wireframes/parties-packages-category-page-v3.html'],
-    ['Schools', 'outputs/group-wireframes/school-groups-page.html'],
+    ['School Groups', 'outputs/group-wireframes/school-groups-page.html'],
     ['Companies', 'outputs/group-wireframes/corporate-groups-page.html'],
     ['Memberships', 'outputs/membership-wireframes/membership-page-v3.html'],
     ['Explore', 'pages/explore/index.html'],

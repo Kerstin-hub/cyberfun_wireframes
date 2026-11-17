@@ -1,0 +1,36 @@
+.faq-grid {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.faq-item > summary {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  justify-items: start;
+  gap: 1rem;
+  min-height: 58px;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-weight: 900;
+  text-align: left;
+  list-style: none;
+  cursor: pointer;
+}
+
+.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-item > summary::after { content: "+"; font-size: 1.4rem; justify-self: end; }
+.faq-item[open] > summary::after { content: "\2212"; }
+.faq-item[open] > summary { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.faq-item > p {
+  margin: 0;
+  padding: 0.75rem 1rem 1rem;
+  border: 1px solid var(--line);
+  border-top: 0;
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--paper);
+  font-weight: 400;
+  text-align: left;
+}

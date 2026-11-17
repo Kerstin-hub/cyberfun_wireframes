@@ -57,7 +57,7 @@
       .section-head p { max-width: 760px; margin-bottom: 0; text-align: left; }
       .fact-grid, .offer-grid, .process-grid, .faq-grid { display: grid; gap: 1rem; }
       .fact-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .offer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .offer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .process-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .wire-card { display: grid; gap: 0.65rem; min-height: 170px; padding: 1rem; background: var(--paper); }
       .wire-card.featured { border: 2px solid var(--ink); }
@@ -119,6 +119,7 @@
       }
     </style>
   <link rel="stylesheet" href="../../group-inquiry.css">
+  <link rel="stylesheet" href="../../group-gallery.css">
 </head>
   <body>
     <main class="wire-page">
@@ -136,11 +137,11 @@
             <div class="wire-nav-group">
               <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
               <div class="wire-subnav">
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
-                <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+                <a href="../activity-detail-wireframes/jump.html">Trampoline</a>
+                <a href="../activity-detail-wireframes/pixel.html">Pixel</a>
+                <a href="../activity-detail-wireframes/lasertag.html">Lasertag</a>
+                <a href="../activity-detail-wireframes/darts.html">Darts</a>
+                <a href="../activity-detail-wireframes/karaoke.html">Karaoke</a>
                 <a href="../ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
               </div>
             </div>
@@ -154,7 +155,7 @@
               </div>
             </div>
             <div class="wire-nav-group">
-              <a class="wire-pill" href="corporates-groups-category-page-v3.html">School Groups</a>
+              <a class="wire-pill" href="school-groups-page.html">School Groups</a>
               <div class="wire-subnav">
                 <a href="school-groups-page.html">School Groups</a>
                 <a href="corporate-groups-page.html">Corporate Groups</a>
@@ -175,11 +176,11 @@
           <div class="wire-nav-group">
             <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
             <div class="wire-subnav">
-              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
-              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
-              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
-              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
-              <a href="../activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+              <a href="../activity-detail-wireframes/jump.html">Trampoline</a>
+              <a href="../activity-detail-wireframes/pixel.html">Pixel</a>
+              <a href="../activity-detail-wireframes/lasertag.html">Lasertag</a>
+              <a href="../activity-detail-wireframes/darts.html">Darts</a>
+              <a href="../activity-detail-wireframes/karaoke.html">Karaoke</a>
               <a href="../ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
             </div>
           </div>
@@ -193,7 +194,7 @@
             </div>
           </div>
           <div class="wire-nav-group">
-            <a class="wire-pill" href="corporates-groups-category-page-v3.html">School Groups</a>
+            <a class="wire-pill" href="school-groups-page.html">School Groups</a>
             <div class="wire-subnav">
               <a href="school-groups-page.html">School Groups</a>
               <a href="corporate-groups-page.html">Corporate Groups</a>
@@ -239,14 +240,18 @@
 
         <section class="section">
           <div class="section-head">
-            <div><p class="wire-label">Group offers</p><h2>Find your class's next adventure.</h2></div>
-            <p>Choose movement, team challenges or a mix of activities. Tell us your pupils' ages and group size so we can plan a suitable visit.</p>
+            <div><p class="wire-label">Group offers</p><h2>Trampoline tickets for groups</h2></div>
+            <p>For schools, non-profit association groups and camps.</p>
           </div>
           <div class="offer-grid">
-            <article class="wire-card"><small>Active play</small><h3>Jump & Play Visit</h3><p>Get the class moving with trampoline action and shared play.</p><div class="price-note"><span>From</span><strong>3.900 Ft pp</strong></div><ul class="details-list"><li>Daytime visit</li><li>Safety socks required</li><li>Best for younger groups</li></ul></article>
-            <article class="wire-card featured"><small>Bestseller</small><h3>Team Challenge Visit</h3><p>Combine movement with Pixel or Lasertag challenges and give the class a shared goal.</p><div class="price-note"><span>From</span><strong>4.800 Ft pp</strong></div><ul class="details-list"><li>Team-based format</li><li>Hosted activity block</li><li>Best for older pupils</li></ul></article>
-            <article class="wire-card"><small>Custom</small><h3>Project Day Package</h3><p>Custom group plan with selected attractions, time slots and food options.</p><div class="price-note"><span>From</span><strong>5.500 Ft pp</strong></div><ul class="details-list"><li>Flexible duration</li><li>Group coordination</li><li>Request-based planning</li></ul></article>
+            <article class="wire-card"><h3>1-hour ticket</h3><div class="price-note"><strong>2.450 Ft / person</strong></div></article>
+            <article class="wire-card"><h3>2-hour ticket</h3><div class="price-note"><strong>3.650 Ft / person</strong></div></article>
           </div>
+          <ul class="details-list">
+            <li><strong>Group rates:</strong> Weekdays during term time and the summer break only, for groups of at least 20 people. Advance reservation required.</li>
+            <li><strong>Trampoline grip socks:</strong> Required for jumping. Available on site for 850 Ft per pair, or bring your existing Cyberjump grip socks.</li>
+            <li><strong>Group meal:</strong> Chicken nuggets, fries and two soft drinks for 1.750 Ft per person. Please request meals in advance.</li>
+          </ul>
         </section>
 
         <section class="section split-section">
@@ -263,21 +268,29 @@
           </div>
         </section>
 
+        <section class="section" aria-labelledby="school-gallery-heading">
+          <div class="section-head"><div><h2 id="school-gallery-heading">A school trip in action</h2></div></div>
+          <div class="group-gallery" aria-hidden="true">
+            <div class="wire-image">Class on the trampolines</div>
+            <div class="wire-image">Group safety briefing</div>
+            <div class="wire-image">Classmates jumping together</div>
+          </div>
+        </section>
+
 <section class="section" id="inquiry"><div class="section-head"><div><p class="wire-label">Plan your visit</p><h2>Bring your class to Cyberfun.</h2></div><p>Share your group size, preferred date and activities. We will help you find the right school visit.</p></div><form class="group-inquiry">
 <h3>Request a school visit</h3>
 <div class="inquiry-fields">
 
-<label>School name *<input name="organisation" autocomplete="organization" required></label>
+<label>School / organisation name *<input name="organisation" autocomplete="organization" required></label>
 <label>Contact person *<input name="contactName" autocomplete="name" required></label>
 <label>Email *<input type="email" name="email" autocomplete="email" required></label>
 <label>Phone<input type="tel" name="phone" autocomplete="tel"></label>
-<label>Number of students *<input type="number" name="guests" min="1" step="1" required></label>
+<label>Total group size (minimum 20) *<input type="number" name="guests" min="20" step="1" required></label>
 <label>Teachers / accompanying adults<input type="number" name="adults" min="0" step="1"></label><label>Age range / grade *<input name="ageRange" placeholder="e.g. ages 10-12 / Grade 5" required></label>
 <label>Preferred date *<input type="date" name="date" required></label>
 <label>Preferred arrival time *<input type="time" name="time" min="09:30" max="17:00" required></label>
-<label>Visit duration<select name="duration"><option value="">Please advise me</option><option>1 hour</option><option>2 hours</option><option>3 hours</option><option>Custom duration</option></select></label>
-<label>Preferred school offer<select name="offer"><option value="">Please help me choose</option><option>Jump &amp; Play Visit</option><option>Team Challenge Visit</option><option>Project Day Package</option><option>Custom request</option></select></label>
-<fieldset class="wide"><legend>Activities you are interested in</legend><div class="inquiry-checks"><label class="check"><input type="checkbox" name="activities" value="Trampoline">Trampoline</label><label class="check"><input type="checkbox" name="activities" value="Pixel">Pixel</label><label class="check"><input type="checkbox" name="activities" value="Lasertag">Lasertag</label><label class="check"><input type="checkbox" name="activities" value="Darts">Darts</label><label class="check"><input type="checkbox" name="activities" value="Karaoke">Karaoke</label></div></fieldset>
+<label>Trampoline ticket duration *<select name="duration" required><option value="">Choose a ticket</option><option value="1 hour">1 hour - 2.450 Ft / person</option><option value="2 hours">2 hours - 3.650 Ft / person</option></select></label>
+<label class="check wide"><input type="checkbox" name="groupMeal" value="yes"><span>Request a group meal (1.750 Ft / person)</span></label>
 <label class="wide">Your plans and special requirements<textarea name="message" placeholder="Tell us about your occasion, food and drink wishes, accessibility needs or flexible dates."></textarea></label>
 <label class="check wide"><input type="checkbox" name="privacy" required><span>I have read the <a href="../../pages/legal/privacy-policy.html">Privacy Policy</a> and agree to be contacted about my request. *</span></label>
 <div class="wide"><button type="submit">Send inquiry</button></div>
@@ -306,7 +319,7 @@
         </footer>
       </div>
     </main>
-  <script src="../../navigation-submenus.js?v=20261116-attraction-pages"></script>
+  <script src="../../navigation-submenus.js?v=20261117-school-groups"></script>
   <script src="../../group-inquiry.js"></script>
 </body>
 </html>

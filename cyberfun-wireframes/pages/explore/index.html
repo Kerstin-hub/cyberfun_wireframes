@@ -129,24 +129,42 @@
       }
     .wire-nav{grid-template-columns:150px minmax(0,1fr) auto auto}
 @media(max-width:1280px){.wire-links{display:none!important}.wire-nav{grid-template-columns:minmax(80px,1fr) auto auto}.wire-burger{display:grid!important;width:38px}.wire-menu-check:checked~.wire-mobile-menu{display:grid!important;gap:8px;padding:16px}}
-</style>
+      .explore-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+      .explore-tiles-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .explore-tile { display: block; min-width: 0; color: var(--ink); text-decoration: none; }
+      .explore-tile .wire-image { min-height: 0; aspect-ratio: 3 / 2; padding: 0.65rem; text-align: center; }
+      .explore-tile h3 { margin: 0.7rem 0 0.25rem; font-size: 1.2rem; }
+      .explore-tile p { margin: 0; }
+      .explore-tile:hover h3, .explore-tile:focus-visible h3 { text-decoration: underline; }
+      .explore-visit { background: var(--soft); }
+      .explore-visit .wire-image { aspect-ratio: 16 / 7; }
+      .explore-visit .explore-cta { display: inline-block; margin-top: 0.65rem; font-weight: 800; }
+      .explore-visit .explore-tile:hover .explore-cta,
+      .explore-visit .explore-tile:focus-visible .explore-cta { text-decoration: underline; }
+      @media (max-width: 680px) { .explore-tiles { grid-template-columns: 1fr; gap: 1.35rem; } }
+    </style>
+    <link rel="stylesheet" href="audience-header.css">
   </head>
   <body>
     <main class="wire-page">
       <div class="wire-shell">
-        <div class="wire-meta"><p class="wire-label">Your Visit page wireframe</p></div>
+        <div class="audience-utility">
+          <a href="../plan-your-visit/index.html#opening-hours">Opening hours</a>
+          <span>HU / EN</span>
+          <a href="../../outputs/account-wireframes/login-page-v3.html">Login</a>
+        </div>
         <input class="wire-menu-check" type="checkbox" id="wire-menu" aria-label="Toggle mobile navigation" />
-                <header class="wire-nav">
+        <header class="wire-nav">
           <a class="wire-logo" href="../../outputs/homepage-wireframes/homepage-unified-booking-v3.html">Cyberfun</a>
           <nav class="wire-links" aria-label="Category navigation">
             <div class="wire-nav-group">
               <a class="wire-pill" href="../../outputs/category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
               <div class="wire-subnav">
-                <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
-                <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
-                <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
-                <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
-                <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+                <a href="../../outputs/activity-detail-wireframes/jump.html">Trampoline</a>
+                <a href="../../outputs/activity-detail-wireframes/pixel.html">Pixel</a>
+                <a href="../../outputs/activity-detail-wireframes/lasertag.html">Lasertag</a>
+                <a href="../../outputs/activity-detail-wireframes/darts.html">Darts</a>
+                <a href="../../outputs/activity-detail-wireframes/karaoke.html">Karaoke</a>
                 <a href="../../outputs/ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
               </div>
             </div>
@@ -160,7 +178,7 @@
               </div>
             </div>
             <div class="wire-nav-group">
-              <a class="wire-pill" href="../../outputs/group-wireframes/corporates-groups-category-page-v3.html">School Groups</a>
+              <a class="wire-pill" href="../../outputs/group-wireframes/school-groups-page.html">School Groups</a>
               <div class="wire-subnav">
                 <a href="../../outputs/group-wireframes/school-groups-page.html">School Groups</a>
                 <a href="../../outputs/group-wireframes/corporate-groups-page.html">Corporate Groups</a>
@@ -181,11 +199,11 @@
           <div class="wire-nav-group">
             <a class="wire-pill" href="../../outputs/category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
             <div class="wire-subnav">
-              <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
-              <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
-              <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
-              <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
-              <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+              <a href="../../outputs/activity-detail-wireframes/jump.html">Trampoline</a>
+              <a href="../../outputs/activity-detail-wireframes/pixel.html">Pixel</a>
+              <a href="../../outputs/activity-detail-wireframes/lasertag.html">Lasertag</a>
+              <a href="../../outputs/activity-detail-wireframes/darts.html">Darts</a>
+              <a href="../../outputs/activity-detail-wireframes/karaoke.html">Karaoke</a>
               <a href="../../outputs/ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
             </div>
           </div>
@@ -199,7 +217,7 @@
             </div>
           </div>
           <div class="wire-nav-group">
-            <a class="wire-pill" href="../../outputs/group-wireframes/corporates-groups-category-page-v3.html">School Groups</a>
+            <a class="wire-pill" href="../../outputs/group-wireframes/school-groups-page.html">School Groups</a>
             <div class="wire-subnav">
               <a href="../../outputs/group-wireframes/school-groups-page.html">School Groups</a>
               <a href="../../outputs/group-wireframes/corporate-groups-page.html">Corporate Groups</a>
@@ -212,10 +230,59 @@
 
 
 
-        <section class="hero"><div class="wire-image">Explore image / video</div><div class="hero-copy"><p class="wire-label">Explore</p><h1>Find your way to play.</h1><p>A family day, a challenge with friends or a night out. Find the CyberFun visit that fits.</p><a class="wire-button" href="../../outputs/category-wireframes/attractions-tickets-category-page-v3.html">Explore attractions</a></div></section>
-    <section class="section"><div class="section-head"><div><h2>Family Fun</h2><p>Start with trampoline time, then get everyone moving with Pixel or team up for Laser Tag. Before 19:00, all ages are welcome.</p><a class="wire-button" href="family-fun.html">Explore Family Fun</a></div></div></section>
-<section class="section"><div class="section-head"><div><h2>Teen Fun</h2><p>Take on the Pixel floor, pick sides for Laser Tag or take turns at the mic. All ages can visit before 19:00; evening sessions are for ages 16 and up.</p><a class="wire-button" href="teen-fun.html">Explore Teen Fun</a></div></div></section>
-<section class="section"><div class="section-head"><div><h2>Adult Fun</h2><p>Trade the usual night out for friendly rivalry at Darts or Laser Tag, then hand your friends the mic. From 19:00, visits are for ages 16 and up.</p><a class="wire-button" href="adult-fun.html">Explore Adult Fun</a></div></div></section><section class="section"><div class="section-head"><div><h2>Your Visit</h2><p>Find opening hours, directions and contact details.</p><a class="wire-button" href="../plan-your-visit/index.html">Plan your visit</a></div></div></section><section class="section"><div class="section-head"><div><h2>Loyalty Program</h2><p>Discover rewards for coming back.</p><a class="wire-button" href="../../outputs/loyalty-club-wireframes/loyalty-club-page-v3.html">Explore rewards</a></div></div></section>
+        <section class="hero"><div class="wire-image">Explore image / video</div><div class="hero-copy"><p class="wire-label">Explore</p><h1>Find your way to play.</h1><p>A family day, a challenge with friends or a night out. Find the CyberFun visit that fits.</p></div></section>
+        <section class="section">
+          <div class="section-head"><h2>Find your kind of fun</h2></div>
+          <div class="explore-tiles">
+            <a class="explore-tile" href="family-fun.html">
+              <div class="wire-image" aria-hidden="true">Family Fun photo</div>
+              <h3>Family Fun <span aria-hidden="true">&rarr;</span></h3>
+              <p>Jump together or take on the Pixel floor as a family.</p>
+            </a>
+            <a class="explore-tile" href="teen-fun.html">
+              <div class="wire-image" aria-hidden="true">Teen Fun photo</div>
+              <h3>Teen Fun <span aria-hidden="true">&rarr;</span></h3>
+              <p>Beat a high score, pick your Lasertag team or take the mic.</p>
+            </a>
+            <a class="explore-tile" href="adult-fun.html">
+              <div class="wire-image" aria-hidden="true">Adult Fun photo</div>
+              <h3>Adult Fun <span aria-hidden="true">&rarr;</span></h3>
+              <p>Give the group chat a night out worth talking about.</p>
+            </a>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head"><h2>What do you feel like doing?</h2></div>
+          <div class="explore-tiles explore-tiles-pair">
+            <a class="explore-tile" href="../../outputs/category-wireframes/attractions-tickets-category-page-v3.html">
+              <div class="wire-image" aria-hidden="true">Attractions photo</div>
+              <h3>Attractions <span aria-hidden="true">&rarr;</span></h3>
+              <p>Jump, compete or take the mic. Find your next favourite.</p>
+            </a>
+            <a class="explore-tile" href="../../outputs/parties-events-wireframes/parties-packages-category-page-v3.html">
+              <div class="wire-image" aria-hidden="true">Birthdays &amp; Parties photo</div>
+              <h3>Birthdays &amp; Parties <span aria-hidden="true">&rarr;</span></h3>
+              <p>Find a package for a birthday, a celebration or a night with friends.</p>
+            </a>
+          </div>
+        </section>
+        <section class="section explore-visit" aria-labelledby="explore-visit-heading">
+          <div class="section-head"><h2 id="explore-visit-heading">Make the most of CyberFun</h2></div>
+          <div class="explore-tiles explore-tiles-pair">
+            <a class="explore-tile" href="../plan-your-visit/index.html">
+              <div class="wire-image" aria-hidden="true">CyberFun entrance photo</div>
+              <h3>Your Visit</h3>
+              <p>Get the essentials before you set off: opening hours, directions and how to reach us.</p>
+              <span class="explore-cta">Plan your visit <span aria-hidden="true">&rarr;</span></span>
+            </a>
+            <a class="explore-tile" href="../../outputs/loyalty-club-wireframes/loyalty-club-page-v3.html">
+              <div class="wire-image" aria-hidden="true">Return visit photo</div>
+              <h3>Loyalty Program</h3>
+              <p>Already planning a rematch? Discover the rewards waiting when you come back.</p>
+              <span class="explore-cta">Explore rewards <span aria-hidden="true">&rarr;</span></span>
+            </a>
+          </div>
+        </section>
     <footer class="site-footer">
           <div class="footer-block"><p class="wire-label">Opening hours</p><h3>9:30-22:00</h3><p>All ages before 19:00. Ages 16+ from 19:00.</p></div>
           <div class="footer-block"><p class="wire-label">Company</p><ul class="footer-links"><li><a href="#about-us">About us</a></li><li><a href="#imprint">Imprint</a></li><li><a href="#legal">Legal stuff</a></li></ul></div>
@@ -223,6 +290,6 @@
         </footer>
       </div>
     </main>
-  <script src="../../navigation-submenus.js?v=20261116-attraction-pages"></script>
+  <script src="../../navigation-submenus.js?v=20261117-school-groups"></script>
   </body>
 </html>

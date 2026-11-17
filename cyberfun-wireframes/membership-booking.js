@@ -34,7 +34,7 @@
   const registrationSummary=document.createElement('div');registrationSummary.className='summary membership-summary';
   review.querySelector('.summary').after(registrationSummary);
   const select=document.getElementById('membership-plan');
-  const cards=document.getElementById('membership-plan-cards');
+  const rows=document.getElementById('membership-plan-rows');
   const recipient=document.getElementById('membership-for');
   const otherAdult=document.createElement('option');otherAdult.value='adult';otherAdult.textContent='Another adult (18+)';
   recipient.options[0].after(otherAdult);
@@ -42,17 +42,47 @@
   const singlePageStyle=document.createElement('style');singlePageStyle.textContent='.membership-steps[hidden]{display:none!important}.membership-panel{margin-bottom:20px}.membership-panel h3{font-size:18px}.membership-panel textarea{width:100%;box-sizing:border-box;min-height:80px;border:1px solid var(--line);border-radius:6px;padding:10px;font:inherit}';document.head.append(singlePageStyle);
   plans.forEach(plan=>{
     const option=document.createElement('option');option.value=plan.id;option.textContent=plan.recurring?`${plan.name} - ${format(plan.monthly)} / month`:`${plan.name} - ${format(plan.due)} / 90 days`;select.append(option);
-    const card=document.createElement('article');card.className='membership-plan-card';card.dataset.planCard=plan.id;
-    card.innerHTML=`<div class="membership-card-image" role="img" aria-label="${plan.tier} membership card placeholder">${plan.tier} VIP Card</div><div class="membership-card-body"><p class="wire-label">${plan.billing}</p><h3>${plan.name}</h3><p class="membership-price">${format(plan.monthly)} <small>/ month${plan.recurring?'':' equivalent'}</small></p><ul><li>${plan.access}</li><li>${plan.term}</li>${plan.premium?'<li>Welcome pack &amp; birthday benefit</li>':''}</ul><p class="membership-card-payment">${plan.recurring?`${format(plan.monthly)} billed monthly`: `${format(plan.due)} total, paid upfront`}</p><button type="button" data-choose-plan="${plan.id}">Choose plan</button></div>`;
-    cards.append(card);
   });
+  const comparisonPlans=[...plans].sort((a,b)=>a.tier.localeCompare(b.tier));
+  const bestsellerId='premium-plus';
+  const planHead=document.getElementById('membership-plan-head');
+  for(const item of comparisonPlans){
+    const heading=document.createElement('th');heading.scope='col';
+    heading.textContent=item.name;
+    if(item.id===bestsellerId){
+      heading.classList.add('membership-bestseller');
+      const badge=document.createElement('span');badge.className='membership-bestseller-label';badge.textContent='Bestseller';
+      heading.append(badge);
+    }
+    planHead.append(heading);
+  }
+  const benefits=[
+    ['School days',item=>item.premium?'Unlimited jumping':'1 hour'],
+    ['Weekends & school holidays',item=>item.premium?'2 hours':'1 hour'],
+    ['Welcome pack',item=>item.premium?'Included':'Not included'],
+    ['Birthday benefit',item=>item.premium?'Included':'Not included'],
+    ['Price',item=>`<strong>${format(item.recurring?item.monthly:item.due)}</strong><small>${item.recurring?'/ month':'Paid upfront'}</small>`],
+    ['Term',item=>item.term],
+    ['Select plan',item=>`<button class="wire-button" type="button" data-choose-plan="${item.id}" aria-label="Choose ${item.name}">Choose plan</button>`],
+  ];
+  for(const [label,value] of benefits){
+    const row=document.createElement('tr');
+    const heading=document.createElement('th');heading.scope='row';heading.textContent=label;
+    row.append(heading);
+    for(const item of comparisonPlans){
+      const cell=document.createElement('td');cell.dataset.planColumn=item.id;cell.innerHTML=value(item);row.append(cell);
+      cell.classList.toggle('membership-bestseller',item.id===bestsellerId);
+    }
+    rows.append(row);
+  }
   const plan=()=>plans.find(item=>item.id===select.value);
   const status=document.getElementById('membership-status');
   const update=()=>{
     const item=plan();
-    document.querySelectorAll('[data-plan-card]').forEach(card=>{
-      const chosen=card.dataset.planCard===item.id;card.classList.toggle('selected',chosen);
-      const button=card.querySelector('button');button.textContent=chosen?'Selected':'Choose plan';button.setAttribute('aria-pressed',String(chosen));
+    rows.querySelectorAll('[data-plan-column]').forEach(cell=>{
+      const chosen=cell.dataset.planColumn===item.id;cell.classList.toggle('selected',chosen);
+      const button=cell.querySelector('button');
+      if(button){button.textContent=chosen?'Selected':'Choose plan';button.setAttribute('aria-pressed',String(chosen));}
     });
     document.getElementById('membership-plan-access').textContent=item.access;
     document.getElementById('membership-plan-term').textContent=item.term;
@@ -83,7 +113,7 @@
     document.getElementById('membership-next').textContent='Continue to registration & payment';
     status.hidden=true;update();
   };
-  cards.addEventListener('click',event=>{
+  rows.addEventListener('click',event=>{
     const button=event.target.closest('[data-choose-plan]');if(!button)return;
     select.value=button.dataset.choosePlan;showStep(1);
     document.getElementById('membership-checkout').scrollIntoView({block:'start',behavior:'smooth'});

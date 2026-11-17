@@ -1,12 +1,34 @@
 .membership-plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.membership-benefits{background:var(--soft)}
+.membership-comparison-scroll{min-width:0;overflow-x:auto}
+.membership-comparison{width:100%;min-width:600px;table-layout:fixed;border-collapse:separate;border-spacing:0;text-align:left}
+.membership-comparison th,.membership-comparison td{padding:0.75rem 0.5rem;border-bottom:1px solid var(--line);vertical-align:top;overflow-wrap:anywhere}
+.membership-comparison th:first-child{position:sticky;left:0;width:23%;background:var(--paper)}
+.membership-comparison thead th{background:var(--soft)}
+.membership-comparison thead th{font-size:1.05rem}
+.membership-comparison small{display:block;margin-top:0.3rem;line-height:1.4;font-weight:400;color:var(--muted)}
+.membership-comparison td strong{color:var(--ink)}
+.membership-comparison .selected{background:var(--soft)}
+.membership-comparison .membership-bestseller{background:#eaf1f6;box-shadow:inset 1px 0 var(--line),inset -1px 0 var(--line)}
+.membership-comparison .membership-bestseller-label{display:block;width:fit-content;max-width:100%;margin-top:0.4rem;padding:0.15rem 0.4rem;border-radius:4px;background:var(--ink);color:var(--paper);font-size:0.75rem}
+.membership-comparison .wire-button{margin-top:0.65rem;max-width:100%;min-height:36px;padding:0.35rem 0.55rem;font:inherit;font-weight:700;white-space:normal;cursor:pointer}
+.membership-comparison td,.membership-benefits>p{color:var(--muted)}
+.membership-benefits>p{margin:0;font-size:0.875rem}
+.membership-process-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;list-style:none;margin:0;padding:0}
+.membership-process-list li{display:grid;gap:0.55rem;align-content:start;min-width:0;border-top:1px solid var(--line);padding-top:0.75rem}
+.membership-process-list li>span{font-weight:900;color:var(--muted);font-variant-numeric:tabular-nums}
+.membership-process-list h3{font-size:1rem;margin:0 0 0.4rem}
+.membership-process-list p{margin:0}
+@media(max-width:680px){
+  .membership-process-list{grid-template-columns:1fr}
+  .membership-process-list li{grid-template-columns:2rem minmax(0,1fr)}
+  .membership-comparison th,.membership-comparison td{font-size:0.875rem;padding-inline:0.35rem}
+}
 .booking-layout>.category-content{display:block!important;min-width:0}
 .category-content .page-intro h1{font-size:44px;line-height:1.1}
 .category-content .section-head h2{font-size:30px;line-height:1.15}
 .category-content .hero-facts article{display:grid;gap:8px;min-width:0}
 .category-content .hero-facts span{line-height:1.5;color:var(--muted)}
-.category-content .faq-section details{margin:0;padding:16px 0;border:0;border-top:1px solid var(--line);border-radius:0;background:transparent}
-.category-content .faq-section summary{display:list-item;padding:0;background:transparent;border:0;border-radius:0;text-align:left;cursor:pointer;font-weight:700}
-.category-content .faq-section details p{margin:12px 0 0;line-height:1.5}
 .membership-plan-card{min-width:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper)}
 .membership-plan-card.selected{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
 .membership-card-image{display:grid;place-items:center;aspect-ratio:16/7;background:#dce6ef;color:var(--muted);font-size:18px;font-weight:800;border-bottom:1px solid var(--line)}

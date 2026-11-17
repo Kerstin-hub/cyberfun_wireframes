@@ -53,7 +53,7 @@
       .hero-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; justify-content: flex-start; }
       .section-head { display: grid; gap: 0.7rem; align-items: start; }
       .section-head p { max-width: 760px; margin-bottom: 0; text-align: left; }
-      .fact-grid, .mode-grid, .link-grid, .faq-grid, .contact-grid { display: grid; gap: 1rem; }
+      .fact-grid, .mode-grid, .link-grid, .contact-grid { display: grid; gap: 1rem; }
       .fact-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .mode-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .link-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -73,8 +73,6 @@
       .form-grid span { display: grid; align-items: center; min-height: 42px; padding: 0 0.75rem; border: 1px solid rgba(255,255,255,0.35); border-radius: var(--radius); color: #d7dee6; font-weight: 800; }
       .form-grid .wide { grid-column: 1 / -1; min-height: 76px; align-items: start; padding-top: 0.7rem; }
       .contact-panel .wire-button { background: white; color: var(--ink); }
-      .faq-item { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center; min-height: 58px; padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); font-weight: 900; }
-      .faq-item::after { content: "+"; font-size: 1.4rem; font-weight: 900; }
       .bottom-cta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; align-items: center; margin: 1.4rem 2rem 2rem; padding: 1.2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--ink); color: white; }
       .bottom-cta p { margin-bottom: 0; color: #d7dee6; }
       .site-footer { display: grid; grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1fr) minmax(0, 1.4fr); gap: 1.25rem; padding: 1.5rem; border-top: 1px solid var(--line); background: var(--paper); }
@@ -129,24 +127,126 @@
       }
     .wire-nav{grid-template-columns:150px minmax(0,1fr) auto auto}
 @media(max-width:1280px){.wire-links{display:none!important}.wire-nav{grid-template-columns:minmax(80px,1fr) auto auto}.wire-burger{display:grid!important;width:38px}.wire-menu-check:checked~.wire-mobile-menu{display:grid!important;gap:8px;padding:16px}}
-</style>
+      .family-story .hero-copy { order: 0; }
+      .family-story > .wire-image { min-height: 0; aspect-ratio: 3 / 1; padding: 0.75rem; text-align: center; }
+      .family-feature { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1.5rem; align-items: center; }
+      .family-feature > div { min-width: 0; }
+      .family-feature h2 { font-size: 2rem; line-height: 1.1; }
+      .family-feature .wire-image { min-height: 0; aspect-ratio: 3 / 2; text-align: center; padding: 0.75rem; }
+      .family-feature .wire-button { display: inline-grid; max-width: 100%; white-space: normal; }
+      .family-photo-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+      .family-photo-pair .wire-image { aspect-ratio: 4 / 5; font-size: 0.85rem; overflow-wrap: anywhere; }
+      .family-birthday > .wire-image { order: 1; }
+      .family-membership { background: var(--soft); }
+      .family-price { font-size: 1.15rem; }
+      @media (max-width: 680px) {
+        .family-feature { grid-template-columns: 1fr; }
+        .family-feature h2 { font-size: 1.6rem; }
+        .family-birthday > .wire-image { order: 0; }
+        .family-photo-pair .wire-image { aspect-ratio: 4 / 3; }
+        .family-story > .wire-image { aspect-ratio: 16 / 9; }
+      }
+      .family-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 390px); align-items: start; }
+      .family-content { min-width: 0; border-right: 1px solid var(--line); }
+      .family-content .faq-section { gap: 1rem; }
+      .family-content .faq-section h2 { margin-bottom: 0.75rem; }
+      .family-content .faq-grid { grid-template-columns: minmax(0, 1fr); }
+      .family-content .faq-item > summary { grid-template-columns: minmax(0, 1fr) auto; }
+      .family-content .faq-item > p a { text-decoration: underline; }
+      /* Shared booking module from the V3 homepage. */
+      :root { --limited: #f4a21b; --success: #27b875; }
+      .button { display: inline-grid; place-items: center; min-height: 40px; padding: 0.65rem 0.9rem; border: 1px solid var(--ink); border-radius: var(--radius); background: var(--ink); color: #fff; font-weight: 900; cursor: pointer; }
+      .button.block { width: 100%; }
+      .checkout-column { position: sticky; top: 0; padding: 1.2rem; background: var(--soft); }
+      .checkout { border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+      .checkout-header { padding: 1.15rem; border-bottom: 1px solid var(--line); }
+      .checkout-header h2 { margin-bottom: 0.35rem; font-size: 1.65rem; }
+      .checkout-header p { margin-bottom: 0; font-size: 0.88rem; }
+      .checkout-body { padding: 1.15rem; }
+      .category-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; margin-bottom: 1.2rem; }
+      .category-tab { min-height: 56px; padding: 0.45rem; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); font-size: 0.76rem; font-weight: 900; cursor: pointer; }
+      .category-tab.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+      .field { display: grid; gap: 0.35rem; margin-bottom: 0.9rem; }
+      .field label, .field-label { color: var(--muted); font-size: 0.75rem; font-weight: 900; text-transform: uppercase; }
+      .field-label-row { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; }
+      .field-note { color: var(--accent); font-size: 0.7rem; font-style: normal; font-weight: 900; text-align: right; }
+      .field input, .field select { width: 100%; min-height: 46px; padding: 0.65rem; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); font-weight: 800; }
+      .guest-stepper { display: grid; grid-template-columns: 48px 1fr 48px; gap: 0.4rem; }
+      .guest-stepper button { min-height: 48px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); font-size: 1.35rem; font-weight: 900; cursor: pointer; }
+      .guest-stepper button:hover, .guest-stepper button:focus { border-color: var(--ink); }
+      .guest-stepper input { min-width: 0; text-align: center; font-size: 1.05rem; }
+      .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+      .segment { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+      .segment button { min-height: 44px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); font-weight: 900; cursor: pointer; }
+      .segment button.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+      .availability { margin-bottom: 1rem; padding: 0.75rem; border: 1px solid var(--line); border-radius: 6px; }
+      .calendar-head { display: grid; grid-template-columns: 36px 1fr 36px; gap: 0.4rem; align-items: center; margin-bottom: 0.75rem; }
+      .calendar-head strong { text-align: center; }
+      .calendar-head button { min-height: 34px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); font-weight: 900; }
+      .calendar-weekdays, .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.28rem; }
+      .calendar-weekdays span { padding-bottom: 0.25rem; color: var(--muted); font-size: 0.62rem; font-weight: 900; text-align: center; }
+      .calendar-day { position: relative; min-width: 0; min-height: 38px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); font-size: 0.74rem; font-weight: 900; cursor: pointer; }
+      .calendar-day::after { content: ""; position: absolute; right: 4px; bottom: 4px; width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+      .calendar-day.limited::after { background: var(--limited); }
+      .calendar-day.sold { color: #97a3af; background: var(--soft); text-decoration: line-through; cursor: not-allowed; }
+      .calendar-day.sold::after { background: #c75050; }
+      .calendar-day.selected { border: 2px solid var(--ink); background: var(--ink); color: #fff; }
+      .calendar-day.empty { border-color: transparent; background: transparent; pointer-events: none; }
+      .calendar-day.empty::after { display: none; }
+      .availability-legend { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.65rem; color: var(--muted); font-size: 0.66rem; font-weight: 800; }
+      .legend-dot { display: inline-block; width: 7px; height: 7px; margin-right: 0.25rem; border-radius: 50%; background: var(--success); }
+      .legend-dot.limited { background: var(--limited); }
+      .legend-dot.sold { background: #c75050; }
+      .time-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+      .time-slot { position: relative; min-height: 43px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); font-size: 0.78rem; font-weight: 900; cursor: pointer; }
+      .time-slot::after { content: ""; position: absolute; top: 5px; right: 5px; width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+      .time-slot.limited::after { background: var(--limited); }
+      .time-slot.sold { color: #97a3af; background: var(--soft); text-decoration: line-through; cursor: not-allowed; }
+      .time-slot.sold::after { background: #c75050; }
+      .time-slot.selected { border: 2px solid var(--accent); color: var(--accent); }
+      .notice { margin: 0.4rem 0 0.9rem; padding: 0.8rem; border-left: 4px solid var(--accent); background: var(--soft); color: var(--muted); font-size: 0.82rem; line-height: 1.45; }
+      .included { display: grid; gap: 0.45rem; margin-bottom: 0.9rem; }
+      .included-item { display: flex; justify-content: space-between; gap: 0.8rem; padding: 0.75rem; border: 1px solid var(--line); border-radius: 6px; font-size: 0.82rem; }
+      .included-item strong { font-size: 0.82rem; }
+      .summary { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+      .summary-row { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 0.45rem; color: var(--muted); font-size: 0.86rem; }
+      .summary-row strong { max-width: 58%; color: var(--ink); text-align: right; }
+      .summary-row.total { padding-top: 0.75rem; border-top: 1px solid var(--line); color: var(--ink); font-size: 1.12rem; font-weight: 900; }
+      .hidden { display: none !important; }
+      .ticket-checkout.checkout-column { align-self: start; }
+      .checkout-column { min-width: 0; }
+      @media (max-width: 1080px) {
+        .family-layout { grid-template-columns: minmax(0, 1fr); }
+        .family-content { border-right: 0; }
+        .checkout-column { position: static; }
+      }
+      @media (max-width: 680px) {
+        .checkout-column, .checkout-body, .checkout-header { padding: 0.85rem; }
+      }
+    </style>
+    <link rel="stylesheet" href="../../category-faq.css?v=20261117-left">
+    <link rel="stylesheet" href="audience-header.css">
   </head>
   <body>
     <main class="wire-page">
       <div class="wire-shell">
-        <div class="wire-meta"><p class="wire-label">Your Visit page wireframe</p></div>
+        <div class="audience-utility">
+          <a href="../plan-your-visit/index.html#opening-hours">Opening hours</a>
+          <span>HU / EN</span>
+          <a href="../../outputs/account-wireframes/login-page-v3.html">Login</a>
+        </div>
         <input class="wire-menu-check" type="checkbox" id="wire-menu" aria-label="Toggle mobile navigation" />
-                <header class="wire-nav">
+        <header class="wire-nav">
           <a class="wire-logo" href="../../outputs/homepage-wireframes/homepage-unified-booking-v3.html">Cyberfun</a>
           <nav class="wire-links" aria-label="Category navigation">
             <div class="wire-nav-group">
               <a class="wire-pill" href="../../outputs/category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
               <div class="wire-subnav">
-                <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
-                <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
-                <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
-                <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
-                <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+                <a href="../../outputs/activity-detail-wireframes/jump.html">Trampoline</a>
+                <a href="../../outputs/activity-detail-wireframes/pixel.html">Pixel</a>
+                <a href="../../outputs/activity-detail-wireframes/lasertag.html">Lasertag</a>
+                <a href="../../outputs/activity-detail-wireframes/darts.html">Darts</a>
+                <a href="../../outputs/activity-detail-wireframes/karaoke.html">Karaoke</a>
                 <a href="../../outputs/ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
               </div>
             </div>
@@ -160,7 +260,7 @@
               </div>
             </div>
             <div class="wire-nav-group">
-              <a class="wire-pill" href="../../outputs/group-wireframes/corporates-groups-category-page-v3.html">School Groups</a>
+              <a class="wire-pill" href="../../outputs/group-wireframes/school-groups-page.html">School Groups</a>
               <div class="wire-subnav">
                 <a href="../../outputs/group-wireframes/school-groups-page.html">School Groups</a>
                 <a href="../../outputs/group-wireframes/corporate-groups-page.html">Corporate Groups</a>
@@ -181,11 +281,11 @@
           <div class="wire-nav-group">
             <a class="wire-pill" href="../../outputs/category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
             <div class="wire-subnav">
-              <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Trampoline</a>
-              <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Pixel</a>
-              <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Lasertag</a>
-              <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Darts</a>
-              <a href="../../outputs/activity-detail-wireframes/karaoke-activity-detail-template.html">Karaoke</a>
+              <a href="../../outputs/activity-detail-wireframes/jump.html">Trampoline</a>
+              <a href="../../outputs/activity-detail-wireframes/pixel.html">Pixel</a>
+              <a href="../../outputs/activity-detail-wireframes/lasertag.html">Lasertag</a>
+              <a href="../../outputs/activity-detail-wireframes/darts.html">Darts</a>
+              <a href="../../outputs/activity-detail-wireframes/karaoke.html">Karaoke</a>
               <a href="../../outputs/ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
             </div>
           </div>
@@ -199,7 +299,7 @@
             </div>
           </div>
           <div class="wire-nav-group">
-            <a class="wire-pill" href="../../outputs/group-wireframes/corporates-groups-category-page-v3.html">School Groups</a>
+            <a class="wire-pill" href="../../outputs/group-wireframes/school-groups-page.html">School Groups</a>
             <div class="wire-subnav">
               <a href="../../outputs/group-wireframes/school-groups-page.html">School Groups</a>
               <a href="../../outputs/group-wireframes/corporate-groups-page.html">Corporate Groups</a>
@@ -212,8 +312,162 @@
 
 
 
-        <section class="hero"><div class="wire-image">Family Fun image / video</div><div class="hero-copy"><p class="wire-label">Family Fun</p><h1>One family. Many ways to play.</h1><p>Start with trampoline time, then get everyone moving with Pixel or team up for Laser Tag. Before 19:00, all ages are welcome.</p><a class="wire-button" href="../../outputs/category-wireframes/attractions-tickets-category-page-v3.html">Explore attractions</a></div></section>
-    <section class="section"><div class="section-head"><div><h2>Make it a birthday</h2><p>Bring the birthday crew for jumping or a shared game, cake and a drink.</p><a class="wire-button" href="../../outputs/parties-events-wireframes/birthday-parties-page.html">Explore Kids Birthdays</a></div></div></section>
+        <section class="hero family-story">
+          <div class="wire-image" aria-hidden="true">Hero photo: parents and kids jumping together</div>
+          <div class="hero-copy">
+            <h1>Family Fun</h1>
+            <p>Let the kids bring a friend, or jump in with them. Either way, someone will ask for one more go.</p>
+          </div>
+        </section>
+
+        <div class="family-layout">
+          <div class="family-content">
+        <section class="section family-feature" aria-labelledby="family-weather-heading">
+          <div class="family-photo-pair" aria-hidden="true">
+            <div class="wire-image">Friends mid-jump</div>
+            <div class="wire-image">Family celebrates a Pixel high score</div>
+          </div>
+          <div>
+            <p class="wire-label">Indoor Attractions</p>
+            <h2 id="family-weather-heading">Rain outside? Game on inside.</h2>
+            <p>Let the kids bring a friend and head straight for the trampolines. Or jump into a family challenge on the Pixel floor and see who gets the high score.</p>
+            <a class="wire-button" href="../../outputs/category-wireframes/attractions-tickets-category-page-v3.html">Explore attractions</a>
+          </div>
+        </section>
+
+        <section class="section family-feature family-birthday" aria-labelledby="family-party-heading">
+          <div class="wire-image" aria-hidden="true">Birthday crew just before the candles are blown out</div>
+          <div>
+            <p class="wire-label">Kids Birthdays</p>
+            <h2 id="family-party-heading">The birthday they'll talk about on Monday.</h2>
+            <p>First, get the birthday crew moving with trampolines or a game. Then watch everyone crowd around for cake. Cake and a drink are included.</p>
+            <a class="wire-button" href="../../outputs/parties-events-wireframes/birthday-parties-page.html">Explore Kids Birthdays</a>
+          </div>
+        </section>
+
+        <section class="section family-feature family-membership" aria-labelledby="family-membership-heading">
+          <div class="wire-image" aria-hidden="true">Kids jumping together photo</div>
+          <div>
+            <p class="wire-label">Jump Memberships</p>
+            <h2 id="family-membership-heading">&ldquo;Can we come back next week?&rdquo;</h2>
+            <p class="family-price"><strong>Basic VIP Card+: 3.700 Ft / month</strong></p>
+            <p>One jump visit a month? That's <strong>800 Ft less per month</strong> than buying a 4.500 Ft one-hour Jump ticket each time. Three-month minimum term.</p>
+            <a class="wire-button" href="../../outputs/membership-wireframes/membership-page-v3.html?plan=basic-plus">Explore Jump Memberships</a>
+          </div>
+        </section>
+          <section class="section faq-section" aria-labelledby="family-faq-heading">
+            <div class="section-head"><div><p class="wire-label">FAQ</p><h2 id="family-faq-heading">Questions before your family visit.</h2></div></div>
+            <div class="faq-grid">
+              <details class="faq-item"><summary><span>Can parents join in too?</span></summary><p>Yes. Before 19:00, all ages are welcome. Choose a ticket for everyone who wants to play.</p></details>
+              <details class="faq-item"><summary><span>Do we need trampoline grip socks?</span></summary><p>Yes, for jumping. Bring your own trampoline grip socks or add them to your booking for 850 Ft per pair.</p></details>
+              <details class="faq-item"><summary><span>Can we celebrate a birthday at CyberFun?</span></summary><p>Yes. <a href="../../outputs/parties-events-wireframes/birthday-parties-page.html">Explore Kids Birthdays</a> for packages with jumping or games, cake and a drink.</p></details>
+              <details class="faq-item"><summary><span>Can I buy a Jump Membership for my child?</span></summary><p>Yes. A parent or guardian can register a child on the <a href="../../outputs/membership-wireframes/membership-page-v3.html">Memberships page</a>.</p></details>
+            </div>
+          </section>
+          </div>
+          <aside class="ticket-checkout checkout-column" id="ticket-booking">
+            <form class="checkout" onsubmit="return false;">
+              <div class="checkout-header">
+                <p class="eyebrow">Book Cyberfun</p>
+                <h2>Build your visit</h2>
+                <p>Choose a category to see the options and prices.</p>
+              </div>
+              <div class="checkout-body">
+                <div class="category-tabs" role="tablist" aria-label="Booking category">
+                  <button class="category-tab" type="button" data-category="birthday">Birthday</button>
+                  <button class="category-tab" type="button" data-category="package">Packages</button>
+                  <button class="category-tab active" type="button" data-category="ticket">Tickets</button>
+                  <button class="category-tab" type="button" data-category="attraction">Attractions</button>
+                </div>
+
+                <div id="package-primary-fields">
+                  <div class="field">
+                    <span class="field-label">Choose visit mode</span>
+                    <div class="segment"><button type="button" class="active" data-mode="family">Family Time<br />9:30-18:00</button><button type="button" data-mode="adult">Adult Time<br />18:00-22:00</button></div>
+                  </div>
+                  <div class="field">
+                    <span class="field-label">Visit duration</span>
+                    <div class="segment"><button type="button" class="active" data-hours="1">1 hour</button><button type="button" data-hours="2">2 hours</button></div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="product">Choose option</label>
+                  <select id="product"></select>
+                </div>
+
+                <div class="field">
+                  <label for="guests">Guests / units</label>
+                  <div class="guest-stepper">
+                    <button id="guest-minus" type="button" aria-label="Remove one guest">−</button>
+                    <input id="guests" type="number" min="5" value="6" inputmode="numeric" />
+                    <button id="guest-plus" type="button" aria-label="Add one guest">+</button>
+                  </div>
+                </div>
+
+                <div class="field hidden" id="birthday-duration-field">
+                  <span class="field-label">Package duration</span>
+                  <div class="segment"><button type="button" class="active" data-duration="2">2 hours</button><button type="button" data-duration="3">3 hours</button></div>
+                </div>
+
+                <div class="field">
+                  <span class="field-label">Choose an available date</span>
+                  <div class="availability">
+                    <div class="calendar-head"><button type="button" aria-label="Previous month">‹</button><strong>October 2026</strong><button type="button" aria-label="Next month">›</button></div>
+                    <div class="calendar-weekdays"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                    <div class="calendar-grid" id="calendar-grid">
+                      <button type="button" class="calendar-day empty" aria-hidden="true"></button><button type="button" class="calendar-day empty" aria-hidden="true"></button><button type="button" class="calendar-day empty" aria-hidden="true"></button>
+                      <button type="button" class="calendar-day" data-date="1 Oct 2026">1</button><button type="button" class="calendar-day" data-date="2 Oct 2026">2</button><button type="button" class="calendar-day limited" data-date="3 Oct 2026">3</button><button type="button" class="calendar-day limited" data-date="4 Oct 2026">4</button>
+                      <button type="button" class="calendar-day" data-date="5 Oct 2026">5</button><button type="button" class="calendar-day" data-date="6 Oct 2026">6</button><button type="button" class="calendar-day" data-date="7 Oct 2026">7</button><button type="button" class="calendar-day sold" disabled>8</button><button type="button" class="calendar-day" data-date="9 Oct 2026">9</button><button type="button" class="calendar-day limited" data-date="10 Oct 2026">10</button><button type="button" class="calendar-day" data-date="11 Oct 2026">11</button>
+                      <button type="button" class="calendar-day" data-date="12 Oct 2026">12</button><button type="button" class="calendar-day" data-date="13 Oct 2026">13</button><button type="button" class="calendar-day sold" disabled>14</button><button type="button" class="calendar-day" data-date="15 Oct 2026">15</button><button type="button" class="calendar-day" data-date="16 Oct 2026">16</button><button type="button" class="calendar-day limited" data-date="17 Oct 2026">17</button><button type="button" class="calendar-day" data-date="18 Oct 2026">18</button>
+                      <button type="button" class="calendar-day" data-date="19 Oct 2026">19</button><button type="button" class="calendar-day" data-date="20 Oct 2026">20</button><button type="button" class="calendar-day" data-date="21 Oct 2026">21</button><button type="button" class="calendar-day limited" data-date="22 Oct 2026">22</button><button type="button" class="calendar-day" data-date="23 Oct 2026">23</button><button type="button" class="calendar-day selected limited" data-date="24 Oct 2026">24</button><button type="button" class="calendar-day" data-date="25 Oct 2026">25</button>
+                      <button type="button" class="calendar-day" data-date="26 Oct 2026">26</button><button type="button" class="calendar-day sold" disabled>27</button><button type="button" class="calendar-day" data-date="28 Oct 2026">28</button><button type="button" class="calendar-day" data-date="29 Oct 2026">29</button><button type="button" class="calendar-day limited" data-date="30 Oct 2026">30</button><button type="button" class="calendar-day limited" data-date="31 Oct 2026">31</button>
+                    </div>
+                    <div class="availability-legend"><span><i class="legend-dot"></i>Available</span><span><i class="legend-dot limited"></i>Limited</span><span><i class="legend-dot sold"></i>Sold out</span></div>
+                  </div>
+                </div>
+
+                <div id="birthday-fields" class="hidden">
+                  <div class="field"><span class="field-label">Available party starts</span><div class="time-slots" id="party-slots"><button type="button" class="time-slot selected" data-time="10:00">10:00</button><button type="button" class="time-slot" data-time="12:30">12:30</button><button type="button" class="time-slot limited" data-time="15:00">15:00</button><button type="button" class="time-slot sold" disabled>17:30</button></div></div>
+                  <div class="notice">The activity schedule is included in the selected party package. No separate attraction times are needed.</div>
+                </div>
+
+                <div id="package-fields" class="hidden">
+                  <div class="field"><span class="field-label">Available arrival / start times</span><div class="time-slots" id="package-slots"></div></div>
+                  <div class="field"><div class="field-label-row"><label for="first-attraction">First attraction</label><em class="field-note" id="first-attraction-note">Arranged on site</em></div><select id="first-attraction"><option>Lasertag</option><option>Pixel</option><option>Karaoke</option><option>MiniGolf</option><option>VR</option></select></div>
+                  <div class="field"><div class="field-label-row"><label for="second-attraction">Second attraction</label><em class="field-note">Follows automatically</em></div><select id="second-attraction"><option>Pixel</option><option>Lasertag</option><option>Karaoke</option><option>MiniGolf</option><option>VR</option></select></div>
+                  <div class="notice" id="package-notice">During Family Time, you book an arrival time only. Individual attraction sessions are arranged on site.</div>
+                </div>
+
+                <div id="attraction-fields" class="hidden">
+                  <div class="field"><span class="field-label">Adult Time slots from 18:00</span><div class="time-slots" id="attraction-slots"><button type="button" class="time-slot selected" data-time="18:00">18:00</button><button type="button" class="time-slot" data-time="18:30">18:30</button><button type="button" class="time-slot limited" data-time="19:00">19:00</button><button type="button" class="time-slot" data-time="20:00">20:00</button><button type="button" class="time-slot" data-time="20:30">20:30</button><button type="button" class="time-slot limited" data-time="21:00">21:00</button></div></div>
+                  <div class="notice">Attraction sessions are bookable during Adult Time only, from 18:00. The displayed price starts with the attraction’s minimum fee, with a small per-person amount added as the group grows.</div>
+                </div>
+
+                <div id="ticket-fields">
+                  <div class="field"><span class="field-label">Available arrival times</span><div class="time-slots" id="ticket-slots"></div></div>
+                  <div class="notice">Single Tickets include Trampoline access only. Additional attractions can be booked on site, subject to availability.</div>
+                </div>
+
+                <div class="summary" aria-live="polite">
+                  <div class="summary-row"><span>Category</span><strong id="summary-category">Birthday Party</strong></div>
+                  <div class="summary-row"><span>Selection</span><strong id="summary-product">Cyberfun</strong></div>
+                  <div class="summary-row"><span>Date</span><strong id="summary-date">24 Oct 2026</strong></div>
+                  <div class="summary-row"><span>Time</span><strong id="summary-time">10:00</strong></div>
+                  <div class="summary-row"><span>Guests / units</span><strong id="summary-guests">6</strong></div>
+                  <div class="summary-row" id="summary-duration-row"><span>Duration</span><strong id="summary-duration">2 hours</strong></div>
+                  <div class="summary-row hidden" id="summary-mode-row"><span>Visit mode</span><strong id="summary-mode">Family Time</strong></div>
+                  <div class="summary-row hidden" id="summary-attractions-row"><span>Attractions</span><strong id="summary-attractions">Lasertag + Pixel</strong></div>
+                  <div class="summary-row hidden" id="summary-base-row"><span>Base price</span><strong id="summary-base">8.900 Ft</strong></div>
+                  <div class="summary-row hidden" id="summary-extra-row"><span>Price per additional guest</span><strong id="summary-extra">900 Ft</strong></div>
+                  <div class="summary-row" id="summary-person-row"><span>Price per person</span><strong id="summary-basis">8.900 Ft</strong></div>
+                  <div class="summary-row total"><span>Total</span><strong id="summary-total">53.400 Ft</strong></div>
+                  <button class="button block" type="button">Continue</button>
+                </div>
+              </div>
+            </form>
+          </aside>
+        </div>
     <footer class="site-footer">
           <div class="footer-block"><p class="wire-label">Opening hours</p><h3>9:30-22:00</h3><p>All ages before 19:00. Ages 16+ from 19:00.</p></div>
           <div class="footer-block"><p class="wire-label">Company</p><ul class="footer-links"><li><a href="#about-us">About us</a></li><li><a href="#imprint">Imprint</a></li><li><a href="#legal">Legal stuff</a></li></ul></div>
@@ -221,6 +475,221 @@
         </footer>
       </div>
     </main>
-  <script src="../../navigation-submenus.js?v=20261116-attraction-pages"></script>
+    <script>
+      const products = {
+        birthday: [
+          { name: "Cyberpartyfun", price: 8900, basis: "Per person" },
+          { name: "Cyberfun", price: 11900, basis: "Per person" },
+          { name: "Cybermegafun", price: 14900, basis: "Per person" }
+        ],
+        package: [
+          { name: "Family Play", price: 4800, basis: "Per person" },
+          { name: "Family Play 2h", price: 6800, basis: "Per person" },
+          { name: "Active Duo", price: 7800, basis: "Per person" },
+          { name: "Double Challenge", price: 8800, basis: "Per person" },
+          { name: "Social Mix", price: 9800, basis: "Per person" },
+          { name: "Mega Mix", price: 10900, basis: "Per person" },
+          { name: "Pixel + Lasertag", price: 8800, basis: "Per person" },
+          { name: "Softplay + Karaoke", price: 8400, basis: "Per person" },
+          { name: "Karaoke + Pixel + VR", price: 11900, basis: "Per person" },
+          { name: "Darts + VR + Pixel", price: 11900, basis: "Per person" },
+          { name: "MiniGolf + Arcade", price: 8900, basis: "Per person" },
+          { name: "Night Challenge", price: 12900, basis: "Per person" }
+        ],
+        attraction: [
+          { name: "Lasertag", price: 10000, extra: 1200, basis: "Minimum + guests" },
+          { name: "Pixel", price: 10000, extra: 1200, basis: "Minimum + guests" },
+          { name: "Karaoke", price: 20000, extra: 900, basis: "Minimum + guests" },
+          { name: "MiniGolf", price: 4800, extra: 900, basis: "Minimum + guests" },
+          { name: "VR", price: 5000, extra: 1200, basis: "Minimum + guests" }
+        ],
+        ticket: [
+          { name: "Trampoline Single Ticket", price: 4800, basis: "Per person" }
+        ]
+      };
+
+      let currentCategory = "ticket";
+      let currentMode = "family";
+      let currentDate = "24 Oct 2026";
+      let currentTime = "10:00";
+      let currentDuration = 2;
+      let currentHours = 1;
+
+      const productSelect = document.getElementById("product");
+      const guestInput = document.getElementById("guests");
+      const birthdayFields = document.getElementById("birthday-fields");
+      const birthdayDurationField = document.getElementById("birthday-duration-field");
+      const packagePrimaryFields = document.getElementById("package-primary-fields");
+      const packageFields = document.getElementById("package-fields");
+      const attractionFields = document.getElementById("attraction-fields");
+      const ticketFields = document.getElementById("ticket-fields");
+      const packageSlots = document.getElementById("package-slots");
+      const ticketSlots = document.getElementById("ticket-slots");
+      const packageNotice = document.getElementById("package-notice");
+      const firstAttractionNote = document.getElementById("first-attraction-note");
+      const baseLimitedDates = new Set(Array.from(document.querySelectorAll(".calendar-day.limited[data-date]")).map(button => button.dataset.date));
+
+      function formatFt(value) {
+        return new Intl.NumberFormat("hu-HU").format(value) + " Ft";
+      }
+
+      function fillProducts() {
+        productSelect.innerHTML = products[currentCategory].map((item, index) => `<option value="${index}">${item.name} - from ${formatFt(item.price)}</option>`).join("");
+        updateSummary();
+      }
+
+      function updateTimes() {
+        const times = currentMode === "family"
+          ? [{ time: "09:30" }, { time: "10:30" }, { time: "12:30", status: "limited" }, { time: "14:30" }, { time: "16:30", status: "sold" }, { time: "17:30" }]
+          : [{ time: "18:00", status: "limited" }, { time: "19:00" }, { time: "20:00", status: "sold" }, { time: "21:00" }];
+        const firstAvailable = times.find(slot => slot.status !== "sold");
+        currentTime = firstAvailable.time;
+        packageSlots.innerHTML = times.map((slot, index) => `<button type="button" class="time-slot ${slot.status || ""} ${index === times.indexOf(firstAvailable) ? "selected" : ""}" ${slot.status === "sold" ? "disabled" : `data-time="${slot.time}"`}>${slot.time}</button>`).join("");
+        ticketSlots.innerHTML = times.map((slot, index) => `<button type="button" class="time-slot ${slot.status || ""} ${index === times.indexOf(firstAvailable) ? "selected" : ""}" ${slot.status === "sold" ? "disabled" : `data-time="${slot.time}"`}>${slot.time}</button>`).join("");
+        firstAttractionNote.textContent = currentMode === "family" ? "Arranged on site" : `Starts at ${currentTime}`;
+        packageNotice.textContent = currentMode === "family"
+          ? "During Family Time, you book an arrival time only. Individual attraction sessions are arranged on site."
+          : "Adult Time is for guests 16+. Choose the first attraction start; the second attraction follows automatically.";
+        bindTimeSlots(packageSlots);
+        bindTimeSlots(ticketSlots);
+        updateSummary();
+      }
+
+      function updateSummary() {
+        const item = products[currentCategory][Number(productSelect.value || 0)];
+        const guests = Math.max(1, Number(guestInput.value || 1));
+        let total = item.price * guests;
+        if (currentCategory === "birthday" && currentDuration === 3) total += guests * 2000;
+        if (currentCategory === "package" && currentHours === 2) total += guests * 2000;
+        if (currentCategory === "ticket" && currentHours === 2) total = guests * 6800;
+        if (currentCategory === "attraction") total = item.price + Math.max(0, guests - 1) * item.extra;
+        const pricePerPerson = Math.round(total / guests);
+        const isAttraction = currentCategory === "attraction";
+        document.getElementById("summary-category").textContent = currentCategory === "birthday" ? "Birthday Party" : currentCategory === "package" ? "Package" : currentCategory === "ticket" ? "Single Ticket" : "Attraction";
+        document.getElementById("summary-product").textContent = item.name;
+        document.getElementById("summary-date").textContent = currentDate;
+        document.getElementById("summary-time").textContent = currentTime;
+        document.getElementById("summary-guests").textContent = guests;
+        document.getElementById("summary-duration").textContent = currentCategory === "birthday" ? `${currentDuration} hours` : `${currentHours} hour${currentHours === 1 ? "" : "s"}`;
+        document.getElementById("summary-mode").textContent = currentMode === "family" ? "Family Time 9:30-18:00" : "Adult Time 18:00-22:00";
+        document.getElementById("summary-attractions").textContent = `${document.getElementById("first-attraction").value} + ${document.getElementById("second-attraction").value}`;
+        document.getElementById("summary-duration-row").classList.toggle("hidden", currentCategory === "attraction");
+        document.getElementById("summary-mode-row").classList.add("hidden");
+        document.getElementById("summary-attractions-row").classList.toggle("hidden", currentCategory !== "package");
+        document.getElementById("summary-base-row").classList.toggle("hidden", !isAttraction);
+        document.getElementById("summary-extra-row").classList.toggle("hidden", !isAttraction);
+        document.getElementById("summary-person-row").classList.toggle("hidden", isAttraction);
+        document.getElementById("summary-base").textContent = formatFt(item.price);
+        document.getElementById("summary-extra").textContent = formatFt(item.extra || 0);
+        document.getElementById("summary-basis").textContent = formatFt(pricePerPerson);
+        document.getElementById("summary-total").textContent = formatFt(total);
+      }
+
+      function applyGuestRules() {
+        const minimum = currentCategory === "birthday" ? 5 : 1;
+        guestInput.min = String(minimum);
+        if (Number(guestInput.value) < minimum) guestInput.value = String(minimum);
+        updateSummary();
+      }
+
+      function updateBirthdayAvailability() {
+        const unavailableForThreeHours = new Set(["2 Oct 2026", "9 Oct 2026", "16 Oct 2026", "23 Oct 2026", "30 Oct 2026"]);
+        document.querySelectorAll(".calendar-day[data-date]").forEach(button => {
+          const unavailable = currentDuration === 3 && unavailableForThreeHours.has(button.dataset.date);
+          button.disabled = unavailable;
+          button.classList.toggle("sold", unavailable);
+          button.classList.toggle("limited", !unavailable && baseLimitedDates.has(button.dataset.date));
+        });
+        const selected = document.querySelector(".calendar-day.selected");
+        if (selected && selected.disabled) {
+          selected.classList.remove("selected");
+          const nextAvailable = document.querySelector(".calendar-day[data-date]:not(:disabled)");
+          nextAvailable.classList.add("selected");
+          currentDate = nextAvailable.dataset.date;
+        }
+      }
+
+      function bindTimeSlots(container) {
+        container.querySelectorAll(".time-slot:not(:disabled)").forEach(button => {
+          button.addEventListener("click", () => {
+            container.querySelectorAll(".time-slot").forEach(item => item.classList.toggle("selected", item === button));
+            currentTime = button.dataset.time;
+            if (currentCategory === "package" && currentMode === "adult") firstAttractionNote.textContent = `Starts at ${currentTime}`;
+            updateSummary();
+          });
+        });
+      }
+
+      document.querySelectorAll(".category-tab").forEach(button => {
+        button.addEventListener("click", () => {
+          currentCategory = button.dataset.category;
+          document.querySelectorAll(".category-tab").forEach(item => item.classList.toggle("active", item === button));
+          birthdayFields.classList.toggle("hidden", currentCategory !== "birthday");
+          birthdayDurationField.classList.toggle("hidden", currentCategory !== "birthday");
+          packagePrimaryFields.classList.toggle("hidden", currentCategory !== "package" && currentCategory !== "ticket");
+          packageFields.classList.toggle("hidden", currentCategory !== "package");
+          attractionFields.classList.toggle("hidden", currentCategory !== "attraction");
+          ticketFields.classList.toggle("hidden", currentCategory !== "ticket");
+          const slotGroup = currentCategory === "birthday" ? "party" : currentCategory === "package" ? "package" : currentCategory === "ticket" ? "ticket" : "attraction";
+          const activeSlot = document.querySelector(`#${slotGroup}-slots .time-slot:not(:disabled)`);
+          if (activeSlot) currentTime = activeSlot.dataset.time;
+          fillProducts();
+          applyGuestRules();
+        });
+      });
+
+      document.querySelectorAll("[data-mode]").forEach(button => {
+        button.addEventListener("click", () => {
+          currentMode = button.dataset.mode;
+          document.querySelectorAll("[data-mode]").forEach(item => item.classList.toggle("active", item === button));
+          updateTimes();
+        });
+      });
+
+      document.querySelectorAll("[data-duration], [data-hours]").forEach(button => {
+        button.addEventListener("click", () => {
+          button.parentElement.querySelectorAll("button").forEach(item => item.classList.toggle("active", item === button));
+          if (button.dataset.duration) currentDuration = Number(button.dataset.duration);
+          if (button.dataset.hours) currentHours = Number(button.dataset.hours);
+          if (button.dataset.duration) updateBirthdayAvailability();
+          updateSummary();
+        });
+      });
+
+      document.querySelectorAll(".calendar-day[data-date]").forEach(button => {
+        button.addEventListener("click", () => {
+          document.querySelectorAll(".calendar-day").forEach(item => item.classList.toggle("selected", item === button));
+          currentDate = button.dataset.date;
+          updateSummary();
+        });
+      });
+
+      document.getElementById("first-attraction").addEventListener("change", updateSummary);
+      document.getElementById("second-attraction").addEventListener("change", updateSummary);
+      productSelect.addEventListener("change", updateSummary);
+      guestInput.addEventListener("input", updateSummary);
+      guestInput.addEventListener("change", applyGuestRules);
+      document.getElementById("guest-minus").addEventListener("click", () => {
+        const minimum = Number(guestInput.min || 1);
+        guestInput.value = String(Math.max(minimum, Number(guestInput.value || minimum) - 1));
+        updateSummary();
+      });
+      document.getElementById("guest-plus").addEventListener("click", () => {
+        guestInput.value = String(Number(guestInput.value || 0) + 1);
+        updateSummary();
+      });
+
+
+      fillProducts();
+      updateTimes();
+      currentTime = "09:30";
+      bindTimeSlots(document.getElementById("party-slots"));
+      bindTimeSlots(document.getElementById("attraction-slots"));
+      updateSummary();
+    </script>
+  <script src="../../navigation-submenus.js?v=20261117-school-groups"></script>
+  <script src="../../birthday-booking.js?v=20261115-menu-booking"></script>
+<script src="../../ticket-booking-list.js?v=20261115-menu-booking"></script>
+<script src="../../birthday-packages-cards.js?v=20261117-weekend-minimum"></script>
   </body>
 </html>
