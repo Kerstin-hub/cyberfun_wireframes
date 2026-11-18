@@ -63,6 +63,14 @@
 
       .intro { padding: clamp(2rem, 5vw, 5rem); border-bottom: 1px solid var(--line); }
       .intro p { max-width: 800px; font-size: 1.15rem; }
+      .intro-gallery { position: relative; min-width: 0; margin-top: 1.25rem; }
+      .intro-gallery-track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 0.75rem) / 2); gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; }
+      .intro-gallery-photo { display: grid; place-items: center; aspect-ratio: 16 / 9; padding: 1rem 3rem; scroll-snap-align: start; background: var(--soft-2); color: var(--muted); font-weight: 800; text-align: center; }
+      .intro-gallery-arrow { position: absolute; top: 50%; translate: 0 -50%; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); font-size: 1.25rem; cursor: pointer; }
+      .intro-gallery-arrow:disabled { opacity: 0.5; cursor: default; }
+      .intro-gallery-arrow[data-intro-slide="-1"] { left: 0.5rem; }
+      .intro-gallery-arrow[data-intro-slide="1"] { right: 0.5rem; }
+      @media (max-width: 600px) { .intro-gallery-track { grid-auto-columns: 100%; } }
       .eyebrow { margin-bottom: 0.7rem; color: var(--muted); font-size: 0.82rem; font-weight: 900; text-transform: uppercase; }
 
       .main-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(360px, 0.75fr); align-items: start; }
@@ -276,6 +284,16 @@
           <p class="eyebrow">One place. Every kind of fun.</p>
           <h1>Cyberfun</h1>
           <p>Where digital worlds meet real-world play. Jump, compete and sing with your favourite people at CyberFun Budapest.</p>
+          <div class="intro-gallery" role="region" aria-label="CyberFun photo gallery">
+            <div class="intro-gallery-track" id="intro-gallery-track" tabindex="0" aria-label="Gallery photos">
+              <div class="intro-gallery-photo">Photo: catching air in the trampoline park</div>
+              <div class="intro-gallery-photo">Photo: friends racing across the Pixel floor</div>
+              <div class="intro-gallery-photo">Photo: the birthday crew at the party table</div>
+              <div class="intro-gallery-photo">Photo: the group singing along at karaoke</div>
+            </div>
+            <button class="intro-gallery-arrow" type="button" data-intro-slide="-1" aria-controls="intro-gallery-track" aria-label="Previous photo" disabled>&larr;</button>
+            <button class="intro-gallery-arrow" type="button" data-intro-slide="1" aria-controls="intro-gallery-track" aria-label="Next photo">&rarr;</button>
+          </div>
         </section>
 
         <div class="main-layout">
@@ -728,6 +746,22 @@
       bindTimeSlots(document.getElementById("party-slots"));
       bindTimeSlots(document.getElementById("attraction-slots"));
       updateSummary();
+      const introTrack = document.getElementById('intro-gallery-track');
+      const introArrows = [...document.querySelectorAll('[data-intro-slide]')];
+      const updateIntroArrows = () => {
+        introArrows[0].disabled = introTrack.scrollLeft < 2;
+        introArrows[1].disabled = introTrack.scrollLeft + introTrack.clientWidth >= introTrack.scrollWidth - 2;
+      };
+      introArrows.forEach(button => button.addEventListener('click', () => {
+        const [first, second] = introTrack.children;
+        const step = second.offsetLeft - first.offsetLeft;
+        introTrack.scrollBy({
+          left: Number(button.dataset.introSlide) * step,
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+        });
+      }));
+      introTrack.addEventListener('scroll', updateIntroArrows, { passive: true });
+      new ResizeObserver(updateIntroArrows).observe(introTrack);
     </script>
   <script src="../../navigation-submenus.js?v=20261118-restaurant"></script>
   <script src="../../birthday-booking.js?v=20261115-menu-booking"></script>
