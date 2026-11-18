@@ -73,12 +73,14 @@
       .attraction-tiles .tile-image { aspect-ratio: auto; min-height: 120px; padding: 0.75rem; text-align: center; }
       @media (max-width: 1280px) { #attractions.attraction-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
       @media (max-width: 680px) { #attractions.attraction-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-      .home-audience-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; margin-top: 1rem; }
+      .home-audience-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; margin-top: 1rem; }
+      .home-group-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .home-audience-grid .tile { display: block; }
       .home-audience-grid .tile-image { aspect-ratio: 16 / 10; text-align: center; padding: 0.6rem; font-size: 0.82rem; }
       .home-audience-grid .tile-body p { min-height: 0; margin-bottom: 0; }
       .home-audience-grid .tile:hover, .home-audience-grid .tile:focus-visible { border-color: var(--ink); }
       .home-audience-grid h3 span { margin-left: 0.25em; white-space: nowrap; }
+      @media (max-width: 1280px) { .home-audience-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
       @media (max-width: 600px) {
         .home-audience-grid { grid-template-columns: 1fr; }
         .home-audience-grid .tile { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: center; }
@@ -270,13 +272,19 @@
           </div>
         </section>
 
+        <section class="intro">
+          <p class="eyebrow">One place. Every kind of fun.</p>
+          <h1>Cyberfun</h1>
+          <p>Where digital worlds meet real-world play. Jump, compete and sing with your favourite people at CyberFun Budapest.</p>
+        </section>
+
         <div class="main-layout">
           <div class="content-column">
             <section class="content-section" id="tickets">
-              <div class="section-copy page-intro">
+              <div class="section-copy">
                 <p class="eyebrow">Tickets &amp; Attractions</p>
                 <p class="eyebrow">What to expect at CyberFun Budapest</p>
-                <h1>Play it real.</h1>
+                <h2>Play it real.</h2>
                 <p>Jump into the action, challenge your friends or take the mic. Discover five ways to play at CyberFun &mdash; and find your next shared moment.</p>
               </div>
               <div class="tile-grid attraction-tiles" id="attractions">
@@ -334,6 +342,8 @@
                   <div class="tile-image" aria-hidden="true">Restaurant photo</div>
                   <div class="tile-body"><h3>Restaurant <span aria-hidden="true">&rarr;</span></h3><p>Take a break, grab a bite and catch up between games.</p></div>
                 </a>
+              </div>
+              <div class="home-audience-grid home-group-grid">
                 <a class="tile" href="../group-wireframes/school-groups-page.html">
                   <div class="tile-image" aria-hidden="true">School trip photo</div>
                   <div class="tile-body"><h3>School Groups <span aria-hidden="true">&rarr;</span></h3><p>Give the class a day of moving, playing and cheering each other on.</p></div>
