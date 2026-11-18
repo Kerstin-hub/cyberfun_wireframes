@@ -236,6 +236,8 @@
         .address-row { align-items: flex-start; flex-direction: column; }
         .site-footer { grid-template-columns: 1fr; }
       }
+      .media-hero > .video { width: 100%; aspect-ratio: 16 / 7; min-height: 320px; border: 0; }
+      @media (max-width: 680px) { .media-hero > .video { aspect-ratio: 16 / 10; min-height: 230px; } }
     </style>
   </head>
   <body>
@@ -269,15 +271,8 @@
           <a class="nav-link" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
         </nav>
 
-        <section class="media-hero" aria-label="Cyberfun media gallery">
-          <div class="media-grid">
-            <article class="media-card video"><span><i class="video-play">▶</i>Full-width Cyberfun hero video</span></article>
-            <div class="gallery-stack">
-              <article class="media-card"><span>Birthday party image</span></article>
-              <article class="media-card"><span>Attractions image</span></article>
-              <article class="media-card"><span>Adult social night image</span></article>
-            </div>
-          </div>
+        <section class="media-hero" aria-label="CyberFun hero video">
+          <article class="media-card video"><span><i class="video-play" aria-hidden="true">&#9654;</i>Full-width CyberFun hero video</span></article>
         </section>
 
         <section class="intro">
