@@ -144,17 +144,6 @@
       @media (max-width: 680px) { .explore-tiles { grid-template-columns: 1fr; gap: 1.35rem; } }
     </style>
     <link rel="stylesheet" href="audience-header.css">
-    <link rel="stylesheet" href="../../category-faq.css">
-    <style>
-      .restaurant-gallery { position: relative; min-width: 0; }
-      .restaurant-gallery-track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; }
-      .restaurant-gallery-track .wire-image { min-height: 0; aspect-ratio: 16 / 9; scroll-snap-align: start; padding: 1rem 3.5rem; text-align: center; }
-      .restaurant-gallery button { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); font-size: 1.25rem; cursor: pointer; }
-      .restaurant-gallery button:disabled { opacity: 0.45; cursor: default; }
-      .restaurant-gallery [data-slide="-1"] { left: 12px; }
-      .restaurant-gallery [data-slide="1"] { right: 12px; }
-      @media(max-width:680px) { .restaurant-gallery-track .wire-image { aspect-ratio: 4 / 3; } }
-    </style>
   </head>
   <body>
     <main class="wire-page">
@@ -255,27 +244,6 @@
           <div class="hero-actions"><a class="wire-button" href="../plan-your-visit/index.html">Plan your visit</a><a class="wire-button" href="../../outputs/group-wireframes/corporate-groups-page.html#inquiry">Plan a team outing</a></div>
         </section>
 
-        <section class="section" aria-labelledby="restaurant-gallery-heading">
-          <div class="section-head"><h2 id="restaurant-gallery-heading">A taste of CyberFun</h2></div>
-          <div class="restaurant-gallery" role="region" aria-label="Restaurant photo gallery">
-            <div class="restaurant-gallery-track" id="restaurant-gallery" tabindex="0" aria-label="Restaurant photos">
-              <div class="wire-image">Photo: friends sharing food at the table</div>
-              <div class="wire-image">Photo: a family taking a break between games</div>
-              <div class="wire-image">Photo: drinks and conversation after a team challenge</div>
-            </div>
-            <button type="button" data-slide="-1" aria-controls="restaurant-gallery" aria-label="Previous photo" disabled>&larr;</button>
-            <button type="button" data-slide="1" aria-controls="restaurant-gallery" aria-label="Next photo">&rarr;</button>
-          </div>
-        </section>
-        <section class="section faq-section" aria-labelledby="restaurant-faq-heading">
-          <div class="section-head"><div><p class="wire-label">FAQ</p><h2 id="restaurant-faq-heading">Before you take a seat</h2></div></div>
-          <div class="faq-grid">
-            <details class="faq-item"><summary><span>Do I need a valid ticket to visit the restaurant?</span></summary><p>Restaurant access requirements are to be confirmed.</p></details>
-            <details class="faq-item"><summary><span>How can I pay at the restaurant?</span></summary><p>Accepted payment methods are to be confirmed.</p></details>
-            <details class="faq-item"><summary><span>Can I bring my own drinks?</span></summary><p>The policy on bringing your own drinks is to be confirmed.</p></details>
-          </div>
-        </section>
-
     <footer class="site-footer">
           <div class="footer-block"><p class="wire-label">Opening hours</p><h3>9:30-22:00</h3><p>All ages before 19:00. Ages 16+ from 19:00.</p></div>
           <div class="footer-block"><p class="wire-label">Company</p><ul class="footer-links"><li><a href="#about-us">About us</a></li><li><a href="#imprint">Imprint</a></li><li><a href="#legal">Legal stuff</a></li></ul></div>
@@ -283,23 +251,6 @@
         </footer>
       </div>
     </main>
-  <script>
-    const track = document.getElementById('restaurant-gallery');
-    const arrows = [...document.querySelectorAll('[data-slide]')];
-    const updateArrows = () => {
-      arrows[0].disabled = track.scrollLeft < 2;
-      arrows[1].disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
-    };
-    arrows.forEach(button => button.addEventListener('click', () => {
-      const [first, second] = track.children;
-      track.scrollBy({
-        left: Number(button.dataset.slide) * (second.offsetLeft - first.offsetLeft),
-        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
-      });
-    }));
-    track.addEventListener('scroll', updateArrows, {passive: true});
-    new ResizeObserver(updateArrows).observe(track);
-  </script>
   <script src="../../navigation-submenus.js?v=20261118-restaurant"></script>
   </body>
 </html>
