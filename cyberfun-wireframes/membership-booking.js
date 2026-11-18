@@ -60,8 +60,8 @@
   const benefits=[
     ['School days',item=>item.premium?'Unlimited jumping':'1 hour'],
     ['Weekends & school holidays',item=>item.premium?'2 hours':'1 hour'],
-    ['Welcome pack',item=>item.premium?welcomePack:'Not included'],
-    ['Birthday benefit',item=>item.premium?'Included':'Not included'],
+    ['Welcome pack*',item=>item.premium?welcomePack:'Not included'],
+    ['Birthday benefit**',item=>item.premium?'Included':'Not included'],
     ['Price',item=>`<strong>${format(item.recurring?item.monthly:item.due)}</strong><small>${item.recurring?'/ month':'Paid upfront'}</small>`],
     ['Term',item=>item.term],
     ['Select plan',item=>`<button class="wire-button" type="button" data-choose-plan="${item.id}" aria-label="Choose ${item.name}">Choose plan</button>`],
