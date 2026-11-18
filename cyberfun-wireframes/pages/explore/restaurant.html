@@ -73,8 +73,7 @@
       .form-grid span { display: grid; align-items: center; min-height: 42px; padding: 0 0.75rem; border: 1px solid rgba(255,255,255,0.35); border-radius: var(--radius); color: #d7dee6; font-weight: 800; }
       .form-grid .wide { grid-column: 1 / -1; min-height: 76px; align-items: start; padding-top: 0.7rem; }
       .contact-panel .wire-button { background: white; color: var(--ink); }
-      .faq-item { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center; min-height: 58px; padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); font-weight: 900; }
-      .faq-item::after { content: "+"; font-size: 1.4rem; font-weight: 900; }
+      .faq-item { display: block; padding: 0; border: 0; background: var(--paper); }
       .bottom-cta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; align-items: center; margin: 1.4rem 2rem 2rem; padding: 1.2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--ink); color: white; }
       .bottom-cta p { margin-bottom: 0; color: #d7dee6; }
       .site-footer { display: grid; grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1fr) minmax(0, 1.4fr); gap: 1.25rem; padding: 1.5rem; border-top: 1px solid var(--line); background: var(--paper); }
@@ -148,7 +147,7 @@
     <style>
       .restaurant-gallery { position: relative; min-width: 0; }
       .restaurant-gallery-track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 12px) / 2); gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; }
-      .restaurant-gallery-track .wire-image { min-height: 0; aspect-ratio: 16 / 9; scroll-snap-align: start; padding: 1rem 3.5rem; text-align: center; }
+      .restaurant-gallery-track .wire-image { min-height: 0; aspect-ratio: 16 / 9; scroll-snap-align: start; padding: 1rem 3.5rem; text-align: center; max-height: 240px; }
       .restaurant-gallery button { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); font-size: 1.25rem; cursor: pointer; }
       .restaurant-gallery button:disabled { opacity: 0.45; cursor: default; }
       .restaurant-gallery [data-slide="-1"] { left: 12px; }
@@ -232,7 +231,8 @@
         .checkout-column, .checkout-body, .checkout-header { padding: 0.85rem; }
       }
 
-      .family-content .explore-tiles { grid-template-columns: minmax(0, 1fr); }
+      .restaurant-stories { display: grid; gap: 1.25rem; }
+      .restaurant-stories p { max-width: 65ch; margin-bottom: 0; }
       .family-story { grid-template-columns: minmax(0, 1fr); }
       .family-story .hero-copy { order: 0; }
       .family-content h2 { font-size: 2rem; line-height: 1.15; }
@@ -331,10 +331,11 @@
         <div class="family-layout"><div class="family-content">
         <section class="section">
           <div class="section-head"><h2>Make time for a bite</h2></div>
-          <div class="explore-tiles">
-            <article class="explore-tile"><div class="wire-image" aria-hidden="true">Family lunch photo</div><h3>A pit stop for hungry players</h3><p>Take a break together before the next round.</p></article>
-            <article class="explore-tile"><div class="wire-image" aria-hidden="true">Drinks with friends photo</div><h3>Stay for one more story</h3><p>Catch up over a drink and settle who really won.</p></article>
-            <article class="explore-tile"><div class="wire-image" aria-hidden="true">Group table photo</div><h3>Get the group around a table</h3><p>Make food and drinks part of your celebration.</p><a href="../../outputs/parties-events-wireframes/parties-packages-category-page-v3.html">Explore Birthdays &amp; Parties &rarr;</a></article>
+          <p>The next round can wait a little. Our restaurant is a place to slow down, share a bite and enjoy the company you came with.</p>
+          <div class="restaurant-stories">
+            <div><h3>A pit stop for hungry players</h3><p>After jumping, climbing or chasing a high score, get everyone around the table. Take a family break, hear about the best moments so far and decide what to play next.</p></div>
+            <div><h3>Stay for one more story</h3><p>A good game gives you plenty to talk about. Catch up with friends over a drink, compare scores and let the conversation carry on after the challenge is over.</p></div>
+            <div><h3>Get the group around a table</h3><p>Bring food and drinks into your celebration, whether it is a birthday with the kids or a get-together with friends and colleagues. Explore the party options or tell us what you have in mind for your group.</p><a href="../../outputs/parties-events-wireframes/parties-packages-category-page-v3.html">Explore Birthdays &amp; Parties &rarr;</a></div>
           </div>
           <div class="hero-actions"><a class="wire-button" href="../plan-your-visit/index.html">Plan your visit</a><a class="wire-button" href="../../outputs/group-wireframes/corporate-groups-page.html#inquiry">Plan a team outing</a></div>
         </section>
