@@ -21,7 +21,13 @@
   });
   const cardStyle=document.createElement('style');cardStyle.textContent='.birthday-flow #product{display:none!important}.birthday-package-cards[hidden],.birthday-package-cards button[hidden]{display:none!important}.birthday-package-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:6px 0}.birthday-package-cards button{display:grid;gap:5px;min-width:0;min-height:84px;padding:9px 4px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit;font-size:12px;cursor:pointer}.birthday-package-cards button strong{font-size:12px}.birthday-package-cards button small{font-size:10px}.birthday-package-cards button[aria-pressed=true]{background:var(--ink);color:white;border-color:var(--ink)}.birthday-package-cards button:focus-visible{outline:2px solid #1684d8;outline-offset:2px}';document.head.append(cardStyle);
   const partyMinimum=4;
-  const minimumForDay=day=>currentMode==='adult'||day===0?partyMinimum:8;
+  const minimumForDay=day=>{
+    const item=chosen();
+    const packageMinimum=currentMode==='adult'||day===0?partyMinimum:8;
+    const minimums=typeof ticketGuestMinimums==='undefined'?{}:ticketGuestMinimums;
+    return Math.max(packageMinimum,item.games?(minimums[attraction.value]?.[day]||0):0,
+      item.games===2?(minimums[second.value]?.[day]||0):0);
+  };
   const guests=form.querySelector('#guests');
   const attraction=form.querySelector('#birthday-attraction');
   const attractionField=form.querySelector('#birthday-attraction-field');
@@ -93,14 +99,12 @@
     .field .birthday-compact-options select#birthday-champagne{flex-basis:54px;width:54px;min-height:30px;padding:3px 5px;font-size:13px}
   `;
   const calendar=form.querySelector('.calendar-grid');
-  const calendarField=calendar.closest('.field');
   const calendarMinimums=new Map();
   calendar.querySelectorAll('.calendar-day:not(.empty)').forEach(button=>{
     const minimum=document.createElement('span');minimum.className='birthday-calendar-minimum';
     button.querySelector('.birthday-calendar-price').after(minimum);
     calendarMinimums.set(button,minimum);
   });
-  const next=form.querySelector('.summary .button.block');
   const note=document.createElement('p');note.className='birthday-package-pricing';note.setAttribute('aria-live','polite');
   product.after(note);
   const secondField=document.createElement('div');secondField.className='field';
@@ -111,12 +115,7 @@
   const minimumLabel=document.createElement('span');minimumLabel.textContent='Minimum guests';
   const minimumValue=document.createElement('strong');minimumValue.id='summary-birthday-minimum';
   minimumRow.append(minimumLabel,minimumValue);form.querySelector('#summary-person-row').before(minimumRow);
-  const warning=document.createElement('div');warning.className='ticket-minimum-warning birthday-minimum-warning';warning.hidden=true;
-  const warningText=document.createElement('p');warningText.setAttribute('role','status');
-  const actions=document.createElement('div');actions.className='ticket-minimum-actions';
-  const increase=document.createElement('button');increase.type='button';
-  const changeDay=document.createElement('button');changeDay.type='button';changeDay.textContent='Choose another day';actions.append(increase,changeDay);warning.append(warningText,actions);calendarField.after(warning);
-  const style=document.createElement('style');style.textContent='.birthday-package-pricing{margin:8px 0;font-size:12px;line-height:1.5;color:var(--muted)}.birthday-package-pricing[hidden],.birthday-minimum-warning[hidden]{display:none!important}.birthday-calendar-minimum{display:none}.birthday-flow .calendar-day:not(.empty){min-height:84px}.birthday-flow .birthday-calendar-price{margin-top:10px}.birthday-flow .birthday-calendar-minimum{display:block;margin-top:5px;font-size:8px;line-height:1.2;font-weight:400;white-space:normal}';document.head.append(style);
+  const style=document.createElement('style');style.textContent='.birthday-package-pricing{margin:8px 0;font-size:12px;line-height:1.5;color:var(--muted)}.birthday-package-pricing[hidden]{display:none!important}.birthday-calendar-minimum{display:none}.birthday-flow .calendar-day:not(.empty){min-height:84px}.birthday-flow .birthday-calendar-price{margin-top:10px}.birthday-flow .birthday-calendar-minimum{display:block;margin-top:5px;font-size:8px;line-height:1.2;font-weight:400;white-space:normal}';document.head.append(style);
   const format=value=>new Intl.NumberFormat('de-DE').format(value)+' Ft';
   const dayIndex=(date=currentDate)=>{
     const [day,month,year]=date.split(' ');
@@ -133,11 +132,11 @@
     });
   };
   const originalSummary=updateSummary;
-  updateSummary=function(){
+  updateSummary=function(event){
     packageCards.hidden=currentCategory!=='birthday';
     if(currentCategory==='birthday')currentDuration=chosen().jump+chosen().games*chosen().gameMinutes/60;
-    originalSummary();
-    warning.hidden=true;minimumRow.classList.add('hidden');note.hidden=currentCategory!=='birthday';
+    originalSummary(event);
+    minimumRow.classList.add('hidden');note.hidden=currentCategory!=='birthday';
     secondField.style.display='none';
     if(currentCategory!=='birthday')return;
     packageCards.querySelectorAll('button').forEach(button=>{
@@ -149,11 +148,11 @@
     productField.after(attractionField);
     attractionField.after(guests.closest('.field'));
     const item=chosen(),day=dayIndex(),minimum=minimumForDay(day);
-    const count=Math.max(partyMinimum,Math.floor(Number(guests.value)||0));
-    if(Number(guests.value)!==count)guests.value=String(count);
-    guests.min=String(partyMinimum);
+    const count=Math.max(minimum,Math.floor(Number(guests.value)||0));
+    if(event?.type!=='input' && Number(guests.value)!==count)guests.value=String(count);
+    guests.min=String(minimum);
     form.querySelector('label[for="guests"]').textContent=`Number of guests (min. ${minimum})`;
-    note.textContent=currentMode==='adult'?'Prices vary by day of the week. Minimum 4 guests.':'Prices vary by day. Minimum guests: Mon-Thu 4, Fri-Sun 8.';
+    note.textContent='Prices and minimum guest numbers vary by day and activity.';
     [...product.options].forEach((option,index)=>{if(packages[index])option.textContent=`${packages[index].name} - from ${format(Math.min(...packages[index].price))} / person · from 4 guests`;});
     const included=[];
     if(item.jump)included.push(`${item.jump} ${item.jump===1?'hour':'hours'} jumping`);
@@ -185,16 +184,11 @@
       button.querySelector('.birthday-calendar-price').textContent=format(food.value?item.food[dayIndex(date)]:item.price[dayIndex(date)]);
       calendarMinimums.get(button).replaceChildren(document.createTextNode(`Min. ${minimumForDay(dayIndex(date))}`),document.createElement('br'),document.createTextNode('guests'));
     });
-    guests.setCustomValidity('');next.disabled=false;
-    if(count<minimum){
-      warning.hidden=false;warningText.textContent=`This day requires at least ${minimum} guests. You selected ${count}. The package total for ${minimum} guests is ${format(perPerson*minimum+extrasPrice)}.`;
-      increase.textContent=`Increase to ${minimum} guests`;next.disabled=true;guests.setCustomValidity(`At least ${minimum} guests are required.`);
-    }
   };
   const originalGuestRules=applyGuestRules;
-  applyGuestRules=function(){if(currentCategory==='birthday'){guests.min=String(partyMinimum);updateSummary();}else originalGuestRules();};
+  applyGuestRules=function(){if(currentCategory==='birthday'){updateSummary();}else originalGuestRules();};
   const sync=()=>{
-    if(currentCategory!=='birthday'){note.hidden=true;secondField.style.display='none';warning.hidden=true;return;}
+    if(currentCategory!=='birthday'){note.hidden=true;secondField.style.display='none';return;}
     const index=Math.min(Number(product.value)||0,packages.length-1);
     product.replaceChildren(...packages.map((item,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=item.name;return option;}));
     product.value=String(index);populateAttractions();updateSummary();
@@ -203,10 +197,8 @@
   form.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',sync));
   product.addEventListener('change',()=>{if(currentCategory==='birthday'){populateAttractions();updateSummary();}});
   guests.addEventListener('change',event=>{if(currentCategory==='birthday'){event.stopImmediatePropagation();updateSummary();}},true);
-  guests.addEventListener('input',()=>{if(currentCategory==='birthday')updateSummary();});
+  guests.addEventListener('input',event=>{if(currentCategory==='birthday')updateSummary(event);});
   second.addEventListener('change',updateSummary);
   form.addEventListener('change',()=>{if(currentCategory==='birthday')updateSummary();});
-  increase.addEventListener('click',()=>{guests.value=String(minimumForDay(dayIndex()));updateSummary();guests.closest('.field').scrollIntoView({block:'center',behavior:'smooth'});guests.focus({preventScroll:true});});
-  changeDay.addEventListener('click',()=>{calendarField.scrollIntoView({block:'center',behavior:'smooth'});calendar.querySelector('.calendar-day.selected')?.focus({preventScroll:true});});
   sync();
 })();

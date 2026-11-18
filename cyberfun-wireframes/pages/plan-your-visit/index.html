@@ -67,12 +67,6 @@
       .hours-card strong { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1; }
       .details-list { display: grid; gap: 0.45rem; margin: 0; padding-left: 1.1rem; }
       .details-list li { color: var(--ink); line-height: 1.45; }
-      .contact-panel { display: grid; gap: 0.75rem; padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--ink); color: white; }
-      .contact-panel p { color: #d7dee6; }
-      .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
-      .form-grid span { display: grid; align-items: center; min-height: 42px; padding: 0 0.75rem; border: 1px solid rgba(255,255,255,0.35); border-radius: var(--radius); color: #d7dee6; font-weight: 800; }
-      .form-grid .wide { grid-column: 1 / -1; min-height: 76px; align-items: start; padding-top: 0.7rem; }
-      .contact-panel .wire-button { background: white; color: var(--ink); }
       .faq-item { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center; min-height: 58px; padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); font-weight: 900; }
       .faq-item::after { content: "+"; font-size: 1.4rem; font-weight: 900; }
       .bottom-cta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; align-items: center; margin: 1.4rem 2rem 2rem; padding: 1.2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--ink); color: white; }
@@ -122,10 +116,9 @@
         .fact-grid .wire-card h3, .mode-grid .wire-card h3 { font-size: 1rem; }
         .fact-grid .wire-card p, .mode-grid .wire-card p, .hours-card p { font-size: 0.82rem; line-height: 1.35; }
         .hours-card strong { font-size: 2rem; }
-        .link-grid, .contact-grid, .form-grid, .site-footer, .footer-links { grid-template-columns: 1fr; }
+        .link-grid, .contact-grid, .site-footer, .footer-links { grid-template-columns: 1fr; }
         .contact-grid .wire-image { min-height: 180px; }
-        .form-grid .wide { grid-column: auto; }
-        .bottom-cta { margin: 1.2rem; }
+          .bottom-cta { margin: 1.2rem; }
       }
     .wire-nav{grid-template-columns:150px minmax(0,1fr) auto auto}
 @media(max-width:1280px){.wire-links{display:none!important}.wire-nav{grid-template-columns:minmax(80px,1fr) auto auto}.wire-burger{display:grid!important;width:38px}.wire-menu-check:checked~.wire-mobile-menu{display:grid!important;gap:8px;padding:16px}}
@@ -284,13 +277,6 @@
             <div><p class="wire-label">Contact</p><h2>Questions before your visit?</h2></div>
             <p>Ask us about bookings, group visits or accessibility. We're happy to help.</p>
           </div>
-          <div class="contact-panel">
-            <h3>Contact Cyberfun</h3>
-            <div class="form-grid">
-              <span>Name</span><span>Email</span><span>Phone</span><span>Topic</span><span class="wide">Message</span>
-            </div>
-            <a class="wire-button" href="#send">Send message</a>
-          </div>
         </section>
 
         <footer class="site-footer">
@@ -300,6 +286,6 @@
         </footer>
       </div>
     </main>
-  <script src="../../navigation-submenus.js?v=20261117-school-groups"></script>
+  <script src="../../navigation-submenus.js?v=20261118-restaurant"></script>
   </body>
 </html>

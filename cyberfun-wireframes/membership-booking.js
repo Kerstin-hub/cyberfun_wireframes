@@ -56,10 +56,11 @@
     }
     planHead.append(heading);
   }
+  const welcomePack='1 pair of jump socks, a Cyberjump wristband and 1 bottle of water';
   const benefits=[
     ['School days',item=>item.premium?'Unlimited jumping':'1 hour'],
     ['Weekends & school holidays',item=>item.premium?'2 hours':'1 hour'],
-    ['Welcome pack',item=>item.premium?'Included':'Not included'],
+    ['Welcome pack',item=>item.premium?welcomePack:'Not included'],
     ['Birthday benefit',item=>item.premium?'Included':'Not included'],
     ['Price',item=>`<strong>${format(item.recurring?item.monthly:item.due)}</strong><small>${item.recurring?'/ month':'Paid upfront'}</small>`],
     ['Term',item=>item.term],
@@ -75,11 +76,28 @@
     }
     rows.append(row);
   }
+  const mobileComparison=document.querySelector('.membership-comparison-mobile');
+  if(mobileComparison) for(const item of comparisonPlans){
+    const section=document.createElement('section');
+    section.className='membership-mobile-plan';
+    section.dataset.planColumn=item.id;
+    const heading=document.createElement('h3');
+    heading.textContent=item.name+(item.id===bestsellerId?' · Bestseller':'');
+    const details=document.createElement('dl');
+    for(const [label,value] of benefits.slice(0,-1)){
+      const term=document.createElement('dt');term.textContent=label;
+      const description=document.createElement('dd');description.innerHTML=value(item);
+      details.append(term,description);
+    }
+    section.append(heading,details);
+    section.insertAdjacentHTML('beforeend',benefits.at(-1)[1](item));
+    mobileComparison.append(section);
+  }
   const plan=()=>plans.find(item=>item.id===select.value);
   const status=document.getElementById('membership-status');
   const update=()=>{
     const item=plan();
-    rows.querySelectorAll('[data-plan-column]').forEach(cell=>{
+    document.querySelectorAll('[data-plan-column]').forEach(cell=>{
       const chosen=cell.dataset.planColumn===item.id;cell.classList.toggle('selected',chosen);
       const button=cell.querySelector('button');
       if(button){button.textContent=chosen?'Selected':'Choose plan';button.setAttribute('aria-pressed',String(chosen));}
@@ -113,7 +131,7 @@
     document.getElementById('membership-next').textContent='Continue to registration & payment';
     status.hidden=true;update();
   };
-  rows.addEventListener('click',event=>{
+  (document.getElementById('memberships')||rows).addEventListener('click',event=>{
     const button=event.target.closest('[data-choose-plan]');if(!button)return;
     select.value=button.dataset.choosePlan;showStep(1);
     document.getElementById('membership-checkout').scrollIntoView({block:'start',behavior:'smooth'});

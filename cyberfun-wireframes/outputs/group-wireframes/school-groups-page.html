@@ -240,12 +240,13 @@
 
         <section class="section">
           <div class="section-head">
-            <div><p class="wire-label">Group offers</p><h2>Trampoline tickets for groups</h2></div>
+            <div><p class="wire-label">Group offers</p><h2>Jump tickets and school bundles</h2></div>
             <p>For schools, non-profit association groups and camps.</p>
           </div>
           <div class="offer-grid">
             <article class="wire-card"><h3>1-hour ticket</h3><div class="price-note"><strong>2.450 Ft / person</strong></div></article>
             <article class="wire-card"><h3>2-hour ticket</h3><div class="price-note"><strong>3.650 Ft / person</strong></div></article>
+            <article class="wire-card"><h3>Jump + an attraction</h3><p>Start with a 1-hour trampoline ticket, then add a game for your class.</p><div class="price-note"><strong>Price on request</strong></div><a class="wire-button" href="#inquiry">Request a bundle</a></article>
           </div>
           <ul class="details-list">
             <li><strong>Group rates:</strong> Weekdays during term time and the summer break only, for groups of at least 20 people. Advance reservation required.</li>
@@ -289,7 +290,8 @@
 <label>Teachers / accompanying adults<input type="number" name="adults" min="0" step="1"></label><label>Age range / grade *<input name="ageRange" placeholder="e.g. ages 10-12 / Grade 5" required></label>
 <label>Preferred date *<input type="date" name="date" required></label>
 <label>Preferred arrival time *<input type="time" name="time" min="09:30" max="17:00" required></label>
-<label>Trampoline ticket duration *<select name="duration" required><option value="">Choose a ticket</option><option value="1 hour">1 hour - 2.450 Ft / person</option><option value="2 hours">2 hours - 3.650 Ft / person</option></select></label>
+<label>Ticket or bundle *<select name="duration" required><option value="">Choose an offer</option><option value="1 hour">1 hour - 2.450 Ft / person</option><option value="2 hours">2 hours - 3.650 Ft / person</option><option value="1 hour + attraction">1-hour jump + attraction bundle</option></select></label>
+<label>Preferred attraction<select name="bundleAttraction"><option value="">Choose an attraction</option><option>Pixel</option><option>Lasertag</option><option>Darts</option><option>Karaoke</option></select></label>
 <label class="check wide"><input type="checkbox" name="groupMeal" value="yes"><span>Request a group meal (1.750 Ft / person)</span></label>
 <label class="wide">Your plans and special requirements<textarea name="message" placeholder="Tell us about your occasion, food and drink wishes, accessibility needs or flexible dates."></textarea></label>
 <label class="check wide"><input type="checkbox" name="privacy" required><span>I have read the <a href="../../pages/legal/privacy-policy.html">Privacy Policy</a> and agree to be contacted about my request. *</span></label>
@@ -319,7 +321,7 @@
         </footer>
       </div>
     </main>
-  <script src="../../navigation-submenus.js?v=20261117-school-groups"></script>
-  <script src="../../group-inquiry.js"></script>
+  <script src="../../navigation-submenus.js?v=20261118-restaurant"></script>
+  <script src="../../group-inquiry.js?v=20261118-bundle"></script>
 </body>
 </html>

@@ -1,10 +1,5 @@
 (() => {
   const base = new URL('.', document.currentScript.src);
-  const homePreviews = [
-    ['Home1', 'outputs/homepage-wireframes/homepage-unified-booking-v3.html'],
-    ['Home2', 'outputs/homepage-wireframes/homepage-branding-v2.html'],
-  ];
-  const isHomePreview = homePreviews.some(([, target]) => new URL(target, base).pathname === location.pathname);
   const mainMenu = [
     ['Attractions', 'outputs/category-wireframes/attractions-tickets-category-page-v3.html'],
     ['Birthdays & Parties', 'outputs/parties-events-wireframes/parties-packages-category-page-v3.html'],
@@ -22,7 +17,7 @@
       ['Karaoke', 'outputs/activity-detail-wireframes/karaoke.html'],
     ],
     'Birthdays & Parties': [['Kids Birthdays', 'outputs/parties-events-wireframes/birthday-parties-page.html'], ['Adult Parties', 'outputs/parties-events-wireframes/adult-parties-page-v2-concept.html']],
-    'Explore': [['Family Fun', 'pages/explore/family-fun.html'], ['Teen Fun', 'pages/explore/teen-fun.html'], ['Adult Fun', 'pages/explore/adult-fun.html'], ['Your Visit', 'pages/plan-your-visit/index.html'], ['Loyalty Program', 'outputs/loyalty-club-wireframes/loyalty-club-page-v3.html']],
+    'Explore': [['Family Fun', 'pages/explore/family-fun.html'], ['Teen Fun', 'pages/explore/teen-fun.html'], ['Adult Fun', 'pages/explore/adult-fun.html'], ['Restaurant', 'pages/explore/restaurant.html'], ['Your Visit', 'pages/plan-your-visit/index.html'], ['Loyalty Program', 'outputs/loyalty-club-wireframes/loyalty-club-page-v3.html']],
   };
   const style = document.createElement('style');
   style.textContent = `
@@ -64,8 +59,7 @@
     if (!nav.matches('.nav-links,.wire-links,.desktop-nav,.wire-mobile-menu,.mobile-menu,.mobile-nav')) return;
     const mobile = /mobile/.test(nav.className);
     const linkClass = nav.querySelector('.wire-pill') ? 'wire-pill' : nav.querySelector('.nav-link') ? 'nav-link' : '';
-    const entries = isHomePreview ? [...homePreviews, ...mainMenu] : mainMenu;
-    nav.replaceChildren(...entries.map(([label, target]) => {
+    nav.replaceChildren(...mainMenu.map(([label, target]) => {
       const link = document.createElement('a');
       link.textContent = label;
       link.href = new URL(target, base).href;

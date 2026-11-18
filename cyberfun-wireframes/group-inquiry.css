@@ -21,3 +21,4 @@
 .section-head>p{max-width:760px;margin-top:16px}
 @media(max-width:1280px){.wire-links{display:none!important}.wire-nav{grid-template-columns:minmax(80px,1fr) auto auto}.wire-burger{display:grid!important;width:38px}.wire-menu-check:checked~.wire-mobile-menu{display:grid!important;gap:8px;padding:16px}}
 @media(max-width:680px){.inquiry-fields{grid-template-columns:1fr}.group-inquiry{padding:18px}.group-category-grid{grid-template-columns:1fr}}
+.group-inquiry label[hidden] { display: none; }

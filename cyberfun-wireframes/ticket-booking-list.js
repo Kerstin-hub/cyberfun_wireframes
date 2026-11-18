@@ -1,12 +1,14 @@
+const ticketGuestMinimums = {Jump:[1,1],Pixel:[4,8],Karaoke:[4,6],Lasertag:[2,2],Darts:[3,4]};
+
 (() => {
   const form = document.querySelector('form.checkout');
   if (!form?.querySelector('[data-category="ticket"]')) return;
   const catalog = [
-    {name:'Jump',variants:[{label:'1 hour',price:4500,min:[1,1]},{label:'2 hours',price:6500,min:[1,1]}]},
-    {name:'Pixel',variants:[{label:'30 min session',price:3000,min:[4,8]},{label:'60 min session',price:5500,min:[4,8]}]},
-    {name:'Karaoke',variants:[{label:'30 min session',price:3000,min:[4,6]},{label:'60 min session',price:4500,min:[4,6]}]},
-    {name:'Lasertag',variants:[{label:'30 min session',price:3500,min:[2,2]},{label:'60 min session',price:4500,min:[2,2]}]},
-    {name:'Darts',variants:[{label:'30 min session',price:3000,min:[3,4]},{label:'60 min session',price:4500,min:[3,4]}]}
+    {name:'Jump',variants:[{label:'1 hour',price:4500,min:ticketGuestMinimums.Jump},{label:'2 hours',price:6500,min:ticketGuestMinimums.Jump}]},
+    {name:'Pixel',variants:[{label:'30 min session',price:3000,min:ticketGuestMinimums.Pixel},{label:'60 min session',price:5500,min:ticketGuestMinimums.Pixel}]},
+    {name:'Karaoke',variants:[{label:'30 min session',price:3000,min:ticketGuestMinimums.Karaoke},{label:'60 min session',price:4500,min:ticketGuestMinimums.Karaoke}]},
+    {name:'Lasertag',variants:[{label:'30 min session',price:3500,min:ticketGuestMinimums.Lasertag},{label:'60 min session',price:4500,min:ticketGuestMinimums.Lasertag}]},
+    {name:'Darts',variants:[{label:'30 min session',price:3000,min:ticketGuestMinimums.Darts},{label:'60 min session',price:4500,min:ticketGuestMinimums.Darts}]}
   ];
   const ticketProducts=catalog.flatMap(item=>item.variants.map((variant,index)=>({item,variant,index})));
   products.ticket = ticketProducts.map(({item,variant}) => ({name:`${item.name} · ${variant.label}`,price:variant.price,basis:'Per person'}));
@@ -70,26 +72,18 @@
       calendar.querySelectorAll('.calendar-day').forEach(day=>day.classList.toggle('selected',day===weekday));
     }
   }
-  const calendarField=calendar.closest('.field');
   const continueButton=form.querySelector('.summary .button.block');
-  const originalContinueDisabled=continueButton.disabled;
   continueButton.addEventListener('click',()=>{
     if(continueButton.disabled)return;
     const rows=[...form.querySelectorAll('.summary-row')].filter(row=>getComputedStyle(row).display!=='none').map(row=>[row.querySelector('span')?.textContent?.trim(),row.querySelector('strong')?.textContent?.trim()]).filter(([label,value])=>label&&value);
     const target=new URL(registrationUrl);target.searchParams.set('booking',JSON.stringify(rows));window.location.href=target.href;
   });
-  const calendarNote=document.createElement('div');calendarNote.className='ticket-minimum-warning';calendarNote.hidden=true;
-  const warningText=document.createElement('p');warningText.setAttribute('role','status');
-  const increase=document.createElement('button');increase.type='button';
-  const changeDay=document.createElement('button');changeDay.type='button';changeDay.textContent='Choose another day';
-  const warningActions=document.createElement('div');warningActions.className='ticket-minimum-actions';warningActions.append(increase,changeDay);
-  calendarNote.append(warningText,warningActions);calendarField.after(calendarNote);
   const dayLabels=[...calendar.querySelectorAll('.calendar-day:not(.empty)')].map(button=>{
     const marker=document.createElement('span');marker.className='ticket-day-minimum';button.append(marker);return{button,marker};
   });
   const style=document.createElement('style');
   style.textContent='.ticket-pricing-flow .ticket-duration-legacy,.birthday-flow .ticket-duration-legacy{display:none!important}.ticket-variants{display:flex;flex-wrap:wrap;gap:6px}.ticket-variants button{flex:1;min-width:75px;min-height:46px;padding:8px 5px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit;font-size:13px;font-weight:800;cursor:pointer}.ticket-variants button.active{background:var(--ink);color:white;border-color:var(--ink)}.ticket-price-note{margin:5px 0 0;font-size:12px;line-height:1.5;color:var(--muted)}';
-  style.textContent+='.ticket-day-minimum{display:none}.ticket-pricing-flow .calendar-day:not(.empty){min-height:64px;padding:5px 1px 10px}.ticket-pricing-flow .ticket-day-minimum{display:block;margin-top:4px;font-size:9px;line-height:1.2;font-weight:600;white-space:normal}.ticket-minimum-warning[hidden]{display:none!important}.ticket-minimum-warning{padding:12px;margin:0 0 16px;border-left:3px solid #d18b00;background:#fff6de;color:var(--ink)}.ticket-minimum-warning p{margin:0 0 10px;font-size:13px;line-height:1.5;color:inherit}.ticket-minimum-actions{display:flex;flex-wrap:wrap;gap:8px}.ticket-minimum-actions button{min-height:40px;padding:8px 10px;border:1px solid var(--ink);border-radius:6px;background:var(--ink);color:white;font:inherit;font-size:12px;cursor:pointer}.ticket-minimum-actions button+button{background:white;color:var(--ink)}.checkout .button:disabled{opacity:.45;cursor:not-allowed}';
+  style.textContent+='.ticket-day-minimum{display:none}.ticket-pricing-flow .calendar-day:not(.empty){min-height:64px;padding:5px 1px 10px}.ticket-pricing-flow .ticket-day-minimum{display:block;margin-top:4px;font-size:9px;line-height:1.2;font-weight:600;white-space:normal}';
   document.head.append(style);
   style.textContent+='.compact-attraction-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.compact-duration-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.compact-attraction-grid button,.compact-duration-options button{min-width:0;box-sizing:border-box;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer}.compact-attraction-grid button{height:40px;padding:3px;font-size:11px;font-weight:700}.compact-duration-options button{display:grid;gap:3px;min-height:54px;padding:7px 4px;font-size:12px}.compact-duration-options strong{font-size:11px}.compact-attraction-grid button[aria-pressed=true],.compact-duration-options button[aria-pressed=true]{background:var(--ink);color:white;border-color:var(--ink)}.compact-attraction-grid button:focus-visible,.compact-duration-options button:focus-visible{outline:2px solid #1684d8;outline-offset:2px}';
   style.textContent+=`.ticket-product-list[hidden]{display:none!important}.ticket-pricing-flow #product{display:none!important}.ticket-product-list{display:grid;gap:12px;margin-top:6px}.ticket-product-list fieldset{min-width:0;border:0;padding:0;margin:0}.ticket-product-list legend{padding:0;margin-bottom:4px;font-size:13px;font-weight:800}.checkout .ticket-product-list label{display:grid;grid-template-columns:16px minmax(0,1fr) auto;align-items:center;gap:8px;min-height:42px;margin:0;padding:6px 4px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.4;font-weight:500;text-transform:none;cursor:pointer;box-sizing:border-box}.checkout .ticket-product-list input{appearance:none;box-sizing:border-box;width:16px;height:16px;min-height:16px;padding:0;margin:0;border:1px solid var(--muted);border-radius:50%;background:var(--paper)}.checkout .ticket-product-list input:checked{background:var(--ink);border-color:var(--ink);box-shadow:inset 0 0 0 3px var(--paper)}.ticket-product-list label:has(input:checked){background:var(--soft)}.ticket-product-list input:focus-visible{outline:2px solid #1684d8;outline-offset:3px}.ticket-list-price{font-weight:700;white-space:nowrap}`;
@@ -109,7 +103,7 @@
   const originalSummary=updateSummary;
   socksEnabled.addEventListener('change',()=>{socksQuantity.disabled=!socksEnabled.checked;if(socksEnabled.checked&&!Number(socksQuantity.value))socksQuantity.value='1';updateSummary();});
   socksQuantity.addEventListener('change',()=>updateSummary());
-  updateSummary=function(){
+  updateSummary=function(event){
     ticketList.hidden=currentCategory!=='ticket';
     if(currentCategory==='ticket'){
       attractionGrid.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.attractionChoice===selectedItem().name)));
@@ -125,9 +119,6 @@
     attractionMinimum.hidden=currentCategory!=='ticket';
     minRow.classList.add('hidden');
     socks.hidden=true;ticketSubtotalRow.classList.add('hidden');socksRow.classList.add('hidden');
-    calendarNote.hidden=true;
-    continueButton.disabled=originalContinueDisabled;
-    guests.setCustomValidity('');
     if(currentCategory!=='ticket')return;
     selectedVariant=selectedProduct().index;
     duration.style.display='none';
@@ -146,15 +137,17 @@
     const minimumKey=product.value;
     if(guestMinimumKey!==minimumKey){guests.value=String(minimum);guestMinimumKey=minimumKey;}
     attractionMinimum.textContent=`Minimum guests: Mon–Thu ${variant.min[0]} · Fri–Sun ${variant.min[1]}`;
-    const count=Math.max(0,Math.floor(Number(guests.value)||0));
-    const pairs=socksEnabled.checked?Math.min(count,Math.max(1,Number(socksQuantity.value)||1)):0;
+    const count=Math.max(minimum,Math.floor(Number(guests.value)||0));
+    if(event?.type!=='input' && Number(guests.value)!==count) guests.value=String(count);
+    const isJump=item.name==='Jump';
+    const pairs=isJump&&socksEnabled.checked?Math.min(count,Math.max(1,Number(socksQuantity.value)||1)):0;
     socksQuantity.replaceChildren(...Array.from({length:count},(_,index)=>{
       const quantity=index+1;
       const option=document.createElement('option');option.value=String(quantity);
       option.textContent=String(quantity);return option;
     }));
     socksQuantity.value=String(pairs||1);
-    socks.hidden=false;ticketSubtotalRow.classList.remove('hidden');socksRow.classList.remove('hidden');
+    socks.hidden=!isJump;ticketSubtotalRow.classList.remove('hidden');socksRow.classList.toggle('hidden',!isJump);
     socksCost.textContent=`${pairs} × ${priceText(socksPrice)} = ${priceText(socksPrice*pairs)}`;
     ticketSubtotal.textContent=`${count} × ${priceText(variant.price)} = ${priceText(variant.price*count)}`;
     socksSummary.textContent=pairs?`${pairs} × ${priceText(socksPrice)} = ${priceText(socksPrice*pairs)}`:'Bringing own socks · 0 Ft';
@@ -166,13 +159,6 @@
       const dayMinimum=variant.min[weekend(date)?1:0];
       marker.replaceChildren(document.createTextNode(`Min. ${dayMinimum}`),document.createElement('br'),document.createTextNode('guests'));
     });
-    if(count<minimum){
-      calendarNote.hidden=false;
-      warningText.textContent=`This day requires at least ${minimum} guests for ${item.name}. You selected ${count}. Increasing to ${minimum} guests changes the total to ${priceText(variant.price*minimum+socksPrice*pairs)}.`;
-      increase.textContent=`Increase to ${minimum} guests`;
-      continueButton.disabled=true;
-      guests.setCustomValidity(`At least ${minimum} guests are required for this day.`);
-    }
     minRow.classList.remove('hidden');minValue.textContent=String(minimum);
     form.querySelector('#summary-product').textContent=`${item.name} · ${variant.label}`;
     form.querySelector('#summary-duration').textContent=variant.label;
@@ -201,15 +187,6 @@
   form.querySelectorAll('.category-tab').forEach(button=>button.addEventListener('click',sync));
   product.addEventListener('change',()=>{if(currentCategory==='ticket')renderVariants();});
   guests.addEventListener('change',()=>{if(currentCategory==='ticket')updateSummary();});
-  increase.addEventListener('click',()=>{
-    const variant=selectedItem().variants[selectedVariant]||selectedItem().variants[0];
-    guests.value=String(variant.min[weekend()?1:0]);updateSummary();
-    guests.closest('.field').scrollIntoView({block:'center',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
-    guests.focus({preventScroll:true});
-  });
-  changeDay.addEventListener('click',()=>{
-    const day=calendar.querySelector('.calendar-day.selected:not(:disabled)')||calendar.querySelector('.calendar-day:not(.empty):not(:disabled)');
-    calendarField.scrollIntoView({block:'center',behavior:'smooth'});day?.focus({preventScroll:true});
-  });
+  guests.addEventListener('input',event=>{if(currentCategory==='ticket')updateSummary(event);});
   sync();
 })();

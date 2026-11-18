@@ -413,7 +413,7 @@
 
       .activity-grid {
         display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns: repeat(6, minmax(0, 1fr));
         gap: 1rem;
       }
 
@@ -448,6 +448,8 @@
         min-width: 0;
         padding: 0.8rem;
       }
+
+      .activity-card.attraction-feature { grid-column: span 2; }
 
       .activity-card .wire-image {
         min-height: 170px;
@@ -1313,9 +1315,10 @@
         <div class="booking-layout">
           <div class="category-content">
         <section class="category-hero">
-          <div class="wire-image">Category hero image / video</div>
+          <div class="wire-image">CyberFun attractions video</div>
           <div class="hero-copy">
             <p class="wire-label">Attractions &amp; Tickets</p>
+            <p class="wire-label">What to expect</p>
             <h1>Play it real.</h1>
             <p>Jump into the action, challenge your friends or take the mic. Five ways to play, with tickets for your kind of visit.</p>
           </div>
@@ -1333,15 +1336,15 @@
 
         <section class="category-section compact-list" id="all-attractions">
           <div class="activity-grid">
-            <article class="activity-card">
-              <div class="wire-image">Image</div>
-              <h3>Jump</h3>
-              <p>Big jumps. Bigger smiles. Get moving on the trampolines.</p>
+            <article class="activity-card attraction-feature">
+              <div class="wire-image">Mid-air jumps and the climbing area</div>
+              <h3>Jump: trampolines &amp; climbing area</h3>
+              <p>Find your biggest bounce, then see how high you can climb.</p>
               <p>1 or 2 hours<br><strong>From 4.500 Ft / person</strong></p>
               <div class="card-actions"><a href="../activity-detail-wireframes/jump.html">Find out more</a></div>
             </article>
             <article class="activity-card">
-              <div class="wire-image">Image</div>
+              <div class="wire-image">Friends racing across the light-up floor</div>
               <h3>Pixel</h3>
               <p>Think fast. Move faster. Take on interactive floor challenges.</p>
               <p>30 or 60 min<br><strong>From 3.000 Ft / person</strong></p>
@@ -1771,9 +1774,9 @@
       bindTimeSlots(document.getElementById("attraction-slots"));
       updateSummary();
     </script>
-  <script src="../../navigation-submenus.js?v=20261117-school-groups"></script>
+  <script src="../../navigation-submenus.js?v=20261118-restaurant"></script>
   <script src="../../birthday-booking.js?v=20261115-menu-booking"></script>
-<script src="../../ticket-booking-list.js?v=20261115-menu-booking"></script>
-<script src="../../birthday-packages-cards.js?v=20261117-weekend-minimum"></script>
+<script src="../../ticket-booking-list.js?v=20261118-minimum"></script>
+<script src="../../birthday-packages-cards.js?v=20261118-minimum"></script>
 </body>
 </html>
