@@ -44,7 +44,7 @@
     return {section,render};
   };
   if (!payment) {
-    flow.innerHTML = '<div class="cf-options cf-account-options"><section class="cf-option"><h2 id="account-title">Log in</h2><p>Log in to use discount codes and loyalty points.</p><form id="account-form"><label>Email address *<input type="email" autocomplete="email" required></label><label>Password *<input type="password" autocomplete="current-password" required minlength="6"></label><p>If you have no account yet, <a href="#register" id="show-register">Register</a></p><button type="submit">Sign in</button></form></section><section class="cf-option"><h2>Continue as a guest</h2><p>Book without creating an account.</p><button type="button" id="guest-next">Continue as a guest</button></section></div>';
+    flow.innerHTML = '<div class="cf-options cf-account-options"><section class="cf-option"><h2 id="account-title">Log in</h2><p>Log in to use discount codes.</p><form id="account-form"><label>Email address *<input type="email" autocomplete="email" required></label><label>Password *<input type="password" autocomplete="current-password" required minlength="6"></label><p>If you have no account yet, <a href="#register" id="show-register">Register</a></p><button type="submit">Sign in</button></form></section><section class="cf-option"><h2>Continue as a guest</h2><p>Book without creating an account.</p><button type="button" id="guest-next">Continue as a guest</button></section></div>';
     flow.querySelector('#guest-next').onclick = () => go('03-payment-page.html',{account:'guest'});
     const form = flow.querySelector('form');
     const reveal = register => {flow.querySelector('#account-title').textContent=register?'Register':'Log in';form.querySelector('input[type=password]').autocomplete=register?'new-password':'current-password';form.querySelector('button').textContent=register?'Register & continue':'Sign in';form.querySelector('input').focus();};
@@ -58,11 +58,11 @@
   form.querySelector('#vat-request').onchange = event => {form.querySelector('#vat-field').hidden=!event.target.checked;form.querySelector('#vat-field input').required=event.target.checked;};
   const validateEmail = () => form.querySelector('#payer-confirm').setCustomValidity(form.querySelector('#payer-confirm').value===form.querySelector('#payer-email').value?'':'Email addresses must match.');
   form.querySelector('#payer-confirm').oninput=validateEmail;form.querySelector('#payer-email').oninput=validateEmail;
-  const benefits = document.createElement('section'); benefits.innerHTML = '<h2>Discount codes & loyalty points</h2>';form.append(benefits);
+  const benefits = document.createElement('section'); benefits.innerHTML = '<h2>Do you have a discount code?</h2>';form.append(benefits);
   const loggedIn = params.get('account') === 'login';
-  if (loggedIn) benefits.insertAdjacentHTML('beforeend','<label>Coupon code<input id="coupon-code" placeholder="Enter discount code"></label><button type="button" id="coupon-apply">Apply code</button><p id="coupon-status" role="status"></p><p>Loyalty points balance: awaiting account connection.</p>');
+  if (loggedIn) benefits.insertAdjacentHTML('beforeend','<label>Discount code<input id="coupon-code" placeholder="Enter discount code"></label><button type="button" id="coupon-apply">Apply code</button><p id="coupon-status" role="status"></p>');
   else {
-    const message=document.createElement('p');message.textContent='Log in to use discount codes and loyalty points. ';
+    const message=document.createElement('p');message.textContent='Log in to use discount codes. ';
     const link=document.createElement('a');link.href=new URL('02-registration-page.html?'+params,location.href).href;link.textContent='Log in';message.append(link);benefits.append(message);
   }
   const recap=addSummary(form);
