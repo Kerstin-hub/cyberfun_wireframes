@@ -30,6 +30,18 @@ body{padding:16px!important}
 .cf-simplepay-box a{color:#b000bd}
 .cf-simplepay-logos{width:100%;aspect-ratio:872/90;background-image:url('assets/payments/simplepay-reference.png');background-size:129.3578% auto;background-position:41.015625% 77.911%;background-repeat:no-repeat}
 .cf-checkout .cf-finalize{width:100%;text-transform:uppercase;font-weight:800;background:#17212d}
+.cf-register-box{border:1px dashed #c8d4e0;border-radius:6px;padding:20px;margin:20px 0;min-width:0}
+.cf-birthday{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:8px}
+.cf-declaration{width:min(900px,calc(100% - 32px));max-height:90dvh;padding:24px;box-sizing:border-box;border:1px solid #c8d4e0;border-radius:6px;color:#17212d}
+.cf-declaration::backdrop{background:#17212dbb}
+.cf-declaration h2{font-size:28px;padding-right:24px}
+.cf-declaration p{line-height:1.65}
+.cf-declaration button{min-height:44px;padding:10px 16px;border:1px solid #17212d;border-radius:6px;background:#17212d;color:white;font:inherit;cursor:pointer}
+.cf-declaration button:disabled{opacity:0.4;cursor:not-allowed}
+.cf-declaration .cf-dialog-close{float:right;background:white;color:#17212d;font-size:24px}
+.cf-declaration .cf-consent{display:flex;gap:12px;align-items:start;padding:20px 0}
+.cf-declaration input{width:18px;height:18px;flex:0 0 18px}
+.cf-declaration-actions{display:flex;gap:12px;flex-wrap:wrap}
 @media(max-width:680px){.cf-simplepay-box{padding:16px}.cf-checkout .cf-simplepay-choice{gap:10px}.cf-simplepay-choice strong{flex:1;min-width:120px}.cf-simplepay-total{margin-left:30px}.cf-simplepay-box p{font-size:14px}}
 @media(max-width:680px){
   .cf-options,.cf-details{grid-template-columns:minmax(0,1fr)}

@@ -49,9 +49,23 @@
     flow.innerHTML = '<div class="cf-options cf-account-options"><section class="cf-option"><h2 id="account-title">Log in</h2><p>Log in to use discount codes.</p><form id="account-form"><label>Email address *<input type="email" autocomplete="email" required></label><label>Password *<input type="password" autocomplete="current-password" required minlength="6"></label><p>If you have no account yet, <a href="#register" id="show-register">Register</a></p><button type="submit">Sign in</button></form></section><section class="cf-option"><h2>Continue as a guest</h2><p>Book without creating an account.</p><button type="button" id="guest-next">Continue as a guest</button></section></div>';
     flow.querySelector('#guest-next').onclick = () => go('03-payment-page.html',{account:'guest'});
     const form = flow.querySelector('form');
-    const reveal = register => {flow.querySelector('#account-title').textContent=register?'Register':'Log in';form.querySelector('input[type=password]').autocomplete=register?'new-password':'current-password';form.querySelector('button').textContent=register?'Register & continue':'Sign in';form.querySelector('input').focus();};
+    const reveal = register => {
+      if(register){
+        flow.querySelector('#account-title').textContent='Register';
+        CyberfunRegistration.mount(form,()=>go('03-payment-page.html',{account:'login'}));
+      }
+    };
     flow.querySelector('#show-register').onclick = event => {event.preventDefault();reveal(true);};
-    form.onsubmit = event => {event.preventDefault();if(form.reportValidity())go('03-payment-page.html',{account:'login'});};
+    form.onsubmit = event => {
+      event.preventDefault();
+      if(form.reportValidity()){
+        const email=form.querySelector('input[type=email]').value.trim();
+        let profile;
+        try{profile=JSON.parse(sessionStorage.getItem('cyberfun-profile')||'null');}catch{}
+        if(!profile||profile.email.toLowerCase()!==email.toLowerCase()) sessionStorage.setItem('cyberfun-profile',JSON.stringify({email}));
+        go('03-payment-page.html',{account:'login'});
+      }
+    };
     return;
   }
   const form = document.createElement('form');
@@ -62,6 +76,16 @@
   form.querySelector('#payer-confirm').oninput=validateEmail;form.querySelector('#payer-email').oninput=validateEmail;
   const benefits = document.createElement('section'); benefits.innerHTML = '<h2>Do you have a discount code?</h2>';form.append(benefits);
   const loggedIn = params.get('account') === 'login';
+  if(loggedIn){
+    let profile;
+    try{profile=JSON.parse(sessionStorage.getItem('cyberfun-profile')||'null');}catch{}
+    if(profile){
+      form.querySelector('[autocomplete=name]').value=profile.billingName||[profile.firstName,profile.lastName].filter(Boolean).join(' ');
+      form.querySelector('#payer-email').value=profile.email||'';
+      form.querySelector('#payer-confirm').value=profile.email||'';
+      for(const [autocomplete,key] of [['tel','phone'],['postal-code','zip'],['address-level2','city'],['street-address','street']])form.querySelector('[autocomplete="'+autocomplete+'"]').value=profile[key]||'';
+    }
+  }
   if (loggedIn) benefits.insertAdjacentHTML('beforeend','<label>Discount code<input id="coupon-code" placeholder="Enter discount code"></label><button type="button" id="coupon-apply">Apply code</button><p id="coupon-status" role="status"></p>');
   else {
     const message=document.createElement('p');message.textContent='Log in to use discount codes. ';
@@ -85,6 +109,12 @@
   };
   form.onsubmit=event=>{
     event.preventDefault();if(!form.reportValidity())return;
+    if(loggedIn){
+      let profile;
+      try{profile=JSON.parse(sessionStorage.getItem('cyberfun-profile')||'{}');}catch{profile={};}
+      for(const [autocomplete,key] of [['name','billingName'],['email','email'],['tel','phone'],['postal-code','zip'],['address-level2','city'],['street-address','street']])profile[key]=form.querySelector('[autocomplete="'+autocomplete+'"]').value;
+      sessionStorage.setItem('cyberfun-profile',JSON.stringify(profile));
+    }
     const panel=document.createElement('section');panel.className='cf-option';panel.tabIndex=-1;
     panel.innerHTML='<h2>SimplePay</h2><p>Payment methods</p><div class="cf-row"><span>Total</span><strong></strong></div><div class="cf-methods"><button type="button">Bank card</button><button type="button">Digital wallet</button><button type="button">Simple wallet</button><button type="button">Bank transfer</button></div><p role="status">Choose a payment method.</p><button type="button" class="cf-back">Back to your order</button>';
     panel.querySelector('strong').textContent=CyberfunBenefits.money(recap.render());
