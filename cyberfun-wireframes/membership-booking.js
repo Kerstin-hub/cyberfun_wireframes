@@ -53,6 +53,25 @@
   memberPanel.prepend(subscriberField,document.getElementById('membership-holder-name').closest('.field'),document.getElementById('membership-dob').closest('.field'),document.getElementById('membership-parent-field'),document.getElementById('membership-email').closest('.field'));
   form.querySelector('[data-membership-step="1"]').before(memberPanel);
   const planPanel=form.querySelector('[data-membership-step="1"]');
+  planPanel.querySelector('h3').textContent='New VIP Card';
+  const planChoices=document.createElement('div');planChoices.className='membership-vip-choices';
+  const choiceHeading=document.createElement('p');choiceHeading.textContent='Select your VIP card';
+  planPanel.querySelector('.field').hidden=true;
+  planPanel.prepend(choiceHeading,planChoices);
+  planPanel.prepend(planPanel.querySelector('h3'));
+  plans.forEach(item=>{
+    const choice=document.createElement('button');choice.type='button';choice.dataset.vipPlan=item.id;choice.className='membership-vip-choice';
+    const title=document.createElement('strong');title.textContent=item.name;
+    const price=document.createElement('span');price.textContent=item.recurring?format(item.monthly)+' / month':format(item.due)+' / 90 days';
+    const access=document.createElement('small');access.textContent=item.access;
+    const billing=document.createElement('small');billing.textContent=item.recurring?'First payment: '+format(item.due)+' · 3-month minimum term':'One payment · no automatic renewal';
+    choice.append(title,price,access,billing);
+    if(item.premium){const welcome=document.createElement('small');welcome.textContent='Welcome pack and birthday benefit included';choice.append(welcome);}
+    choice.onclick=()=>{document.getElementById('membership-plan').value=item.id;update();};
+    planChoices.append(choice);
+  });
+  subscriptions.querySelector('a').href='#membership-vip-choices';
+  planChoices.id='membership-vip-choices';
   planPanel.after(activation.closest('.field'));
   const billingPanel=document.createElement('section');billingPanel.className='membership-panel';
   review.before(billingPanel);
@@ -168,6 +187,7 @@
     form.querySelector('.checkout-header h2').textContent=authenticated?'Become a VIP member':'Log in or register';
     form.querySelector('.checkout-header > p:last-child').textContent=authenticated?'Choose your plan and review the payment details.':'Sign in or create an account to start your membership.';
     const item=plan();
+    planChoices.querySelectorAll('[data-vip-plan]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.vipPlan===item.id)));
     document.querySelectorAll('[data-plan-column]').forEach(cell=>{
       const chosen=cell.dataset.planColumn===item.id;cell.classList.toggle('selected',chosen);
       const button=cell.querySelector('button');
