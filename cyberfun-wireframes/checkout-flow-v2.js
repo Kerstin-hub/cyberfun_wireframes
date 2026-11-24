@@ -40,7 +40,7 @@
       return Math.max(0,afterGift-discount);
     };
     parent.append(section);
-    CyberfunBenefits.mount(section,render);render();
+    render();
     return {section,render};
   };
   if (!payment) {
