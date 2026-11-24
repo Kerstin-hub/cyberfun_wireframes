@@ -8,7 +8,8 @@
   const format = value => new Intl.NumberFormat('de-DE').format(value)+' Ft';
   const form=document.getElementById('membership-form');
   if(!form)return;
-  plans.filter(item=>item.recurring).forEach(item=>{item.due=item.monthly;});
+  let profile;
+  try{profile=JSON.parse(sessionStorage.getItem('cyberfun-profile')||'null');}catch{}
   const memberPanel=form.querySelector('[data-membership-step="2"]');
   const addField=(id,label,type='text',required=false)=>{
     const field=document.createElement('div');field.className='field';
@@ -27,10 +28,20 @@
   const invoiceLabel=document.createElement('label');invoiceLabel.className='membership-consent';
   const invoice=document.createElement('input');invoice.type='checkbox';invoiceLabel.append(invoice,document.createTextNode('Request a VAT invoice'));memberPanel.append(invoiceLabel);
   const address=addField('membership-billing-address','Billing address','text');
+  const zip=addField('membership-zip','Zip code','text',true);
+  const city=addField('membership-city','City','text',true);
+  address.required=true;
   const tax=addField('membership-tax','VAT / tax number','text');
   const advisor=addField('membership-advisor','On-site adviser (optional)');
   addField('membership-notes','Notes / special requests','textarea');
   const review=form.querySelector('[data-membership-step="3"]');
+  const paymentBox=document.createElement('div');paymentBox.className='cf-checkout membership-payment';
+  paymentBox.innerHTML='<div class="cf-simplepay-box"><label class="cf-simplepay-choice"><input type="radio" name="payment-provider" checked><strong>Online Payment with debit card</strong><span class="cf-simplepay-total"></span></label><p>SimplePay - through a secure online payment system. <a href="#membership-payment-info">Debit card payment information</a></p><div class="cf-simplepay-logos" role="img" aria-label="SimplePay, Google Pay, Apple Pay, Mastercard, Maestro, Visa and American Express"></div><p id="membership-payment-info" hidden>Payment details are entered on SimplePay. The live payment connection is pending.</p></div>';
+  review.querySelector('.membership-consent').before(paymentBox);
+  paymentBox.querySelector('a').onclick=event=>{event.preventDefault();const info=paymentBox.querySelector('#membership-payment-info');info.hidden=!info.hidden;};
+  const subscriptions=document.createElement('section');subscriptions.className='membership-panel membership-subscriptions';
+  subscriptions.innerHTML='<h3>Live VIP Cards</h3><p>No subscriptions yet.</p><a href="#membership-for">+ New VIP Card</a>';
+  form.querySelector('.checkout-body').prepend(subscriptions);
   const registrationSummary=document.createElement('div');registrationSummary.className='summary membership-summary';
   review.querySelector('.summary').after(registrationSummary);
   const select=document.getElementById('membership-plan');
@@ -38,6 +49,58 @@
   const recipient=document.getElementById('membership-for');
   const otherAdult=document.createElement('option');otherAdult.value='adult';otherAdult.textContent='Another adult (18+)';
   recipient.options[0].after(otherAdult);
+  const subscriberField=recipient.closest('.field');
+  memberPanel.prepend(subscriberField,document.getElementById('membership-holder-name').closest('.field'),document.getElementById('membership-dob').closest('.field'),document.getElementById('membership-parent-field'),document.getElementById('membership-email').closest('.field'));
+  form.querySelector('[data-membership-step="1"]').before(memberPanel);
+  const planPanel=form.querySelector('[data-membership-step="1"]');
+  planPanel.after(activation.closest('.field'));
+  const billingPanel=document.createElement('section');billingPanel.className='membership-panel';
+  review.before(billingPanel);
+  billingPanel.append(billingTitle,payer.closest('.field'),emailConfirm.closest('.field'),phone.closest('.field'),zip.closest('.field'),city.closest('.field'),address.closest('.field'),advisor.closest('.field'),invoiceLabel,tax.closest('.field'),form.querySelector('#membership-notes').closest('.field'));
+  const accountPanel=document.createElement('section');accountPanel.className='membership-panel membership-account';
+  accountPanel.innerHTML='<h3>Log in to start your membership</h3><label>Email<input type="email" id="membership-login-email" autocomplete="email"></label><label>Password<input type="password" id="membership-login-password" autocomplete="current-password"></label><button type="button" id="membership-login">Log in</button><p>No account yet? <button type="button" id="membership-register">Register</button></p><p role="status" id="membership-account-status"></p>';
+  form.querySelector('.checkout-body').prepend(accountPanel);
+  const applyProfile=()=>{
+    if(!profile)return;
+    const name=[profile.firstName,profile.lastName].filter(Boolean).join(' ');
+    accountPanel.hidden=true;
+    document.getElementById('membership-email').value=profile.email||'';
+    emailConfirm.value=profile.email||'';
+    payer.value=profile.billingName||name;
+    phone.value=profile.phone||'';zip.value=profile.zip||'';city.value=profile.city||'';address.value=profile.street||'';
+    document.getElementById('membership-holder-name').value=name;
+    document.getElementById('membership-dob').value=profile.birthday||'';
+    document.getElementById('membership-parent-name').value=name;
+    recipient.querySelectorAll('[data-profile-child]').forEach(option=>option.remove());
+    (profile.children||[]).forEach((child,index)=>{
+      const option=document.createElement('option');option.value='saved-child-'+index;option.dataset.profileChild=String(index);
+      option.textContent=[child.firstName,child.lastName].join(' ')+(child.birthday?' ('+child.birthday+')':'');recipient.append(option);
+    });
+    recipient.options[0].textContent=name||'Myself (18+)';
+  };
+  recipient.addEventListener('change',()=>{
+    const saved=recipient.selectedOptions[0].dataset.profileChild;
+    const person=saved===undefined?(recipient.value==='self'?profile:null):profile?.children?.[Number(saved)];
+    document.getElementById('membership-holder-name').value=person?[person.firstName,person.lastName].filter(Boolean).join(' '):'';
+    document.getElementById('membership-dob').value=person?.birthday||'';
+  });
+  accountPanel.querySelector('#membership-login').onclick=()=>{
+    const email=accountPanel.querySelector('#membership-login-email'),password=accountPanel.querySelector('#membership-login-password');
+    if(!email.value||!password.value||!email.reportValidity()){accountPanel.querySelector('[role=status]').textContent='Enter your email and password.';return;}
+    let saved;
+    try{saved=JSON.parse(sessionStorage.getItem('cyberfun-profile')||'null');}catch{}
+    profile=saved?.email?.toLowerCase()===email.value.trim().toLowerCase()?saved:{email:email.value.trim()};
+    sessionStorage.setItem('cyberfun-profile',JSON.stringify(profile));applyProfile();update();
+  };
+  accountPanel.querySelector('#membership-register').onclick=()=>{
+    const dialog=document.createElement('dialog');dialog.className='cf-declaration membership-registration-dialog';
+    const close=document.createElement('button');close.type='button';close.textContent='Close';close.onclick=()=>dialog.close();
+    const registration=document.createElement('form');registration.className='cf-checkout';
+    dialog.append(close,registration);document.body.append(dialog);
+    CyberfunRegistration.mount(registration,data=>{profile=data;dialog.close();applyProfile();update();});
+    dialog.showModal();
+  };
+  applyProfile();
   form.querySelector('.membership-steps').hidden=true;
   const singlePageStyle=document.createElement('style');singlePageStyle.textContent='.membership-steps[hidden]{display:none!important}.membership-panel{margin-bottom:20px}.membership-panel h3{font-size:18px}.membership-panel textarea{width:100%;box-sizing:border-box;min-height:80px;border:1px solid var(--line);border-radius:6px;padding:10px;font:inherit}';document.head.append(singlePageStyle);
   plans.forEach(plan=>{
@@ -105,30 +168,32 @@
     document.getElementById('membership-plan-access').textContent=item.access;
     document.getElementById('membership-plan-term').textContent=item.term;
     document.getElementById('membership-billing-info').textContent=item.recurring
-      ? `${format(item.monthly)} per month. Minimum commitment: ${format(item.monthly*3)} over 3 months; cancellable afterwards.`
+      ? `First payment: ${format(item.due)} for two months. Then ${format(item.monthly)} per month from month three. Three-month minimum term.`
       : `One payment of ${format(item.due)} for 90 days. No automatic renewal.`;
     document.getElementById('membership-summary-plan').textContent=item.name;
     document.getElementById('membership-summary-billing').textContent=item.billing;
     document.getElementById('membership-summary-access').textContent=item.access;
     document.getElementById('membership-summary-term').textContent=item.term;
     document.getElementById('membership-summary-total').textContent=format(item.due);
+    paymentBox.querySelector('.cf-simplepay-total').textContent=format(item.due);
+    subscriptions.hidden=!profile;
     document.getElementById('membership-summary-renewal').textContent=item.recurring?`${format(item.monthly)} / month`:'No automatic renewal';
     emailConfirm.setCustomValidity(emailConfirm.value!==document.getElementById('membership-email').value?'Email addresses must match.':'');
-    address.closest('.field').hidden=!invoice.checked;tax.closest('.field').hidden=!invoice.checked;address.required=invoice.checked;
+    tax.closest('.field').hidden=!invoice.checked;
     registrationSummary.replaceChildren(...[['Activation date',activation.value],['Payer',payer.value],['Phone',phone.value],...(invoice.checked?[['Billing address',address.value],['VAT / tax number',tax.value]]:[])].map(([label,value])=>{
       const row=document.createElement('div');row.className='summary-row';const name=document.createElement('span');name.textContent=label;const text=document.createElement('strong');text.textContent=value||'Not entered';row.append(name,text);return row;
     }));
     document.getElementById('membership-summary-holder').textContent=document.getElementById('membership-holder-name').value||'Not entered';
     document.getElementById('membership-summary-email').textContent=document.getElementById('membership-email').value||'Not entered';
     document.getElementById('membership-summary-owner').textContent=document.getElementById('membership-for').selectedOptions[0].textContent;
-    const minor=document.getElementById('membership-for').value==='child';
+    const minor=recipient.value==='child'||recipient.value.startsWith('saved-child-');
     document.getElementById('membership-parent-field').hidden=!minor;
     document.getElementById('membership-parent-name').required=minor;
   };
   const showStep=value=>{
     form.querySelectorAll('[data-membership-step]').forEach(panel=>{panel.hidden=false;});
     document.getElementById('membership-back').hidden=true;
-    document.getElementById('membership-next').textContent='Continue to registration & payment';
+    document.getElementById('membership-next').textContent='Finalize purchase';
     status.hidden=true;update();
   };
   (document.getElementById('memberships')||rows).addEventListener('click',event=>{
@@ -141,12 +206,12 @@
   form.addEventListener('input',update);form.addEventListener('change',update);
   form.addEventListener('submit',event=>{
     event.preventDefault();
+    if(!profile){accountPanel.hidden=false;accountPanel.scrollIntoView({block:'center'});accountPanel.querySelector('[role=status]').textContent='Please log in or register before purchasing a membership.';return;}
     update();
     for(const input of form.querySelectorAll('input,select,textarea')){if(!input.reportValidity())return;}
     const item=plan();
-    const target=new URL('../checkout-html-screens/02-registration-page.html',window.location.href);
-    target.searchParams.set('booking',JSON.stringify([['Category','Membership'],['Selection',item.name],['Activation date',activation.value],['Total',format(item.due)]]));
-    window.location.href=target.href;
+    status.hidden=false;status.textContent='SimplePay payment preview: '+format(item.due)+'. Payment provider connection pending.';
+    status.focus();
   });
   const requestedPlan=new URLSearchParams(window.location.search).get('plan');
   if(plans.some(item=>item.id===requestedPlan))select.value=requestedPlan;

@@ -70,3 +70,10 @@
   .membership-mobile-plan small{display:block}
   .membership-mobile-plan .wire-button{min-height:44px}
 }
+.membership-payment{padding:0}
+.membership-payment .cf-simplepay-box{padding:12px}
+.membership-account input{box-sizing:border-box;width:100%;min-height:44px;margin:6px 0 12px;padding:10px;border:1px solid var(--line);border-radius:6px;font:inherit}
+.membership-account button{min-height:44px;padding:10px;border:1px solid var(--ink);border-radius:6px;background:var(--ink);color:white;cursor:pointer;font:inherit}
+.membership-account[hidden],.membership-subscriptions[hidden]{display:none!important}
+.membership-panel .cf-simplepay-choice{display:flex!important;align-items:center;gap:8px;flex-wrap:wrap}
+.membership-panel .cf-simplepay-choice input{width:18px!important;min-height:18px;height:18px}
