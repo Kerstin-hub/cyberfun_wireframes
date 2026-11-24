@@ -1,6 +1,6 @@
 (() => {
   const benefitsScript = document.createElement('script');
-  benefitsScript.src = new URL('checkout-benefits.js?v=20261124', document.currentScript.src).href;
+  benefitsScript.src = new URL('checkout-benefits.js?v=20261124-login-first', document.currentScript.src).href;
   document.head.append(benefitsScript);
   const base = new URL('.', document.currentScript.src);
   const mainMenu = [

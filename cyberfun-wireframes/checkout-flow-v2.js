@@ -44,15 +44,12 @@
     return {section,render};
   };
   if (!payment) {
-    flow.innerHTML = '<div class="cf-options"><section class="cf-option"><h2>Continue as a guest</h2><p>Book without creating an account.</p><button type="button" id="guest-next">Continue as a guest</button></section><section class="cf-option"><h2>Log in</h2><p>Log in to use discount codes and loyalty points.</p><button type="button" id="show-login">Log in</button><p>If you have no account yet, <a href="#register" id="show-register">Register</a></p><form id="account-form" hidden><h3 id="account-title">Log in</h3><label>Email<input type="email" autocomplete="email" required></label><label>Password<input type="password" autocomplete="current-password" required minlength="6"></label><p><button type="submit">Continue</button></p></form></section></div>';
-    const recap = addSummary(flow);
-    const proceed = () => {params.set('booking',recap.section.dataset.rows);};
-    flow.querySelector('#guest-next').onclick = () => {proceed();go('03-payment-page.html',{account:'guest'});};
+    flow.innerHTML = '<div class="cf-options cf-account-options"><section class="cf-option"><h2 id="account-title">Log in</h2><p>Log in to use discount codes and loyalty points.</p><form id="account-form"><label>Email address *<input type="email" autocomplete="email" required></label><label>Password *<input type="password" autocomplete="current-password" required minlength="6"></label><p>If you have no account yet, <a href="#register" id="show-register">Register</a></p><button type="submit">Sign in</button></form></section><section class="cf-option"><h2>Continue as a guest</h2><p>Book without creating an account.</p><button type="button" id="guest-next">Continue as a guest</button></section></div>';
+    flow.querySelector('#guest-next').onclick = () => go('03-payment-page.html',{account:'guest'});
     const form = flow.querySelector('form');
-    const reveal = register => {form.hidden=false;flow.querySelector('#account-title').textContent=register?'Register':'Log in';form.querySelector('input[type=password]').autocomplete=register?'new-password':'current-password';form.querySelector('input').focus();};
-    flow.querySelector('#show-login').onclick = () => reveal(false);
+    const reveal = register => {flow.querySelector('#account-title').textContent=register?'Register':'Log in';form.querySelector('input[type=password]').autocomplete=register?'new-password':'current-password';form.querySelector('button').textContent=register?'Register & continue':'Sign in';form.querySelector('input').focus();};
     flow.querySelector('#show-register').onclick = event => {event.preventDefault();reveal(true);};
-    form.onsubmit = event => {event.preventDefault();if(form.reportValidity()){proceed();go('03-payment-page.html',{account:'login'});}};
+    form.onsubmit = event => {event.preventDefault();if(form.reportValidity())go('03-payment-page.html',{account:'login'});};
     return;
   }
   const form = document.createElement('form');

@@ -10,6 +10,7 @@
     field.innerHTML = '<label for="gift-voucher">Gift voucher</label><div style="display:flex;gap:8px"><input id="gift-voucher" autocomplete="off" placeholder="Enter gift voucher code"><button type="button">Apply</button></div><p role="status" style="font-size:12px"></p>';
     before.before(field);
     const input = field.querySelector('input'), button = field.querySelector('button'), status = field.querySelector('p');
+    button.style.cssText = 'background:#000;color:#fff;border:1px solid #000;border-radius:6px;padding:10px 16px;min-height:44px;font:inherit;cursor:pointer';
     const update = () => {
       const gift = benefit();
       input.value = gift?.code || '';

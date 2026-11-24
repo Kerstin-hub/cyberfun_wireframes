@@ -6,6 +6,7 @@ body{padding:16px!important}
 .cf-checkout h2{font-size:22px}
 .cf-checkout p{line-height:1.5}
 .cf-options,.cf-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.cf-account-options{grid-template-columns:minmax(0,1fr);max-width:600px;margin-inline:auto}
 .cf-checkout form,.cf-checkout section{min-width:0}
 .cf-checkout label{display:grid;gap:6px;margin:12px 0}
 .cf-checkout input,.cf-checkout textarea,.cf-checkout select{box-sizing:border-box;width:100%;min-height:44px;padding:10px;border:1px solid #c8d4e0;border-radius:6px;font:inherit}

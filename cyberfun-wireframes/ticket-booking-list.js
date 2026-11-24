@@ -1,4 +1,5 @@
 const ticketGuestMinimums = {Jump:[1,1],Pixel:[4,8],Karaoke:[4,6],Lasertag:[2,2],Darts:[3,4]};
+const attractionCapacities = {Pixel:14,Karaoke:14,Darts:10,Lasertag:24};
 
 (() => {
   const form = document.querySelector('form.checkout');
@@ -136,8 +137,9 @@ const ticketGuestMinimums = {Jump:[1,1],Pixel:[4,8],Karaoke:[4,6],Lasertag:[2,2]
     const minimum=variant.min[weekend()?1:0];
     const minimumKey=product.value;
     if(guestMinimumKey!==minimumKey){guests.value=String(minimum);guestMinimumKey=minimumKey;}
-    attractionMinimum.textContent=`Minimum guests: Mon–Thu ${variant.min[0]} · Fri–Sun ${variant.min[1]}`;
-    const count=Math.max(minimum,Math.floor(Number(guests.value)||0));
+    const maximum=attractionCapacities[item.name];
+    attractionMinimum.textContent=`Minimum guests: Mon–Thu ${variant.min[0]} · Fri–Sun ${variant.min[1]}`+(maximum?` · Maximum ${maximum} guests`:'');
+    const count=Math.min(maximum||Infinity,Math.max(minimum,Math.floor(Number(guests.value)||0)));
     if(event?.type!=='input' && Number(guests.value)!==count) guests.value=String(count);
     const isJump=item.name==='Jump';
     const pairs=isJump&&socksEnabled.checked?Math.min(count,Math.max(1,Number(socksQuantity.value)||1)):0;
@@ -152,7 +154,8 @@ const ticketGuestMinimums = {Jump:[1,1],Pixel:[4,8],Karaoke:[4,6],Lasertag:[2,2]
     ticketSubtotal.textContent=`${count} × ${priceText(variant.price)} = ${priceText(variant.price*count)}`;
     socksSummary.textContent=pairs?`${pairs} × ${priceText(socksPrice)} = ${priceText(socksPrice*pairs)}`:'Bringing own socks · 0 Ft';
     guests.min=String(minimum);
-    form.querySelector('label[for="guests"]').textContent=`Number of guests (min. ${minimum})`;
+    if(maximum)guests.max=String(maximum);else guests.removeAttribute('max');
+    form.querySelector('label[for="guests"]').textContent=`Number of guests (min. ${minimum}${maximum?', max. '+maximum:''})`;
     pricing.textContent=`${priceText(variant.price)} per person · Minimum ${minimum} ${minimum===1?'guest':'guests'} (${weekend()?'Fri-Sun':'Mon-Thu'})`;
     dayLabels.forEach(({button,marker})=>{
       const date=button.dataset.date||button.dataset.birthdayDate;

@@ -148,11 +148,15 @@
     productField.after(attractionField);
     attractionField.after(guests.closest('.field'));
     const item=chosen(),day=dayIndex(),minimum=minimumForDay(day);
-    const count=Math.max(minimum,Math.floor(Number(guests.value)||0));
+    const capacities=typeof attractionCapacities==='undefined'?{}:attractionCapacities;
+    const maximum=item.games?Math.min(capacities[attraction.value]||Infinity,item.games===2?(capacities[second.value]||Infinity):Infinity):Infinity;
+    const count=Math.min(maximum,Math.max(minimum,Math.floor(Number(guests.value)||0)));
     if(event?.type!=='input' && Number(guests.value)!==count)guests.value=String(count);
     guests.min=String(minimum);
-    form.querySelector('label[for="guests"]').textContent=`Number of guests (min. ${minimum})`;
+    if(Number.isFinite(maximum))guests.max=String(maximum);else guests.removeAttribute('max');
+    form.querySelector('label[for="guests"]').textContent=`Number of guests (min. ${minimum}${Number.isFinite(maximum)?', max. '+maximum:''})`;
     note.textContent='Prices and minimum guest numbers vary by day and activity.';
+    if(Number.isFinite(maximum))note.textContent+=` Maximum ${maximum} guests for the selected activity.`;
     [...product.options].forEach((option,index)=>{if(packages[index])option.textContent=`${packages[index].name} - from ${format(Math.min(...packages[index].price))} / person · from 4 guests`;});
     const included=[];
     if(item.jump)included.push(`${item.jump} ${item.jump===1?'hour':'hours'} jumping`);
