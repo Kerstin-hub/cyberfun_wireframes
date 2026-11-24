@@ -77,3 +77,4 @@
 .membership-account[hidden],.membership-subscriptions[hidden]{display:none!important}
 .membership-panel .cf-simplepay-choice{display:flex!important;align-items:center;gap:8px;flex-wrap:wrap}
 .membership-panel .cf-simplepay-choice input{width:18px!important;min-height:18px;height:18px}
+.membership-auth-required .checkout-body > [hidden]{display:none!important}

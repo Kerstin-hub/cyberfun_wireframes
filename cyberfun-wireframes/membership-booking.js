@@ -159,6 +159,14 @@
   const plan=()=>plans.find(item=>item.id===select.value);
   const status=document.getElementById('membership-status');
   const update=()=>{
+    const authenticated=Boolean(profile);
+    for(const child of form.querySelector('.checkout-body').children){
+      if(child===accountPanel)child.hidden=authenticated;
+      else if(!child.matches('.membership-steps'))child.hidden=!authenticated;
+    }
+    form.classList.toggle('membership-auth-required',!authenticated);
+    form.querySelector('.checkout-header h2').textContent=authenticated?'Become a VIP member':'Log in or register';
+    form.querySelector('.checkout-header > p:last-child').textContent=authenticated?'Choose your plan and review the payment details.':'Sign in or create an account to start your membership.';
     const item=plan();
     document.querySelectorAll('[data-plan-column]').forEach(cell=>{
       const chosen=cell.dataset.planColumn===item.id;cell.classList.toggle('selected',chosen);
@@ -200,7 +208,8 @@
     const button=event.target.closest('[data-choose-plan]');if(!button)return;
     select.value=button.dataset.choosePlan;showStep(1);
     document.getElementById('membership-checkout').scrollIntoView({block:'start',behavior:'smooth'});
-    select.focus({preventScroll:true});
+    if(profile)select.focus({preventScroll:true});
+    else accountPanel.querySelector('input').focus({preventScroll:true});
   });
   select.addEventListener('change',()=>{showStep(1);});
   form.addEventListener('input',update);form.addEventListener('change',update);
