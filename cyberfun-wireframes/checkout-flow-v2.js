@@ -37,6 +37,8 @@
         row.append(name,text); section.append(row);
       });
       section.dataset.rows = JSON.stringify(display);
+      const paymentTotal = parent.closest('form')?.querySelector('.cf-simplepay-total');
+      if (paymentTotal) paymentTotal.textContent = CyberfunBenefits.money(Math.max(0,afterGift-discount));
       return Math.max(0,afterGift-discount);
     };
     parent.append(section);
@@ -73,8 +75,14 @@
     recap.render();
   };
   const pay=document.createElement('section');
-  pay.innerHTML='<h2>Payment</h2><p><strong>SimplePay</strong> — secure online payment</p><p>Continue to SimplePay to choose your payment method.</p><label class="cf-consent"><input type="checkbox" required><span>I agree to the <a href="../../pages/legal/terms-conditions.html">Terms & Conditions</a>.</span></label><button type="submit">Continue to SimplePay</button>';
+  pay.innerHTML='<div class="cf-simplepay-box"><label class="cf-simplepay-choice"><input type="radio" name="payment-provider" value="simplepay" checked><strong>Online Payment with debit card</strong><span class="cf-simplepay-total"></span></label><p>SimplePay - through a secure online payment system. <a href="#simplepay-information" class="cf-simplepay-info">Debit card payment information</a></p><div class="cf-simplepay-logos" role="img" aria-label="SimplePay, Google Pay, Apple Pay, Mastercard, Maestro, Visa and American Express"></div><p id="simplepay-information" hidden>Your payment details are entered on the SimplePay payment page. Available payment methods are shown there.</p></div><label class="cf-consent"><input type="checkbox" required><span>Please read and agree to the General Terms and Conditions. <a href="../../pages/legal/terms-conditions.html">GT&amp;Cs</a> *</span></label><button class="cf-finalize" type="submit">Finalize purchase</button>';
   form.append(pay);
+  pay.querySelector('.cf-simplepay-total').textContent = CyberfunBenefits.money(recap.render());
+  pay.querySelector('.cf-simplepay-info').onclick = event => {
+    event.preventDefault();
+    const information = pay.querySelector('#simplepay-information');
+    information.hidden = !information.hidden;
+  };
   form.onsubmit=event=>{
     event.preventDefault();if(!form.reportValidity())return;
     const panel=document.createElement('section');panel.className='cf-option';panel.tabIndex=-1;
