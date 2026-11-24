@@ -1,4 +1,7 @@
 (() => {
+  const benefitsScript = document.createElement('script');
+  benefitsScript.src = new URL('checkout-benefits.js?v=20261124', document.currentScript.src).href;
+  document.head.append(benefitsScript);
   const base = new URL('.', document.currentScript.src);
   const mainMenu = [
     ['Attractions', 'outputs/category-wireframes/attractions-tickets-category-page-v3.html'],
