@@ -40,7 +40,7 @@
   review.querySelector('.membership-consent').before(paymentBox);
   paymentBox.querySelector('a').onclick=event=>{event.preventDefault();const info=paymentBox.querySelector('#membership-payment-info');info.hidden=!info.hidden;};
   const subscriptions=document.createElement('section');subscriptions.className='membership-panel membership-subscriptions';
-  subscriptions.innerHTML='<h3>Live VIP Cards</h3><p>No subscriptions yet.</p><a href="#membership-for">+ New VIP Card</a>';
+  subscriptions.innerHTML='<h3>Live VIP Cards</h3><p>No subscriptions yet.</p>';
   form.querySelector('.checkout-body').prepend(subscriptions);
   const registrationSummary=document.createElement('div');registrationSummary.className='summary membership-summary';
   review.querySelector('.summary').after(registrationSummary);
@@ -53,7 +53,7 @@
   memberPanel.prepend(subscriberField,document.getElementById('membership-holder-name').closest('.field'),document.getElementById('membership-dob').closest('.field'),document.getElementById('membership-parent-field'),document.getElementById('membership-email').closest('.field'));
   form.querySelector('[data-membership-step="1"]').before(memberPanel);
   const planPanel=form.querySelector('[data-membership-step="1"]');
-  planPanel.querySelector('h3').textContent='New VIP Card';
+  planPanel.querySelector('h3').textContent='Choose your VIP Card';
   const planChoices=document.createElement('div');planChoices.className='membership-vip-choices';
   const choiceHeading=document.createElement('p');choiceHeading.textContent='Select your VIP card';
   const legacyPlanField=planPanel.querySelector('.field');
@@ -61,22 +61,46 @@
   legacyPlanField.classList.add('membership-plan-legacy');
   planPanel.prepend(choiceHeading,planChoices);
   planPanel.prepend(planPanel.querySelector('h3'));
-  plans.forEach(item=>{
+  const recurringGroup=document.createElement('div');recurringGroup.className='membership-vip-group';
+  const seasonGroup=document.createElement('div');seasonGroup.className='membership-vip-group';
+  recurringGroup.innerHTML='<h4>Recurring subscriptions</h4>';
+  seasonGroup.innerHTML='<h4>Season tickets</h4>';
+  planChoices.append(recurringGroup,seasonGroup);
+  [...plans].sort((a,b)=>a.tier.localeCompare(b.tier)).forEach(item=>{
     const choice=document.createElement('button');choice.type='button';choice.dataset.vipPlan=item.id;choice.className='membership-vip-choice';
-    const title=document.createElement('strong');title.textContent=item.name;
-    const price=document.createElement('span');price.textContent=format(item.recurring?item.monthly:item.due);
-    const unit=document.createElement('small');unit.textContent=item.recurring?'/ month':'/ 90 days';
-    choice.append(title,price,unit);
+    const title=document.createElement('strong');title.textContent=item.tier+(item.recurring?' VIP Card+ subscription':' VIP 3 months');
+    const access=document.createElement('small');access.textContent=item.access;
+    const term=document.createElement('small');term.textContent=item.recurring?'Minimum term: 3 months':'Validity: 90 days from purchase';
+    choice.append(title,term,access);
+    if(item.premium){
+      const extras=document.createElement('small');extras.textContent='Welcome package* · Birthday benefit**';choice.append(extras);
+    }
+    const price=document.createElement('span');price.textContent=item.recurring?'First payment: '+format(item.due):'Total: '+format(item.due);
+    choice.append(price);
+    if(item.recurring){const monthly=document.createElement('small');monthly.textContent=format(item.monthly)+' / month';choice.append(monthly);}
     choice.onclick=()=>{document.getElementById('membership-plan').value=item.id;update();};
-    planChoices.append(choice);
+    (item.recurring?recurringGroup:seasonGroup).append(choice);
   });
-  subscriptions.querySelector('a').href='#membership-vip-choices';
+  const benefitNotes=document.createElement('div');benefitNotes.className='membership-vip-footnotes';
+  benefitNotes.innerHTML='<p>* Welcome package includes: 1 pair of jumping socks, Cyberjump bracelet, 1 bottle of water.</p><p>** If you book a birthday party for at least 9 people, your package is free, provided you are a Premium VIP cardholder.</p>';
+  planChoices.after(benefitNotes);
   planChoices.id='membership-vip-choices';
   planPanel.after(activation.closest('.field'));
   const billingPanel=document.createElement('section');billingPanel.className='membership-panel';
   review.before(billingPanel);
   billingPanel.append(billingTitle,payer.closest('.field'),emailConfirm.closest('.field'),phone.closest('.field'),zip.closest('.field'),city.closest('.field'),address.closest('.field'),advisor.closest('.field'),invoiceLabel,tax.closest('.field'),form.querySelector('#membership-notes').closest('.field'));
   const accountPanel=document.createElement('section');accountPanel.className='membership-panel membership-account';
+  const subscriberPanel=document.createElement('section');subscriberPanel.className='membership-panel membership-subscriber';
+  subscriberPanel.innerHTML='<h3>Select your subscriber</h3><div class="membership-subscriber-list"></div><p>Need to add someone, such as your child? Add them to your profile first.</p><a class="wire-button" id="membership-profile-link">Go to profile</a>';
+  planPanel.before(subscriberPanel);
+  let selectedSubscriber='self';
+  const chooseSubscriber=(key,person)=>{
+    selectedSubscriber=key;
+    recipient.value=key==='self'?'self':'saved-child-'+key;
+    document.getElementById('membership-holder-name').value=[person.firstName,person.lastName].filter(Boolean).join(' ');
+    document.getElementById('membership-dob').value=person.birthday||'';
+    subscriberPanel.querySelectorAll('input').forEach(input=>input.checked=input.value===key);
+  };
   accountPanel.innerHTML='<h3>Log in to start your membership</h3><label>Email<input type="email" id="membership-login-email" autocomplete="email"></label><label>Password<input type="password" id="membership-login-password" autocomplete="current-password"></label><button type="button" id="membership-login">Log in</button><p>No account yet? <button type="button" id="membership-register">Register</button></p><p role="status" id="membership-account-status"></p>';
   form.querySelector('.checkout-body').prepend(accountPanel);
   const applyProfile=()=>{
@@ -96,6 +120,18 @@
       option.textContent=[child.firstName,child.lastName].join(' ')+(child.birthday?' ('+child.birthday+')':'');recipient.append(option);
     });
     recipient.options[0].textContent=name||'Myself (18+)';
+    const subscriberList=subscriberPanel.querySelector('.membership-subscriber-list');
+    subscriberList.replaceChildren();
+    const people=[{key:'self',person:profile},...(profile.children||[]).map((person,index)=>({key:String(index),person}))];
+    people.forEach(({key,person})=>{
+      const label=document.createElement('label');label.className='membership-consent';
+      const radio=document.createElement('input');radio.type='radio';radio.name='subscriber';radio.value=key;radio.checked=key===selectedSubscriber;
+      const text=document.createElement('span');text.textContent=([person.firstName,person.lastName].filter(Boolean).join(' ')||person.email||'Account holder')+(person.birthday?' ('+person.birthday+')':'');
+      radio.onchange=()=>{chooseSubscriber(key,person);update();};
+      label.append(radio,text);subscriberList.append(label);
+    });
+    const active=people.find(entry=>entry.key===selectedSubscriber)||people[0];
+    chooseSubscriber(active.key,active.person);
   };
   recipient.addEventListener('change',()=>{
     const saved=recipient.selectedOptions[0].dataset.profileChild;
@@ -189,6 +225,10 @@
     form.querySelector('.checkout-header h2').textContent=authenticated?'Become a VIP member':'Log in or register';
     form.querySelector('.checkout-header > p:last-child').textContent=authenticated?'Choose your plan and review the payment details.':'Sign in or create an account to start your membership.';
     const item=plan();
+    const profileUrl=new URL('../account-wireframes/profile-page-v3.html',location.href);
+    profileUrl.searchParams.set('plan',item.id);
+    profileUrl.searchParams.set('activation',activation.value);
+    subscriberPanel.querySelector('a').href=profileUrl.href;
     planChoices.querySelectorAll('[data-vip-plan]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.vipPlan===item.id)));
     document.querySelectorAll('[data-plan-column]').forEach(cell=>{
       const chosen=authenticated&&cell.dataset.planColumn===item.id;cell.classList.toggle('selected',chosen);
@@ -246,6 +286,8 @@
     status.focus();
   });
   const requestedPlan=new URLSearchParams(window.location.search).get('plan');
+  const requestedActivation=new URLSearchParams(window.location.search).get('activation');
+  if(requestedActivation&&/^\d{4}-\d{2}-\d{2}$/.test(requestedActivation)&&requestedActivation>=today)activation.value=requestedActivation;
   if(profile&&plans.some(item=>item.id===requestedPlan))select.value=requestedPlan;
   showStep(1);
 })();
