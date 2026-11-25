@@ -56,17 +56,17 @@
   planPanel.querySelector('h3').textContent='New VIP Card';
   const planChoices=document.createElement('div');planChoices.className='membership-vip-choices';
   const choiceHeading=document.createElement('p');choiceHeading.textContent='Select your VIP card';
-  planPanel.querySelector('.field').hidden=true;
+  const legacyPlanField=planPanel.querySelector('.field');
+  legacyPlanField.hidden=true;
+  legacyPlanField.classList.add('membership-plan-legacy');
   planPanel.prepend(choiceHeading,planChoices);
   planPanel.prepend(planPanel.querySelector('h3'));
   plans.forEach(item=>{
     const choice=document.createElement('button');choice.type='button';choice.dataset.vipPlan=item.id;choice.className='membership-vip-choice';
     const title=document.createElement('strong');title.textContent=item.name;
-    const price=document.createElement('span');price.textContent=item.recurring?format(item.monthly)+' / month':format(item.due)+' / 90 days';
-    const access=document.createElement('small');access.textContent=item.access;
-    const billing=document.createElement('small');billing.textContent=item.recurring?'First payment: '+format(item.due)+' · 3-month minimum term':'One payment · no automatic renewal';
-    choice.append(title,price,access,billing);
-    if(item.premium){const welcome=document.createElement('small');welcome.textContent='Welcome pack and birthday benefit included';choice.append(welcome);}
+    const price=document.createElement('span');price.textContent=format(item.recurring?item.monthly:item.due);
+    const unit=document.createElement('small');unit.textContent=item.recurring?'/ month':'/ 90 days';
+    choice.append(title,price,unit);
     choice.onclick=()=>{document.getElementById('membership-plan').value=item.id;update();};
     planChoices.append(choice);
   });
@@ -183,15 +183,17 @@
       if(child===accountPanel)child.hidden=authenticated;
       else if(!child.matches('.membership-steps'))child.hidden=!authenticated;
     }
+    memberPanel.hidden=true;
+    memberPanel.querySelectorAll('input,select').forEach(input=>{input.disabled=true;});
     form.classList.toggle('membership-auth-required',!authenticated);
     form.querySelector('.checkout-header h2').textContent=authenticated?'Become a VIP member':'Log in or register';
     form.querySelector('.checkout-header > p:last-child').textContent=authenticated?'Choose your plan and review the payment details.':'Sign in or create an account to start your membership.';
     const item=plan();
     planChoices.querySelectorAll('[data-vip-plan]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.vipPlan===item.id)));
     document.querySelectorAll('[data-plan-column]').forEach(cell=>{
-      const chosen=cell.dataset.planColumn===item.id;cell.classList.toggle('selected',chosen);
+      const chosen=authenticated&&cell.dataset.planColumn===item.id;cell.classList.toggle('selected',chosen);
       const button=cell.querySelector('button');
-      if(button){button.textContent=chosen?'Selected':'Choose plan';button.setAttribute('aria-pressed',String(chosen));}
+      if(button){button.textContent=!authenticated?'Log in to choose':chosen?'Selected':'Choose plan';button.setAttribute('aria-pressed',String(chosen));}
     });
     document.getElementById('membership-plan-access').textContent=item.access;
     document.getElementById('membership-plan-term').textContent=item.term;
@@ -226,9 +228,10 @@
   };
   (document.getElementById('memberships')||rows).addEventListener('click',event=>{
     const button=event.target.closest('[data-choose-plan]');if(!button)return;
-    select.value=button.dataset.choosePlan;showStep(1);
+    if(profile)select.value=button.dataset.choosePlan;
+    showStep(1);
     document.getElementById('membership-checkout').scrollIntoView({block:'start',behavior:'smooth'});
-    if(profile)select.focus({preventScroll:true});
+    if(profile)planChoices.querySelector('[aria-pressed=true]')?.focus({preventScroll:true});
     else accountPanel.querySelector('input').focus({preventScroll:true});
   });
   select.addEventListener('change',()=>{showStep(1);});
@@ -243,6 +246,6 @@
     status.focus();
   });
   const requestedPlan=new URLSearchParams(window.location.search).get('plan');
-  if(plans.some(item=>item.id===requestedPlan))select.value=requestedPlan;
+  if(profile&&plans.some(item=>item.id===requestedPlan))select.value=requestedPlan;
   showStep(1);
 })();
