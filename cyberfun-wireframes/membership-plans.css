@@ -90,3 +90,10 @@
 .membership-vip-choice:focus-visible{outline:2px solid #1684d8;outline-offset:2px}
 @media(max-width:360px){.membership-vip-choices{grid-template-columns:minmax(0,1fr)}}
 .membership-plan-legacy{display:none!important}
+.membership-subscriptions{display:none!important}
+.membership-subscriber[hidden]{display:none!important}
+.membership-selection-page .checkout-body>[hidden]{display:none!important}
+.membership-selection-page .membership-account a[hidden]{display:none!important}
+.membership-checkout-page .booking-layout>.category-content{display:none!important}
+.membership-checkout-page .booking-layout{grid-template-columns:minmax(0,1fr)}
+.membership-checkout-page #membership-checkout{position:static;max-width:900px;width:100%;margin:auto}

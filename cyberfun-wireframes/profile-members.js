@@ -2,7 +2,7 @@
   let profile={};
   try{profile=JSON.parse(sessionStorage.getItem('cyberfun-profile')||'{}');}catch{}
   const form=document.getElementById('profile-form'),params=new URLSearchParams(location.search);
-  const destination=new URL('../membership-wireframes/membership-page-v3.html',location.href);
+  const destination=new URL('../membership-wireframes/membership-checkout-v3.html',location.href);
   for(const key of ['plan','activation'])if(params.has(key))destination.searchParams.set(key,params.get(key));
   destination.hash='membership-checkout';
   document.getElementById('profile-back').href=destination.href;

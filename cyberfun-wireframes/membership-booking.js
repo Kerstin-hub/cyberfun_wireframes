@@ -10,6 +10,14 @@
   if(!form)return;
   let profile;
   try{profile=JSON.parse(sessionStorage.getItem('cyberfun-profile')||'null');}catch{}
+  const isCheckout=location.pathname.endsWith('/membership-checkout-v3.html');
+  if(isCheckout&&!profile){
+    const login=new URL('../account-wireframes/login-page-v3.html',location.href);
+    login.searchParams.set('return',location.href);
+    location.replace(login.href);
+    return;
+  }
+  if(isCheckout)document.body.classList.add('membership-checkout-page');
   const memberPanel=form.querySelector('[data-membership-step="2"]');
   const addField=(id,label,type='text',required=false)=>{
     const field=document.createElement('div');field.className='field';
@@ -212,21 +220,38 @@
       if(child===accountPanel)child.hidden=authenticated;
       else if(!child.matches('.membership-steps'))child.hidden=!authenticated;
     }
+    subscriptions.hidden=true;
+    subscriberPanel.hidden=!isCheckout;
     memberPanel.hidden=true;
     memberPanel.querySelectorAll('input,select').forEach(input=>{input.disabled=true;});
     form.classList.toggle('membership-auth-required',!authenticated);
     form.querySelector('.checkout-header h2').textContent=authenticated?'Become a VIP member':'Log in or register';
     form.querySelector('.checkout-header > p:last-child').textContent=authenticated?'Choose your plan and review the payment details.':'Sign in or create an account to start your membership.';
     const item=plan();
+    if(!isCheckout){
+      for(const child of form.querySelector('.checkout-body').children)child.hidden=child!==planPanel&&child!==accountPanel;
+      form.classList.add('membership-selection-page');
+      accountPanel.hidden=false;
+      accountPanel.querySelector('p').hidden=true;
+      registerLink.hidden=true;
+      const nextPage=new URL('membership-checkout-v3.html',location.href);
+      nextPage.searchParams.set('plan',item.id);
+      const login=new URL('../account-wireframes/login-page-v3.html',location.href);
+      login.searchParams.set('return',nextPage.href);
+      loginLink.href=login.href;
+      form.querySelector('.checkout-body').append(accountPanel);
+      form.querySelector('.checkout-header h2').textContent='Choose your VIP Card';
+      form.querySelector('.checkout-header > p:last-child').textContent='Choose a plan, then log in to complete your membership.';
+    }
     const profileUrl=new URL('../account-wireframes/profile-page-v3.html',location.href);
     profileUrl.searchParams.set('plan',item.id);
     profileUrl.searchParams.set('activation',activation.value);
     subscriberPanel.querySelector('a').href=profileUrl.href;
     planChoices.querySelectorAll('[data-vip-plan]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.vipPlan===item.id)));
     document.querySelectorAll('[data-plan-column]').forEach(cell=>{
-      const chosen=authenticated&&cell.dataset.planColumn===item.id;cell.classList.toggle('selected',chosen);
+      const chosen=cell.dataset.planColumn===item.id;cell.classList.toggle('selected',chosen);
       const button=cell.querySelector('button');
-      if(button){button.textContent=!authenticated?'Log in to choose':chosen?'Selected':'Choose plan';button.setAttribute('aria-pressed',String(chosen));}
+      if(button){button.textContent=chosen?'Selected':'Choose plan';button.setAttribute('aria-pressed',String(chosen));}
     });
     document.getElementById('membership-billing-info').textContent=item.recurring
       ? `First payment: ${format(item.due)} for two months. Then ${format(item.monthly)} per month from month three. Three-month minimum term.`
@@ -237,7 +262,7 @@
     document.getElementById('membership-summary-term').textContent=item.term;
     document.getElementById('membership-summary-total').textContent=format(item.due);
     paymentBox.querySelector('.cf-simplepay-total').textContent=format(item.due);
-    subscriptions.hidden=!profile;
+    subscriptions.hidden=true;
     document.getElementById('membership-summary-renewal').textContent=item.recurring?`${format(item.monthly)} / month`:'No automatic renewal';
     emailConfirm.setCustomValidity(emailConfirm.value!==document.getElementById('membership-email').value?'Email addresses must match.':'');
     tax.closest('.field').hidden=!invoice.checked;
@@ -259,11 +284,10 @@
   };
   (document.getElementById('memberships')||rows).addEventListener('click',event=>{
     const button=event.target.closest('[data-choose-plan]');if(!button)return;
-    if(profile)select.value=button.dataset.choosePlan;
+    select.value=button.dataset.choosePlan;
     showStep(1);
     document.getElementById('membership-checkout').scrollIntoView({block:'start',behavior:'smooth'});
-    if(profile)planChoices.querySelector('[aria-pressed=true]')?.focus({preventScroll:true});
-    else location.href=loginUrl.href;
+    planChoices.querySelector('[aria-pressed=true]')?.focus({preventScroll:true});
   });
   select.addEventListener('change',()=>{showStep(1);});
   form.addEventListener('input',update);form.addEventListener('change',update);
@@ -279,6 +303,6 @@
   const requestedPlan=new URLSearchParams(window.location.search).get('plan');
   const requestedActivation=new URLSearchParams(window.location.search).get('activation');
   if(requestedActivation&&/^\d{4}-\d{2}-\d{2}$/.test(requestedActivation)&&requestedActivation>=today)activation.value=requestedActivation;
-  if(profile&&plans.some(item=>item.id===requestedPlan))select.value=requestedPlan;
+  if(plans.some(item=>item.id===requestedPlan))select.value=requestedPlan;
   showStep(1);
 })();

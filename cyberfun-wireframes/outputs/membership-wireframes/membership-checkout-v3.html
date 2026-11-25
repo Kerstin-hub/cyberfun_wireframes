@@ -1,0 +1,1372 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Membership Page V3 | Cyberfun</title>
+    <style>
+      :root {
+        --ink: #17202a;
+        --muted: #697684;
+        --line: #c9d2dc;
+        --soft: #eef2f6;
+        --paper: #ffffff;
+        --mark: #d9e0e8;
+        --accent: #6f7d8b;
+        --radius: 8px;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #f7f9fb;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .wire-page {
+        width: min(1480px, 94vw);
+        margin: 0 auto;
+        padding: 24px 0 56px;
+      }
+
+      .wire-shell {
+        overflow: hidden;
+        border: 2px solid var(--ink);
+        border-radius: var(--radius);
+        background: var(--paper);
+        box-shadow: 0 20px 50px rgba(23, 32, 42, 0.1);
+      }
+
+      .wire-meta {
+        padding: 0.8rem 1.2rem;
+        border-bottom: 1px solid var(--line);
+        background: var(--soft);
+      }
+
+      .utility-bar {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.55rem;
+        min-height: 42px;
+        padding: 0 1.2rem;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .wire-nav {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr) auto auto;
+        gap: 0.65rem;
+        align-items: center;
+        min-height: 72px;
+        padding: 0 1.2rem;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .wire-logo,
+      .wire-button,
+      .wire-pill,
+      .wire-card,
+      .wire-image {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+      }
+
+      .wire-logo,
+      .wire-button,
+      .wire-pill {
+        display: grid;
+        place-items: center;
+        min-height: 38px;
+        font-weight: 900;
+      }
+
+      .wire-logo {
+        justify-self: start;
+        min-width: 118px;
+        min-height: 34px;
+        padding: 0 0.7rem;
+      }
+
+      .wire-links {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 0.5rem;
+        min-width: 0;
+      }
+
+      .wire-pill {
+        min-width: 0;
+        padding: 0 0.65rem;
+        color: var(--muted);
+        font-size: 0.78rem;
+        white-space: nowrap;
+      }
+
+      .wire-pill.active,
+      .wire-button,
+      .category-filter .active {
+        background: var(--ink);
+        color: white;
+      }
+
+      .wire-login,
+      .wire-language,
+      .opening-status {
+        display: grid;
+        place-items: center;
+        min-height: 34px;
+        padding: 0 0.7rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        font-weight: 900;
+      }
+
+      .wire-language {
+        grid-template-columns: 1fr auto 1fr;
+        gap: 0.35rem;
+        min-width: 74px;
+        padding: 0 0.5rem;
+        color: var(--muted);
+        font-size: 0.76rem;
+      }
+
+      .opening-status {
+        color: var(--muted);
+        font-size: 0.76rem;
+        white-space: nowrap;
+      }
+
+      .wire-language .active {
+        color: var(--ink);
+      }
+
+      .wire-nav-group {
+        position: relative;
+      }
+
+      .wire-subnav {
+        position: absolute;
+        z-index: 5;
+        top: calc(100% + 0.45rem);
+        left: 0;
+        display: none;
+        min-width: 190px;
+        padding: 0.55rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        box-shadow: 0 10px 24px rgba(23, 32, 42, 0.1);
+      }
+
+      .wire-nav-group:hover .wire-subnav,
+      .wire-nav-group:focus-within .wire-subnav {
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .wire-subnav a {
+        min-height: 30px;
+        padding: 0.35rem 0.5rem;
+        border-radius: 6px;
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 800;
+      }
+
+      .wire-menu-check,
+      .wire-burger,
+      .wire-mobile-menu {
+        display: none;
+      }
+
+      .wire-mobile-menu .wire-nav-group {
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .wire-mobile-menu .wire-subnav {
+        position: static;
+        display: grid;
+        min-width: 0;
+        box-shadow: none;
+      }
+
+      .wire-burger {
+        place-items: center;
+        width: 44px;
+        aspect-ratio: 1;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+        cursor: pointer;
+      }
+
+      .wire-burger span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        margin: 3px 0;
+        background: var(--ink);
+      }
+
+      .wire-label {
+        margin: 0 0 0.65rem;
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 900px;
+        margin-bottom: 0.8rem;
+        font-size: clamp(3.4rem, 8vw, 6.8rem);
+        line-height: 0.88;
+      }
+
+      h2 {
+        margin-bottom: 0.75rem;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        line-height: 0.96;
+      }
+
+      h3 {
+        margin-bottom: 0.35rem;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .category-hero {
+        display: grid;
+        gap: 1rem;
+        padding: 1.4rem 2rem;
+      }
+
+      .hero-copy {
+        display: grid;
+        align-content: start;
+        min-width: 0;
+      }
+
+      .hero-copy p {
+        max-width: 760px;
+        color: var(--ink);
+        font-size: 1.05rem;
+      }
+
+      .wire-image {
+        display: grid;
+        place-items: center;
+        min-height: 300px;
+        background: #dce8f3;
+        color: var(--muted);
+        font-weight: 900;
+      }
+
+      .hero-facts {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.7rem;
+      }
+
+      .category-hero > .wire-image {
+        min-height: 520px;
+        width: 100%;
+      }
+
+      .fact-row {
+        display: grid;
+        grid-template-columns: 52px 1fr;
+        gap: 0.75rem;
+        align-items: center;
+        padding: 0.8rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+      }
+
+      .fact-row strong:first-child {
+        display: grid;
+        place-items: center;
+        min-height: 42px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: white;
+        font-size: 0.78rem;
+      }
+
+      .category-section {
+        display: grid;
+        gap: 1rem;
+        padding: 1.4rem 2rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .category-section.compact-list {
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .section-head {
+        display: grid;
+        gap: 0.6rem;
+        justify-items: start;
+      }
+
+      .section-head p {
+        max-width: 540px;
+        margin-bottom: 0;
+        text-align: left;
+      }
+
+      .category-filter {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .category-filter span {
+        display: grid;
+        place-items: center;
+        min-height: 36px;
+        padding: 0 0.75rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+        color: var(--muted);
+        font-size: 0.85rem;
+        font-weight: 900;
+      }
+
+      .featured-grid {
+        display: grid;
+        grid-template-columns: 1.35fr 1fr;
+        gap: 1rem;
+      }
+
+      .featured-card,
+      .activity-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+      }
+
+      .featured-card {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+        gap: 1rem;
+        min-width: 0;
+        padding: 1rem;
+      }
+
+      .featured-card .wire-image {
+        min-height: 320px;
+      }
+
+      .featured-copy {
+        display: grid;
+        align-content: center;
+        min-width: 0;
+      }
+
+      .featured-stack {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .featured-stack .featured-card {
+        grid-template-columns: 150px 1fr;
+      }
+
+      .featured-stack .wire-image {
+        min-height: 150px;
+      }
+
+      .activity-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .package-options-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .birthday-options-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .page-intro {
+        max-width: 900px;
+        margin-bottom: 2.2rem;
+      }
+
+      .page-intro h1 {
+        margin-bottom: 1rem;
+      }
+
+      .ticket-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .info-note {
+        margin-top: 0.9rem;
+        padding: 0.9rem 1rem;
+        border-left: 4px solid var(--ink);
+        background: var(--soft);
+        color: var(--muted);
+        font-weight: 800;
+      }
+
+      .section-crosslink {
+        display: inline-block;
+        width: fit-content;
+        margin-top: 0.2rem;
+        color: var(--ink);
+        font-weight: 900;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      .activity-card {
+        display: grid;
+        gap: 0.75rem;
+        min-width: 0;
+        padding: 0.8rem;
+      }
+
+      .activity-card .wire-image {
+        min-height: 170px;
+      }
+
+      .activity-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .activity-meta span {
+        display: inline-grid;
+        place-items: center;
+        min-height: 26px;
+        padding: 0 0.55rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .activity-card p,
+      .featured-card p {
+        margin-bottom: 0;
+      }
+
+      .card-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: auto;
+      }
+
+      .card-actions a,
+      details summary {
+        display: grid;
+        place-items: center;
+        min-height: 36px;
+        padding: 0 0.75rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+        color: var(--ink);
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .card-actions .primary {
+        background: var(--ink);
+        color: white;
+      }
+
+      details {
+        display: grid;
+        gap: 0.5rem;
+      }
+
+      details summary {
+        list-style: none;
+      }
+
+      details summary::-webkit-details-marker {
+        display: none;
+      }
+
+      details p {
+        margin: 0.55rem 0 0;
+        padding: 0.75rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+        font-size: 0.9rem;
+      }
+
+      .package-band {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .package-card {
+        min-width: 0;
+        padding: 1rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--soft);
+      }
+
+      .bottom-cta {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 1rem;
+        align-items: center;
+        margin: 1.4rem 2rem 2rem;
+        padding: 1.2rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--ink);
+        color: white;
+      }
+
+      .bottom-cta p {
+        margin-bottom: 0;
+        color: #d7dee6;
+      }
+
+      .booking-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(340px, 390px);
+        align-items: start;
+      }
+
+      .category-content {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        border-right: 1px solid var(--line);
+      }
+
+      .category-hero { order: 1; }
+      .ticket-section { order: 2; }
+      .attraction-intro { order: 3; }
+      #daytime-packages { order: 4; }
+      #nighttime-packages { order: 5; }
+      .faq-section { order: 6; }
+      .bottom-cta { order: 7; }
+
+      .ticket-checkout {
+        position: sticky;
+        top: 0;
+        padding: 1rem;
+        background: var(--soft);
+      }
+
+      .booking-panel {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+      }
+
+      .booking-head,
+      .booking-body {
+        padding: 1rem;
+      }
+
+      .booking-head {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .booking-head h2 {
+        margin-bottom: 0.35rem;
+        font-size: 1.45rem;
+      }
+
+      .booking-head p {
+        margin: 0;
+        font-size: 0.84rem;
+      }
+
+      .booking-field {
+        display: grid;
+        gap: 0.45rem;
+        margin-bottom: 1rem;
+      }
+
+      .booking-category-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.4rem;
+        margin-bottom: 1rem;
+      }
+
+      .booking-category-tabs button {
+        min-height: 44px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--paper);
+        color: var(--ink);
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .booking-category-tabs button.active {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: white;
+      }
+
+      .booking-hidden { display: none !important; }
+
+      .booking-field select {
+        width: 100%;
+        min-height: 44px;
+        padding: 0.6rem;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--paper);
+        color: var(--ink);
+        font-weight: 800;
+      }
+
+      .booking-field > label,
+      .booking-field > span {
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .visit-mode,
+      .duration-select,
+      .arrival-times {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.45rem;
+      }
+
+      .time-slider {
+        display: grid;
+        grid-template-columns: 34px minmax(0, 1fr) 34px;
+        gap: 0.4rem;
+        align-items: stretch;
+      }
+
+      .time-slider-arrow {
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--paper);
+        color: var(--ink);
+        font-size: 1.15rem;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .arrival-times {
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-auto-columns: 76px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+
+      .arrival-times::-webkit-scrollbar { display: none; }
+      .arrival-times button { position: relative; scroll-snap-align: start; }
+
+      .arrival-times button::after {
+        content: "";
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+      }
+
+      .arrival-times button.good::after { background: #35b96f; }
+      .arrival-times button.limited::after { background: #e99a18; }
+
+      .time-legend {
+        display: flex;
+        gap: 0.85rem;
+        color: var(--muted);
+        font-size: 0.66rem;
+        font-weight: 800;
+      }
+
+      .time-legend i {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin-right: 0.25rem;
+        border-radius: 50%;
+        background: #35b96f;
+      }
+
+      .time-legend i.limited { background: #e99a18; }
+
+      .visit-mode button,
+      .duration-select button,
+      .arrival-times button,
+      .counter button,
+      .calendar-day {
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--paper);
+        color: var(--ink);
+        font: inherit;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .visit-mode button.active,
+      .duration-select button.active,
+      .arrival-times button.active,
+      .calendar-day.active {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: white;
+      }
+
+      .arrival-times button.limited,
+      .calendar-day.limited {
+        border-color: #e99a18;
+      }
+
+      .calendar-day.sold {
+        background: var(--mark);
+        color: var(--muted);
+        text-decoration: line-through;
+        cursor: not-allowed;
+      }
+
+      .ticket-counter {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.75rem;
+        align-items: center;
+        padding: 0.65rem 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .ticket-counter:last-child {
+        border-bottom: 0;
+      }
+
+      .ticket-counter small {
+        display: block;
+        margin-top: 0.15rem;
+        color: var(--muted);
+      }
+
+      .counter {
+        display: grid;
+        grid-template-columns: 36px 38px 36px;
+        gap: 0.3rem;
+        align-items: center;
+      }
+
+      .counter button {
+        min-height: 36px;
+      }
+
+      .counter output {
+        text-align: center;
+        font-weight: 900;
+      }
+
+      .calendar {
+        padding: 0.65rem;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      .calendar-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.55rem;
+      }
+
+      .calendar-head button {
+        border: 0;
+        background: transparent;
+        font-size: 1.15rem;
+        font-weight: 900;
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 0.25rem;
+      }
+
+      .calendar-grid span {
+        padding-bottom: 0.25rem;
+        color: var(--muted);
+        font-size: 0.6rem;
+        font-weight: 900;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .calendar-day {
+        min-height: 34px;
+        padding: 0;
+        font-size: 0.72rem;
+      }
+
+      .calendar-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        margin-top: 0.55rem;
+        color: var(--muted);
+        font-size: 0.66rem;
+        font-weight: 800;
+      }
+
+      .calendar-legend i {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        margin-right: 0.2rem;
+        border-radius: 50%;
+        background: #4abf7a;
+      }
+
+      .calendar-legend .limited { background: #e99a18; }
+      .calendar-legend .sold { background: #8a96a3; }
+
+      .booking-summary {
+        margin-top: 1rem;
+        padding: 0.85rem;
+        border-radius: 6px;
+        background: var(--ink);
+        color: white;
+      }
+
+      .summary-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.7rem;
+        padding: 0.38rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.18);
+        font-size: 0.78rem;
+      }
+
+      .summary-line.total {
+        margin-top: 0.35rem;
+        border-bottom: 0;
+        font-size: 1rem;
+      }
+
+      .booking-summary .wire-button {
+        width: 100%;
+        margin-top: 0.75rem;
+        background: white;
+        color: var(--ink);
+      }
+
+      .site-footer {
+        display: grid;
+        grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1fr) minmax(0, 1.4fr);
+        gap: 1.25rem;
+        padding: 1.5rem;
+        border-top: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .footer-block {
+        display: grid;
+        gap: 0.45rem;
+        align-content: start;
+      }
+
+      .footer-block h3,
+      .footer-block p {
+        margin: 0;
+      }
+
+      .footer-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem 0.85rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .footer-links a {
+        color: var(--muted);
+        font-weight: 800;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      @media (max-width: 1080px) {
+        .featured-grid,
+        .featured-card,
+        .featured-stack .featured-card,
+        .bottom-cta {
+          grid-template-columns: 1fr;
+        }
+
+        .wire-nav {
+          grid-template-columns: minmax(80px, 1fr) auto auto;
+          gap: 0.6rem;
+        }
+
+        .wire-links {
+          display: none;
+        }
+
+        .wire-burger {
+          display: grid;
+          width: 38px;
+        }
+
+        .wire-mobile-menu {
+          gap: 0.5rem;
+          padding: 0.8rem 1.2rem 1rem;
+          border-bottom: 1px solid var(--line);
+          background: var(--paper);
+        }
+
+        .wire-menu-check:checked + .utility-bar + .wire-nav + .wire-mobile-menu {
+          display: grid;
+        }
+
+        .activity-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+
+        .package-band {
+          grid-template-columns: 1fr;
+        }
+
+        .booking-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .category-content {
+          border-right: 0;
+        }
+
+        .ticket-checkout {
+          position: static;
+          border-top: 1px solid var(--line);
+        }
+      }
+
+      @media (max-width: 680px) {
+        .wire-page {
+          width: 100%;
+          padding: 0;
+        }
+
+        .wire-shell {
+          border-right: 0;
+          border-left: 0;
+          border-radius: 0;
+        }
+
+        .wire-logo {
+          min-width: 86px;
+          font-size: 0.9rem;
+        }
+
+        .wire-button,
+        .wire-login {
+          padding: 0 0.55rem;
+          font-size: 0.78rem;
+        }
+
+        .wire-language {
+          padding: 0 0.45rem;
+          font-size: 0.72rem;
+        }
+
+        .utility-bar {
+          justify-content: flex-end;
+          gap: 0.4rem;
+          min-height: 38px;
+          padding: 0 0.75rem;
+        }
+
+        .opening-status {
+          padding: 0 0.45rem;
+          font-size: 0.72rem;
+        }
+
+        .category-hero,
+        .category-section {
+          padding: 1.2rem;
+        }
+
+        .category-hero > .wire-image {
+          min-height: 300px;
+        }
+
+        .hero-facts {
+          grid-template-columns: 1fr;
+        }
+
+        .section-head {
+          display: grid;
+        }
+
+        .activity-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 0.75rem;
+        }
+
+        .activity-card {
+          gap: 0.55rem;
+          padding: 0.65rem;
+        }
+
+        .activity-card .wire-image {
+          min-height: 110px;
+        }
+
+        .activity-card h3 {
+          font-size: 1rem;
+        }
+
+        .activity-card p,
+        details p {
+          font-size: 0.82rem;
+          line-height: 1.35;
+        }
+
+        .activity-meta span {
+          min-height: 22px;
+          padding: 0 0.4rem;
+          font-size: 0.62rem;
+        }
+
+        .card-actions a,
+        details summary {
+          min-height: 32px;
+          padding: 0 0.5rem;
+          font-size: 0.82rem;
+        }
+
+        .bottom-cta {
+          margin: 1.2rem;
+        }
+
+        .site-footer,
+        .footer-links {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Shared booking module from the V3 homepage. */
+      :root { --limited: #f4a21b; --success: #27b875; }
+      .button { display: inline-grid; place-items: center; min-height: 40px; padding: 0.65rem 0.9rem; border: 1px solid var(--ink); border-radius: var(--radius); background: var(--ink); color: #fff; font-weight: 900; cursor: pointer; }
+      .button.block { width: 100%; }
+      .checkout-column { position: sticky; top: 0; padding: 1.2rem; background: var(--soft); }
+      .checkout { border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+      .checkout-header { padding: 1.15rem; border-bottom: 1px solid var(--line); }
+      .checkout-header h2 { margin-bottom: 0.35rem; font-size: 1.65rem; }
+      .checkout-header p { margin-bottom: 0; font-size: 0.88rem; }
+      .checkout-body { padding: 1.15rem; }
+      .category-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; margin-bottom: 1.2rem; }
+      .category-tab { min-height: 56px; padding: 0.45rem; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); font-size: 0.76rem; font-weight: 900; cursor: pointer; }
+      .category-tab.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+      .field { display: grid; gap: 0.35rem; margin-bottom: 0.9rem; }
+      .field label, .field-label { color: var(--muted); font-size: 0.75rem; font-weight: 900; text-transform: uppercase; }
+      .field-label-row { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; }
+      .field-note { color: var(--accent); font-size: 0.7rem; font-style: normal; font-weight: 900; text-align: right; }
+      .field input, .field select { width: 100%; min-height: 46px; padding: 0.65rem; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); font-weight: 800; }
+      .guest-stepper { display: grid; grid-template-columns: 48px 1fr 48px; gap: 0.4rem; }
+      .guest-stepper button { min-height: 48px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); font-size: 1.35rem; font-weight: 900; cursor: pointer; }
+      .guest-stepper button:hover, .guest-stepper button:focus { border-color: var(--ink); }
+      .guest-stepper input { min-width: 0; text-align: center; font-size: 1.05rem; }
+      .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+      .segment { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+      .segment button { min-height: 44px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); font-weight: 900; cursor: pointer; }
+      .segment button.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+      .availability { margin-bottom: 1rem; padding: 0.75rem; border: 1px solid var(--line); border-radius: 6px; }
+      .calendar-head { display: grid; grid-template-columns: 36px 1fr 36px; gap: 0.4rem; align-items: center; margin-bottom: 0.75rem; }
+      .calendar-head strong { text-align: center; }
+      .calendar-head button { min-height: 34px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); font-weight: 900; }
+      .calendar-weekdays, .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.28rem; }
+      .calendar-weekdays span { padding-bottom: 0.25rem; color: var(--muted); font-size: 0.62rem; font-weight: 900; text-align: center; }
+      .calendar-day { position: relative; min-width: 0; min-height: 38px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); font-size: 0.74rem; font-weight: 900; cursor: pointer; }
+      .calendar-day::after { content: ""; position: absolute; right: 4px; bottom: 4px; width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+      .calendar-day.limited::after { background: var(--limited); }
+      .calendar-day.sold { color: #97a3af; background: var(--soft); text-decoration: line-through; cursor: not-allowed; }
+      .calendar-day.sold::after { background: #c75050; }
+      .calendar-day.selected { border: 2px solid var(--ink); background: var(--ink); color: #fff; }
+      .calendar-day.empty { border-color: transparent; background: transparent; pointer-events: none; }
+      .calendar-day.empty::after { display: none; }
+      .availability-legend { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.65rem; color: var(--muted); font-size: 0.66rem; font-weight: 800; }
+      .legend-dot { display: inline-block; width: 7px; height: 7px; margin-right: 0.25rem; border-radius: 50%; background: var(--success); }
+      .legend-dot.limited { background: var(--limited); }
+      .legend-dot.sold { background: #c75050; }
+      .time-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+      .time-slot { position: relative; min-height: 43px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); font-size: 0.78rem; font-weight: 900; cursor: pointer; }
+      .time-slot::after { content: ""; position: absolute; top: 5px; right: 5px; width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+      .time-slot.limited::after { background: var(--limited); }
+      .time-slot.sold { color: #97a3af; background: var(--soft); text-decoration: line-through; cursor: not-allowed; }
+      .time-slot.sold::after { background: #c75050; }
+      .time-slot.selected { border: 2px solid var(--accent); color: var(--accent); }
+      .notice { margin: 0.4rem 0 0.9rem; padding: 0.8rem; border-left: 4px solid var(--accent); background: var(--soft); color: var(--muted); font-size: 0.82rem; line-height: 1.45; }
+      .included { display: grid; gap: 0.45rem; margin-bottom: 0.9rem; }
+      .included-item { display: flex; justify-content: space-between; gap: 0.8rem; padding: 0.75rem; border: 1px solid var(--line); border-radius: 6px; font-size: 0.82rem; }
+      .included-item strong { font-size: 0.82rem; }
+      .summary { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+      .summary-row { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 0.45rem; color: var(--muted); font-size: 0.86rem; }
+      .summary-row strong { max-width: 58%; color: var(--ink); text-align: right; }
+      .summary-row.total { padding-top: 0.75rem; border-top: 1px solid var(--line); color: var(--ink); font-size: 1.12rem; font-weight: 900; }
+      .hidden { display: none !important; }
+      .ticket-checkout.checkout-column { align-self: start; }
+
+      @media (max-width: 1080px) {
+        .category-content { display: contents; }
+        .category-hero { order: 1; }
+        .ticket-checkout.checkout-column {
+          position: static;
+          order: 2;
+          width: 100%;
+          border-top: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        .ticket-section { order: 3; }
+        .attraction-intro { order: 4; }
+        #daytime-packages { order: 5; }
+        #nighttime-packages { order: 6; }
+        .faq-section { order: 7; }
+        .bottom-cta { order: 8; }
+      }
+
+      @media (max-width: 680px) {
+        .ticket-checkout.checkout-column {
+          padding: 1rem;
+        }
+        .category-tabs { grid-template-columns: 1fr; }
+        .category-tab {
+          min-height: 44px;
+          text-align: left;
+        }
+      }
+    </style>
+  <link rel="stylesheet" href="../../membership-plans.css?v=20261125-separate-checkout">
+  <link rel="stylesheet" href="../../category-faq.css?v=20261117-left">
+</head>
+  <body>
+    <main class="wire-page">
+      <div class="wire-shell">
+        <div class="wire-meta">
+          <p class="wire-label">Membership page wireframe</p>
+        </div>
+        <input class="wire-menu-check" type="checkbox" id="wire-menu" aria-label="Toggle mobile navigation" />
+        <div class="utility-bar">
+          <span class="opening-status">Today: 9:30 - 22:00</span>
+          <a class="wire-language" href="#language" aria-label="Switch language from Hungarian to English"><span>HU</span><span>/</span><span class="active">EN</span></a>
+          <a class="wire-login" href="../account-wireframes/login-page-v3.html">Login</a>
+        </div>
+        <header class="wire-nav">
+          <a class="wire-logo" href="../homepage-wireframes/homepage-unified-booking-v3.html">Cyberfun</a>
+          <nav class="wire-links" aria-label="Category navigation">
+            <div class="wire-nav-group">
+              <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
+              <div class="wire-subnav">
+                <a href="../activity-detail-wireframes/jump.html">Trampoline</a>
+                <a href="../activity-detail-wireframes/pixel.html">Pixel</a>
+                <a href="../activity-detail-wireframes/lasertag.html">Lasertag</a>
+                <a href="../activity-detail-wireframes/darts.html">Darts</a>
+                <a href="../activity-detail-wireframes/karaoke.html">Karaoke</a>
+                <a href="../ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
+              </div>
+            </div>
+            <div class="wire-nav-group">
+              <a class="wire-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a>
+              <div class="wire-subnav">
+                <a href="../parties-events-wireframes/birthday-parties-page.html">Birthday Packages</a>
+                <a href="../package-wireframes/package-product-template.html">Daytime Packages</a>
+                <a href="../package-wireframes/nighttime-package-product-v3.html">Nighttime Packages</a>
+                <a href="../event-schedule-wireframes/event-schedule-page.html">Event Schedule</a>
+              </div>
+            </div>
+            <div class="wire-nav-group">
+              <a class="wire-pill" href="../group-wireframes/school-groups-page.html">School Groups</a>
+              <div class="wire-subnav">
+                <a href="../group-wireframes/school-groups-page.html">School Groups</a>
+                <a href="../group-wireframes/corporate-groups-page.html">Corporate Groups</a>
+              </div>
+            </div>
+            <a class="wire-pill active" href="membership-page-v3.html">Membership</a>
+            <a class="wire-pill" href="../../pages/plan-your-visit/index.html">Your Visit</a>
+            <a class="wire-pill" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
+          </nav>
+          <a class="wire-button" href="../homepage-wireframes/homepage-unified-booking-v3.html#checkout">Book now</a>
+          <label class="wire-burger" for="wire-menu" aria-label="Open mobile navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+        </header>
+        <nav class="wire-mobile-menu" aria-label="Mobile category navigation">
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="../category-wireframes/attractions-tickets-category-page-v3.html">Attractions &amp; Tickets</a>
+            <div class="wire-subnav">
+              <a href="../activity-detail-wireframes/jump.html">Trampoline</a>
+              <a href="../activity-detail-wireframes/pixel.html">Pixel</a>
+              <a href="../activity-detail-wireframes/lasertag.html">Lasertag</a>
+              <a href="../activity-detail-wireframes/darts.html">Darts</a>
+              <a href="../activity-detail-wireframes/karaoke.html">Karaoke</a>
+              <a href="../ticket-product-wireframes/ticket-product-template.html">Single Tickets</a>
+            </div>
+          </div>
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="../parties-events-wireframes/parties-packages-category-page-v3.html">Parties &amp; Packages</a>
+            <div class="wire-subnav">
+              <a href="../parties-events-wireframes/birthday-parties-page.html">Birthday Packages</a>
+              <a href="../package-wireframes/package-product-template.html">Daytime Packages</a>
+              <a href="../package-wireframes/nighttime-package-product-v3.html">Nighttime Packages</a>
+              <a href="../event-schedule-wireframes/event-schedule-page.html">Event Schedule</a>
+            </div>
+          </div>
+          <div class="wire-nav-group">
+            <a class="wire-pill" href="../group-wireframes/school-groups-page.html">School Groups</a>
+            <div class="wire-subnav">
+              <a href="../group-wireframes/school-groups-page.html">School Groups</a>
+              <a href="../group-wireframes/corporate-groups-page.html">Corporate Groups</a>
+            </div>
+          </div>
+          <a class="wire-pill active" href="membership-page-v3.html">Membership</a>
+          <a class="wire-pill" href="../../pages/plan-your-visit/index.html">Your Visit</a>
+          <a class="wire-pill" href="../loyalty-club-wireframes/loyalty-club-page-v3.html">Loyalty Club</a>
+        </nav>
+
+        <div class="booking-layout">
+          <div class="category-content">
+            <section class="category-hero">
+              <div class="wire-image">Membership hero image / video</div>
+            </section>
+
+<section class="category-section ticket-section" id="memberships">
+<div class="page-intro"><p class="wire-label">Membership</p><h1>More jumps. More reasons to come back.</h1><p>Pick your level, choose a monthly plan or a 90-day pass, and keep your next visit close.</p></div>
+<div class="section-head" id="benefits"><div><p class="wire-label">Basic &amp; Premium</p><h2 id="benefits-heading">What&rsquo;s included in each plan?</h2></div></div>
+  <div class="membership-comparison-scroll" tabindex="0" role="region" aria-labelledby="benefits-heading">
+  <table class="membership-comparison" aria-labelledby="benefits-heading">
+    <thead><tr id="membership-plan-head"><th scope="col">Benefit</th></tr></thead>
+    <tbody id="membership-plan-rows"></tbody>
+  </table>
+  </div>
+  <div class="membership-comparison-mobile" aria-label="All four membership plans"></div>
+  <div class="membership-footnotes">
+    <p><small>* Welcome package includes: 1 pair of jumping socks, Cyberfun bracelet, 1 bottle of water.</small></p>
+    <p><small>** If you book a birthday party for at least 9 people, your package is free, provided you are a Premium VIP cardholder.</small></p>
+  </div>
+  <p class="membership-source">Memberships are personal to the named cardholder. Reference plans and prices: <a href="https://buda.cyberjump.hu/vip-kartya/" target="_blank" rel="noopener">Cyberjump Buda VIP Cards</a>. Cyberfun offers to be confirmed.</p>
+</section>
+<section class="category-section membership-process" aria-labelledby="membership-process-heading">
+  <div class="section-head"><div><p class="wire-label">How it works</p><h2 id="membership-process-heading">From choosing a plan to your first jump</h2></div></div>
+  <ol class="membership-process-list">
+    <li><span aria-hidden="true">01</span><div><h3>Choose a plan</h3><p>Pick Basic or Premium, monthly or prepaid for 90 days.</p></div></li>
+    <li><span aria-hidden="true">02</span><div><h3>Add the cardholder</h3><p>Choose who will use the membership and when it should start.</p></div></li>
+    <li><span aria-hidden="true">03</span><div><h3>Review your payment</h3><p>Check what's due now and any future payments before continuing.</p></div></li>
+  </ol>
+</section>
+<section class="category-section faq-section"><div class="section-head"><div><p class="wire-label">FAQ</p><h2>Before you join.</h2></div></div>
+<div class="faq-grid">
+  <details class="faq-item"><summary><span>What is the difference between Card+ and Card 3?</span></summary><p>Card+ is a monthly subscription with a three-month minimum term. Card 3 is a prepaid 90-day pass.</p></details>
+  <details class="faq-item"><summary><span>How is Card+ billed?</span></summary><p>The first payment covers two months. Monthly charges begin in month three.</p></details>
+  <details class="faq-item"><summary><span>Can I buy a membership for a child?</span></summary><p>A parent or guardian registers and purchases for members under 18.</p></details>
+  <details class="faq-item"><summary><span>Is this the same as Loyalty Club?</span></summary><p>No. Membership provides the access described in your plan. Loyalty Club is a separate programme.</p></details>
+</div></section>
+<section class="bottom-cta"><div><p class="wire-label">Already a member?</p><h2>Your next jump starts here.</h2></div><a class="wire-button" href="../account-wireframes/login-page-v3.html">Login</a></section>
+</div>
+<aside class="ticket-checkout checkout-column" id="membership-checkout" aria-label="Membership booking">
+<form class="checkout" id="membership-form" novalidate>
+<div class="checkout-header"><p class="eyebrow">Membership</p><h2>Become a VIP member</h2><p>Choose your plan and review the payment details.</p></div>
+<div class="checkout-body"><ol class="membership-steps" aria-label="Membership booking steps"><li data-step-indicator="1">1. Plan</li><li data-step-indicator="2">2. Member</li><li data-step-indicator="3">3. Review</li></ol>
+<section class="membership-panel" data-membership-step="1"><h3 tabindex="-1">Choose your membership</h3><div class="field"><label for="membership-plan">Membership plan</label><select id="membership-plan"></select></div><p id="membership-plan-access"></p><p id="membership-plan-term"></p><div class="notice" id="membership-billing-info"></div></section>
+<section class="membership-panel" data-membership-step="2" hidden><h3 tabindex="-1">Who is joining?</h3><div class="field"><label for="membership-for">Membership for</label><select id="membership-for"><option value="self">Myself (18+)</option><option value="child">A child / minor</option></select></div><div class="field"><label for="membership-holder-name">Member's full name</label><input id="membership-holder-name" autocomplete="name" required></div><div class="field"><label for="membership-dob">Member's date of birth</label><input type="date" id="membership-dob" required></div><div class="field" id="membership-parent-field" hidden><label for="membership-parent-name">Parent / guardian's full name</label><input id="membership-parent-name"></div><div class="field"><label for="membership-email">Contact email</label><input type="email" id="membership-email" autocomplete="email" required></div></section>
+<section class="membership-panel" data-membership-step="3" hidden><h3 tabindex="-1">Review your membership</h3><div class="summary membership-summary" aria-live="polite">
+<div class="summary-row"><span>Plan</span><strong id="membership-summary-plan"></strong></div><div class="summary-row"><span>Billing</span><strong id="membership-summary-billing"></strong></div><div class="summary-row"><span>Access</span><strong id="membership-summary-access"></strong></div><div class="summary-row"><span>Term</span><strong id="membership-summary-term"></strong></div><div class="summary-row"><span>For</span><strong id="membership-summary-owner"></strong></div><div class="summary-row"><span>Member</span><strong id="membership-summary-holder"></strong></div><div class="summary-row"><span>Email</span><strong id="membership-summary-email"></strong></div><div class="summary-row"><span>Future payments</span><strong id="membership-summary-renewal"></strong></div><div class="summary-row total"><span>Due today</span><strong id="membership-summary-total"></strong></div></div><label class="membership-consent"><input type="checkbox" required><span>I agree to the <a href="../../pages/legal/terms-conditions.html">Terms &amp; Conditions</a> and the billing terms shown above.</span></label></section>
+<div class="membership-actions"><button type="button" id="membership-back" hidden>Back</button><button type="submit" id="membership-next">Continue</button></div><p id="membership-status" role="status" tabindex="-1" hidden></p></div></form></aside>
+        </div>
+        <footer class="site-footer" aria-label="Footer">
+          <div class="footer-block">
+            <p class="wire-label">Opening hours</p>
+            <h3>9:30-22:00</h3>
+            <p>Family Time until 18:00. Adult Time from 18:00 to 22:00.</p>
+          </div>
+          <div class="footer-block">
+            <p class="wire-label">Company</p>
+            <ul class="footer-links">
+              <li><a href="#about-us">About us</a></li>
+              <li><a href="#imprint">Imprint</a></li>
+              <li><a href="#legal">Legal stuff</a></li>
+            </ul>
+          </div>
+          <div class="footer-block">
+            <p class="wire-label">Legal links</p>
+            <ul class="footer-links">
+              <li><a href="#house-rules">House rules</a></li>
+              <li><a href="#terms">Terms & Conditions</a></li>
+              <li><a href="#privacy">Privacy Policy</a></li>
+              <li><a href="#liability">Individual Liability Declaration</a></li>
+              <li><a href="#payment">Payment Informations</a></li>
+              <li><a href="#safety">Safety regulations</a></li>
+            </ul>
+          </div>
+        </footer>
+      </div>
+    </main>
+    
+  <script src="../../navigation-submenus.js?v=20261124-vouchers"></script>
+
+<link rel="stylesheet" href="../../membership-payment.css?v=20261124">
+<script src="../../registration-fields.js?v=20261124"></script>
+<script src="../../membership-booking.js?v=20261125-separate-checkout"></script>
+</body>
+</html>
