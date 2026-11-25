@@ -53,6 +53,8 @@
   memberPanel.prepend(subscriberField,document.getElementById('membership-holder-name').closest('.field'),document.getElementById('membership-dob').closest('.field'),document.getElementById('membership-parent-field'),document.getElementById('membership-email').closest('.field'));
   form.querySelector('[data-membership-step="1"]').before(memberPanel);
   const planPanel=form.querySelector('[data-membership-step="1"]');
+  document.getElementById('membership-plan-access').remove();
+  document.getElementById('membership-plan-term').remove();
   planPanel.querySelector('h3').textContent='Choose your VIP Card';
   const planChoices=document.createElement('div');planChoices.className='membership-vip-choices';
   const choiceHeading=document.createElement('p');choiceHeading.textContent='Select your VIP card';
@@ -82,7 +84,7 @@
     (item.recurring?recurringGroup:seasonGroup).append(choice);
   });
   const benefitNotes=document.createElement('div');benefitNotes.className='membership-vip-footnotes';
-  benefitNotes.innerHTML='<p>* Welcome package includes: 1 pair of jumping socks, Cyberjump bracelet, 1 bottle of water.</p><p>** If you book a birthday party for at least 9 people, your package is free, provided you are a Premium VIP cardholder.</p>';
+  benefitNotes.innerHTML='<p>* Welcome package includes: 1 pair of jumping socks, Cyberfun bracelet, 1 bottle of water.</p><p>** If you book a birthday party for at least 9 people, your package is free, provided you are a Premium VIP cardholder.</p>';
   planChoices.after(benefitNotes);
   planChoices.id='membership-vip-choices';
   planPanel.after(activation.closest('.field'));
@@ -174,7 +176,7 @@
     }
     planHead.append(heading);
   }
-  const welcomePack='1 pair of jump socks, a Cyberjump wristband and 1 bottle of water';
+  const welcomePack='1 pair of jump socks, a Cyberfun bracelet and 1 bottle of water';
   const benefits=[
     ['School days',item=>item.premium?'Unlimited jumping':'1 hour'],
     ['Weekends & school holidays',item=>item.premium?'2 hours':'1 hour'],
@@ -235,8 +237,6 @@
       const button=cell.querySelector('button');
       if(button){button.textContent=!authenticated?'Log in to choose':chosen?'Selected':'Choose plan';button.setAttribute('aria-pressed',String(chosen));}
     });
-    document.getElementById('membership-plan-access').textContent=item.access;
-    document.getElementById('membership-plan-term').textContent=item.term;
     document.getElementById('membership-billing-info').textContent=item.recurring
       ? `First payment: ${format(item.due)} for two months. Then ${format(item.monthly)} per month from month three. Three-month minimum term.`
       : `One payment of ${format(item.due)} for 90 days. No automatic renewal.`;
