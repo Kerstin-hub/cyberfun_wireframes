@@ -46,26 +46,12 @@
     return {section,render};
   };
   if (!payment) {
-    flow.innerHTML = '<div class="cf-options cf-account-options"><section class="cf-option"><h2 id="account-title">Log in</h2><p>Log in to use discount codes.</p><form id="account-form"><label>Email address *<input type="email" autocomplete="email" required></label><label>Password *<input type="password" autocomplete="current-password" required minlength="6"></label><p>If you have no account yet, <a href="#register" id="show-register">Register</a></p><button type="submit">Sign in</button></form></section><section class="cf-option"><h2>Continue as a guest</h2><p>Book without creating an account.</p><button type="button" id="guest-next">Continue as a guest</button></section></div>';
-    flow.querySelector('#guest-next').onclick = () => go('03-payment-page.html',{account:'guest'});
-    const form = flow.querySelector('form');
-    const reveal = register => {
-      if(register){
-        flow.querySelector('#account-title').textContent='Register';
-        CyberfunRegistration.mount(form,()=>go('03-payment-page.html',{account:'login'}));
-      }
-    };
-    flow.querySelector('#show-register').onclick = event => {event.preventDefault();reveal(true);};
-    form.onsubmit = event => {
-      event.preventDefault();
-      if(form.reportValidity()){
-        const email=form.querySelector('input[type=email]').value.trim();
-        let profile;
-        try{profile=JSON.parse(sessionStorage.getItem('cyberfun-profile')||'null');}catch{}
-        if(!profile||profile.email.toLowerCase()!==email.toLowerCase()) sessionStorage.setItem('cyberfun-profile',JSON.stringify({email}));
-        go('03-payment-page.html',{account:'login'});
-      }
-    };
+    const destination=new URL('03-payment-page.html',location.href);
+    destination.search=new URLSearchParams(params).toString();
+    destination.searchParams.set('account','login');
+    const login=new URL('../account-wireframes/login-page-v3.html',location.href);
+    login.searchParams.set('return',destination.href);
+    location.replace(login.href);
     return;
   }
   const form = document.createElement('form');

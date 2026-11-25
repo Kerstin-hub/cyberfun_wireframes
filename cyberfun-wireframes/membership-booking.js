@@ -103,7 +103,14 @@
     document.getElementById('membership-dob').value=person.birthday||'';
     subscriberPanel.querySelectorAll('input').forEach(input=>input.checked=input.value===key);
   };
-  accountPanel.innerHTML='<h3>Log in to start your membership</h3><label>Email<input type="email" id="membership-login-email" autocomplete="email"></label><label>Password<input type="password" id="membership-login-password" autocomplete="current-password"></label><button type="button" id="membership-login">Log in</button><p>No account yet? <button type="button" id="membership-register">Register</button></p><p role="status" id="membership-account-status"></p>';
+  const loginUrl=new URL('../account-wireframes/login-page-v3.html',location.href);
+  const returnUrl=new URL(location.href);returnUrl.hash='membership-checkout';
+  loginUrl.searchParams.set('return',returnUrl.href);
+  const registerUrl=new URL(loginUrl);registerUrl.searchParams.set('mode','register');
+  accountPanel.innerHTML='<p>Log in or register with your CyberFun account to choose a VIP card.</p>';
+  const loginLink=document.createElement('a');loginLink.className='wire-button';loginLink.href=loginUrl.href;loginLink.textContent='Log in';
+  const registerLink=document.createElement('a');registerLink.className='wire-button';registerLink.href=registerUrl.href;registerLink.textContent='Register';
+  accountPanel.append(loginLink,registerLink);
   form.querySelector('.checkout-body').prepend(accountPanel);
   const applyProfile=()=>{
     if(!profile)return;
@@ -141,22 +148,6 @@
     document.getElementById('membership-holder-name').value=person?[person.firstName,person.lastName].filter(Boolean).join(' '):'';
     document.getElementById('membership-dob').value=person?.birthday||'';
   });
-  accountPanel.querySelector('#membership-login').onclick=()=>{
-    const email=accountPanel.querySelector('#membership-login-email'),password=accountPanel.querySelector('#membership-login-password');
-    if(!email.value||!password.value||!email.reportValidity()){accountPanel.querySelector('[role=status]').textContent='Enter your email and password.';return;}
-    let saved;
-    try{saved=JSON.parse(sessionStorage.getItem('cyberfun-profile')||'null');}catch{}
-    profile=saved?.email?.toLowerCase()===email.value.trim().toLowerCase()?saved:{email:email.value.trim()};
-    sessionStorage.setItem('cyberfun-profile',JSON.stringify(profile));applyProfile();update();
-  };
-  accountPanel.querySelector('#membership-register').onclick=()=>{
-    const dialog=document.createElement('dialog');dialog.className='cf-declaration membership-registration-dialog';
-    const close=document.createElement('button');close.type='button';close.textContent='Close';close.onclick=()=>dialog.close();
-    const registration=document.createElement('form');registration.className='cf-checkout';
-    dialog.append(close,registration);document.body.append(dialog);
-    CyberfunRegistration.mount(registration,data=>{profile=data;dialog.close();applyProfile();update();});
-    dialog.showModal();
-  };
   applyProfile();
   form.querySelector('.membership-steps').hidden=true;
   const singlePageStyle=document.createElement('style');singlePageStyle.textContent='.membership-steps[hidden]{display:none!important}.membership-panel{margin-bottom:20px}.membership-panel h3{font-size:18px}.membership-panel textarea{width:100%;box-sizing:border-box;min-height:80px;border:1px solid var(--line);border-radius:6px;padding:10px;font:inherit}';document.head.append(singlePageStyle);
@@ -272,13 +263,13 @@
     showStep(1);
     document.getElementById('membership-checkout').scrollIntoView({block:'start',behavior:'smooth'});
     if(profile)planChoices.querySelector('[aria-pressed=true]')?.focus({preventScroll:true});
-    else accountPanel.querySelector('input').focus({preventScroll:true});
+    else location.href=loginUrl.href;
   });
   select.addEventListener('change',()=>{showStep(1);});
   form.addEventListener('input',update);form.addEventListener('change',update);
   form.addEventListener('submit',event=>{
     event.preventDefault();
-    if(!profile){accountPanel.hidden=false;accountPanel.scrollIntoView({block:'center'});accountPanel.querySelector('[role=status]').textContent='Please log in or register before purchasing a membership.';return;}
+    if(!profile){location.href=loginUrl.href;return;}
     update();
     for(const input of form.querySelectorAll('input,select,textarea')){if(!input.reportValidity())return;}
     const item=plan();
