@@ -32,10 +32,5 @@
     back.href=url.href;back.textContent='Back to login';panel.append(back);
   };
   panel.querySelector('.create-account a').onclick=event=>{event.preventDefault();register();};
-  panel.querySelectorAll('.social-button').forEach(button=>button.onclick=()=>{
-    let status=panel.querySelector('[role=status]');
-    if(!status){status=document.createElement('p');status.setAttribute('role','status');panel.append(status);}
-    status.textContent='Social sign-in connection pending.';
-  });
   if(params.get('mode')==='register')register();
 })();

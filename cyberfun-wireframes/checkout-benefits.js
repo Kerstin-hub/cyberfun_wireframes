@@ -38,7 +38,7 @@
     const original = updateSummary;
     updateSummary = function(...args) {
       original(...args);
-      const gift = benefit(), total = form.querySelector('#summary-total'), base = amount(total.textContent);
+      const gift = form.classList.contains('voucher-purchase') ? null : benefit(), total = form.querySelector('#summary-total'), base = amount(total.textContent);
       line.classList.toggle('hidden', !gift);
       line.querySelector('strong').textContent = gift ? '−' + money(Math.min(base, gift.value)) : '';
       if (gift) total.textContent = money(Math.max(0, base - gift.value));

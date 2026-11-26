@@ -64,6 +64,7 @@ window.CyberfunRegistration = {
         email:form.elements.email.value.trim(),birthday:birth.value(),
         children:[...children.values()].filter(child=>child.names.some(input=>input.value.trim())).map(child=>({firstName:child.names[0].value.trim(),lastName:child.names[1].value.trim(),birthday:child.date.value()})),
         declarationAccepted:true,
+        newsletterConsent:form.elements.newsletter.checked,
       };
       sessionStorage.setItem('cyberfun-profile',JSON.stringify(profile));
       dialog.close();complete(profile);

@@ -1,9 +1,9 @@
 (() => {
   const benefitsScript = document.createElement('script');
-  benefitsScript.src = new URL('checkout-benefits.js?v=20261124-login-first', document.currentScript.src).href;
+  benefitsScript.src = new URL('checkout-benefits.js?v=20261126-no-voucher-redemption', document.currentScript.src).href;
   document.head.append(benefitsScript);
   const voucherScript=document.createElement('script');
-  voucherScript.src=new URL('voucher-booking.js?v=20261125',document.currentScript.src).href;
+  voucherScript.src=new URL('voucher-booking.js?v=20261126-attractions-only',document.currentScript.src).href;
   document.head.append(voucherScript);
   const base = new URL('.', document.currentScript.src);
   const mainMenu = [
